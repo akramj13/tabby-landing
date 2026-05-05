@@ -5,7 +5,7 @@ import Link from "next/link";
 import { DOWNLOAD_URL, GITHUB_URL } from "../lib/site";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
-import { Typewriter } from "./motion";
+import { TextAnimate } from "./text";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -34,26 +34,6 @@ const copyItem: Variants = {
   },
 };
 
-function HeroHeadline({ active }: { active: boolean }) {
-  return (
-    <motion.h1
-      variants={copyItem}
-      aria-label="Write at the speed of thought. In any app."
-      className="tabby-display mx-auto flex min-h-[9.1rem] max-w-5xl items-center justify-center text-center text-[3.15rem] leading-[0.96] tracking-tight text-ink sm:min-h-[9.25rem] sm:text-[4.8rem] lg:min-h-[12.4rem] lg:text-[6.45rem]"
-    >
-      <span aria-hidden="true">
-        <Typewriter
-          active={active}
-          prefix="Write at the speed of thought"
-          suggestion=". In any app."
-          suggestionClassName="text-accent"
-          loopDelay={2600}
-        />
-      </span>
-    </motion.h1>
-  );
-}
-
 export function Hero() {
   const revealState = "visible" as const;
 
@@ -66,15 +46,49 @@ export function Hero() {
           animate={revealState}
           className="flex w-full flex-col items-center"
         >
-          <HeroHeadline active={revealState === "visible"} />
+          <motion.div
+            variants={copyItem}
+            className="mx-auto flex max-w-6xl flex-col items-center"
+          >
+            <h1
+              aria-label="Write at the speed of thought. In any app."
+              className="tabby-display mx-auto max-w-5xl text-center leading-[0.94] tracking-tight text-ink"
+            >
+              <TextAnimate
+                as="span"
+                by="word"
+                animation="blurInUp"
+                duration={0.8}
+                delay={0.18}
+                startOnView={false}
+                once
+                className="inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
+                segmentClassName="will-change-transform"
+              >
+                Write at the speed of thought.
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                by="word"
+                animation="blurInUp"
+                duration={0.65}
+                delay={0.46}
+                startOnView={false}
+                once
+                className="ml-[0.18em] inline text-[3.15rem] text-accent sm:text-[4.8rem] lg:text-[6.2rem]"
+                segmentClassName="will-change-transform"
+              >
+                In any app.
+              </TextAnimate>
+            </h1>
+          </motion.div>
 
           <motion.p
             variants={copyItem}
             className="mt-6 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-2xl"
           >
-            The local AI autocomplete that learns your tone. 100% free,
-            open-source, and runs entirely on your Mac so your data never leaves
-            your device.
+            Inline AI autocomplete for the apps you already use, powered by
+            Apple Intelligence or local models and kept entirely on your Mac.
           </motion.p>
 
           <motion.div

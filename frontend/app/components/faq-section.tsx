@@ -4,12 +4,12 @@ export const FAQ_ITEMS = [
   {
     question: "What is tabby?",
     answer:
-      "tabby is an on-device AI autocomplete app for macOS that suggests the next few words while you type in supported text fields. It lives in your menu bar and is designed to help you write emails, notes, messages, and docs faster without leaving the app you are already using.",
+      "tabby is an on-device AI autocomplete app for macOS text fields. It lives in your menu bar, suggests the next few words inline, and helps you keep writing in the apps you already use.",
   },
   {
     question: "How does tabby actually work?",
     answer:
-      "tabby watches the currently focused text field through macOS accessibility APIs, reads the text around your caret, generates a short continuation with an on-device model, and shows that continuation as ghost text near the cursor. When the context still matches, you can keep accepting the remaining suggestion in chunks with Tab.",
+      "tabby watches the focused text field through macOS Accessibility APIs, reads the text around your caret, asks the active on-device engine for a short continuation, and shows it as ghost text near the cursor. When the context still matches, you can keep accepting the remaining suggestion in chunks with Tab.",
   },
   {
     question: "Does tabby send my writing to the cloud?",
@@ -25,7 +25,7 @@ export const FAQ_ITEMS = [
     question:
       "What is the difference between Apple Intelligence and Open Source?",
     answer:
-      "Apple Intelligence uses Apple's on-device system model and does not require downloading a GGUF file. The Open Source engine uses a local model stored on your Mac, which gives you more control over model choice and supports tabby's custom instruction mode. If Apple Intelligence is unavailable on your machine, you can still use the Open Source path.",
+      "Apple Intelligence uses Apple's on-device FoundationModels runtime and does not require downloading a GGUF file. The Open Source engine uses local GGUF models through llama.cpp via llama.swift, which gives you more control over model choice and lets you use Tabby's built-in models or bring your own. If Apple Intelligence is unavailable on your machine, you can still use the Open Source path.",
   },
   {
     question: "How do I accept or dismiss a suggestion?",
@@ -40,7 +40,7 @@ export const FAQ_ITEMS = [
   {
     question: "How do I download models or use my own?",
     answer:
-      "If you choose the Open Source engine, you can download a built-in model directly from onboarding or Settings and watch its install progress in the app. You can also open the models folder, drop in your own .gguf file, and refresh the model list without restarting tabby.",
+      "If you choose the Open Source engine, you can download one of Tabby's built-in models directly from onboarding or Settings and watch its install progress in the app. You can also open the models folder, drop in your own .gguf file, and refresh the model list without restarting tabby.",
   },
   {
     question: "Why am I not seeing suggestions?",
@@ -50,7 +50,7 @@ export const FAQ_ITEMS = [
   {
     question: "Can I customize how tabby behaves?",
     answer:
-      "Yes. You can choose the engine, change suggestion length, switch the indicator style, pick a ghost text color, manage local models, and, for the Open Source engine, choose between Fast mode and Use My Instructions. You can also save custom AI instructions to steer tone, style, audience, or formatting preferences.",
+      "Yes. You can choose the engine, change suggestion length, switch the indicator style, pick a ghost text color, manage local models, and, for the Open Source engine, choose between Fast mode and Use My Instructions. You can also save custom AI instructions to steer tone, style, audience, or formatting preferences over time.",
   },
 ];
 

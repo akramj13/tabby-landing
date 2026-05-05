@@ -76,7 +76,7 @@ export function SloganCtaSection() {
 
         <FadeIn delay={0.35}>
           <p className="text-xs tracking-tight text-subtle sm:text-sm">
-            macOS 26 or later · Apple Silicon · ~10MB install
+            macOS 26 or later · Apple Silicon · DMG install
           </p>
         </FadeIn>
       </div>

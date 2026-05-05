@@ -126,7 +126,7 @@ function DataFlowVisual() {
 
           <FlowNode accent>
             <span className="text-[0.7rem] font-semibold tracking-widest uppercase opacity-50">tabby</span>
-            <span className="mt-1 text-sm font-semibold tracking-tight">local model</span>
+            <span className="mt-1 text-sm font-semibold tracking-tight">on-device engine</span>
           </FlowNode>
 
           <Arrow />
@@ -137,13 +137,15 @@ function DataFlowVisual() {
           </FlowNode>
         </div>
 
-        {/* Neural Engine label */}
+        {/* Engine label */}
         <motion.div
           variants={flowItem}
           className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-surface-2 px-3 py-2"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-moss" />
-          <span className="text-xs font-medium tracking-tight text-subtle">Apple Neural Engine · no network calls</span>
+          <span className="text-xs font-medium tracking-tight text-subtle">
+            Apple Intelligence or local GGUF · no hosted API
+          </span>
         </motion.div>
       </motion.div>
 
@@ -171,9 +173,10 @@ export function PrivacySection() {
 
           <FadeIn delay={0.1}>
             <p className="max-w-xl text-base leading-relaxed tracking-tight text-muted sm:text-lg">
-              tabby runs a compact language model on Apple&apos;s Neural Engine.
-              Every keystroke, every suggestion, every token stays inside your
-              laptop. No sign-up, no subscription, no background uploads.
+              tabby runs through on-device engines on your Mac, whether that is
+              Apple Intelligence or a local GGUF model. Every keystroke and
+              suggestion stays on-device, with no required hosted API, no
+              sign-up, and no background uploads.
             </p>
           </FadeIn>
 
@@ -181,7 +184,7 @@ export function PrivacySection() {
             <StaggerItem>
               <Pillar
                 label="On-device inference"
-                description="Runs locally on Apple&apos;s Neural Engine, even fully offline."
+                description="Use Apple Intelligence or a local GGUF model, with no cloud round-trip required."
               />
             </StaggerItem>
             <StaggerItem>
@@ -193,7 +196,7 @@ export function PrivacySection() {
             <StaggerItem>
               <Pillar
                 label="Auditable"
-                description="Open source under MIT, with every release easy to inspect."
+                description="AGPL-3.0 licensed and built in public, with every release easy to inspect."
               />
             </StaggerItem>
           </Stagger>

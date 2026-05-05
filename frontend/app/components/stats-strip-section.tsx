@@ -11,20 +11,59 @@ import { useRef } from "react";
 import { CountUp } from "./motion";
 
 type StatProps = {
-  value: number;
+  displayValue: string;
+  countTo?: number;
   prefix?: string;
   suffix?: string;
   label: string;
   hint: string;
 };
 
+const STATS: StatProps[] = [
+  {
+    displayValue: "100%",
+    countTo: 100,
+    suffix: "%",
+    label: "open source, free forever",
+    hint: "No sign-up, no account, and nothing locked behind a paywall",
+  },
+  {
+    displayValue: "100%",
+    countTo: 100,
+    suffix: "%",
+    label: "local, no cloud",
+    hint: "Your text stays on your Mac, with no required hosted API",
+  },
+  {
+    displayValue: "Apple",
+    label: "Intelligence support",
+    hint: "Use Apple’s on-device model when it is available on your machine",
+  },
+  {
+    displayValue: "Any",
+    label: ".gguf support",
+    hint: "Bring your own local model or use Tabby’s built-in downloads",
+  },
+];
+
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function Stat({ value, prefix, suffix, label, hint }: StatProps) {
+function Stat({
+  displayValue,
+  countTo,
+  prefix,
+  suffix,
+  label,
+  hint,
+}: StatProps) {
   return (
     <div className="flex h-full flex-col gap-1.5 rounded-[1.25rem] border-2 border-line bg-background px-4 py-5 shadow-[0_4px_0_var(--line)] sm:px-6">
       <div className="tabby-display text-[2.3rem] leading-none tracking-tight text-ink sm:text-[2.9rem]">
-        <CountUp to={value} prefix={prefix} suffix={suffix} />
+        {typeof countTo === "number" ? (
+          <CountUp to={countTo} prefix={prefix} suffix={suffix} />
+        ) : (
+          displayValue
+        )}
       </div>
       <div className="text-sm font-semibold tracking-tight text-ink sm:text-base">
         {label}
@@ -95,32 +134,7 @@ export function StatsStripSection() {
           }}
           className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
         >
-          {[
-            {
-              value: 80,
-              prefix: "<",
-              suffix: "ms",
-              label: "suggestion latency",
-              hint: "Local inference, no round trip",
-            },
-            {
-              value: 95,
-              suffix: "%",
-              label: "of macOS apps supported",
-              hint: "Works across most common text fields",
-            },
-            {
-              value: 0,
-              label: "data leaves your Mac",
-              hint: "Every token stays on-device",
-            },
-            {
-              value: 100,
-              suffix: "%",
-              label: "free & open source",
-              hint: "MIT licensed, built in public",
-            },
-          ].map((stat) => (
+          {STATS.map((stat) => (
             <motion.div
               key={stat.label}
               variants={{
@@ -134,7 +148,8 @@ export function StatsStripSection() {
               className="h-full"
             >
               <Stat
-                value={stat.value}
+                displayValue={stat.displayValue}
+                countTo={stat.countTo}
                 prefix={stat.prefix}
                 suffix={stat.suffix}
                 label={stat.label}

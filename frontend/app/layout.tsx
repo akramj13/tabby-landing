@@ -10,9 +10,9 @@ const bodyFont = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const title = "Tabby — AI autocomplete for Mac";
+const title = "Tabby — On-device AI autocomplete for macOS";
 const description =
-  "Press Tab to finish your sentence in any Mac app. Runs locally on Apple Silicon, so nothing leaves your laptop. Free and open source.";
+  "On-device AI autocomplete for macOS text fields. Use Apple Intelligence or local GGUF models, accept inline suggestions with Tab, and keep every token on your Mac.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,10 +21,11 @@ export const metadata: Metadata = {
   applicationName: "Tabby",
   keywords: [
     "Mac autocomplete",
-    "macOS AI writing",
+    "macOS text fields",
     "local AI autocomplete",
+    "Apple Intelligence autocomplete",
+    "GGUF autocomplete",
     "on-device AI Mac",
-    "open source autocomplete",
   ],
   authors: [{ name: CREATOR.name, url: CREATOR.linkedin }],
   creator: CREATOR.name,

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { FadeIn } from "./motion";
 
