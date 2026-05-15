@@ -7,13 +7,11 @@ import { FinalFooterSection } from "./components/final-footer-section";
 import { Header } from "./components/header";
 import { Hero } from "./components/hero";
 import { HowItWorksSection } from "./components/how-it-works-section";
-import { PrivacySection } from "./components/privacy-section";
 import { ScrollProgressBar } from "./components/motion";
 import { SectionShell } from "./components/section-shell";
 import { SloganCtaSection } from "./components/slogan-cta-section";
 import { StatsStripSection } from "./components/stats-strip-section";
 import { StructuredData } from "./components/structured-data";
-import { TestimonialsSection } from "./components/testimonials-section";
 import { FloatingButton } from "./components/floating-button";
 export default function Home() {
   return (
@@ -64,16 +62,8 @@ export default function Home() {
           <AlternatingFeatureSection />
         </section>
 
-        <section id="privacy" className="tabby-anchor px-6 sm:px-8 lg:px-10">
-          <PrivacySection />
-        </section>
-
         <section className="px-6 sm:px-8 lg:px-10">
           <CustomizationCardsSection />
-        </section>
-
-        <section className="px-6 sm:px-8 lg:px-10">
-          <TestimonialsSection />
         </section>
 
         <section id="faq" className="tabby-anchor px-6 sm:px-8 lg:px-10">
