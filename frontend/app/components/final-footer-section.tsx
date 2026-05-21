@@ -67,9 +67,12 @@ export function FinalFooterSection() {
               height={48}
               className="h-11 w-11 rounded-[0.95rem] border-2 border-line bg-surface-2 shadow-[0_3px_0_var(--line)]"
             />
-            <div className="flex h-11 flex-col justify-center">
+            <div className="flex h-11 items-center gap-2">
               <span className="tabby-display text-[2rem] leading-[0.88] tracking-tight text-ink sm:text-[2.4rem]">
                 tabby
+              </span>
+              <span className="rounded-md border-2 border-line bg-accent/15 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase leading-none tracking-widest text-accent">
+                beta
               </span>
             </div>
           </div>

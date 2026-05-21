@@ -62,9 +62,12 @@ export function Header() {
               height={48}
               className="h-11 w-11 rounded-[0.95rem] border-2 border-line bg-surface-2 shadow-[0_3px_0_var(--line)]"
             />
-            <span className="flex h-11 flex-col justify-center">
+            <span className="flex h-11 items-center gap-2">
               <span className="tabby-display text-[2.5rem] leading-[0.88] tracking-tight text-ink sm:text-[3rem]">
                 tabby
+              </span>
+              <span className="rounded-md border-2 border-line bg-accent/15 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase leading-none tracking-widest text-accent">
+                beta
               </span>
             </span>
           </Link>
