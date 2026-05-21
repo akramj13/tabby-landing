@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { supabase } from "../lib/supabase";
+import { getSupabase } from "../lib/supabase";
 import { DOWNLOAD_URL } from "../lib/site";
 
 type EmailGateContextType = {
@@ -42,7 +42,7 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
     setStatus("loading");
 
     try {
-      const { error } = await supabase
+      const { error } = await getSupabase()
         .from("mailing_list")
         .insert({ email });
       if (error) throw error;

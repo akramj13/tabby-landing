@@ -5,3 +5,4 @@
 # Supabase CLI local state
 supabase/.temp
 **/supabase/.temp
+.vercel
