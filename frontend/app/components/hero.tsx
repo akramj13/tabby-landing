@@ -88,8 +88,8 @@ export function Hero() {
             variants={copyItem}
             className="mt-6 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-2xl"
           >
-            Inline AI autocomplete for the apps you already use, powered by
-            Apple Intelligence or local models and kept entirely on your Mac.
+            Open-source AI autocomplete for the apps you already use, powered
+            by Apple Intelligence or local models and kept entirely on your Mac.
           </motion.p>
 
           <motion.div
