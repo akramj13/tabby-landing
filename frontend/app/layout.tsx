@@ -10,7 +10,7 @@ const bodyFont = DM_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const title = "Tabby — On-device AI autocomplete for macOS";
+const title = "tabby - on-device AI autocomplete for macOS";
 const description =
   "On-device AI autocomplete for macOS text fields. Use Apple Intelligence or local GGUF models, accept inline suggestions with Tab, and keep every token on your Mac.";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title,
   description,
-  applicationName: "Tabby",
+  applicationName: "tabby",
   keywords: [
     "Mac autocomplete",
     "macOS text fields",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Tabby",
+    siteName: "tabby",
     title,
     description,
     locale: "en_US",

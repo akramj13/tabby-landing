@@ -16,6 +16,24 @@ type LegalHeaderProps = {
 export function LegalHeader({ current }: LegalHeaderProps) {
   return (
     <header className="border-b-2 border-line pb-5 sm:pb-6">
+      <Link
+        href="/"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-subtle transition-colors hover:text-ink sm:mb-5"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          className="h-3.5 w-3.5"
+        >
+          <path
+            fillRule="evenodd"
+            d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Back to tabby
+      </Link>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image

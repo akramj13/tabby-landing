@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { LegalPageShell } from "../components/legal-page-shell";
-import { SUPPORT_EMAIL } from "../lib/site";
+import { GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy - tabby",
-  description: "Privacy policy for tabby.",
+  description:
+    "Privacy policy for tabby - on-device AI autocomplete for macOS.",
 };
 
 export default function PrivacyPage() {
@@ -12,29 +13,214 @@ export default function PrivacyPage() {
     <LegalPageShell
       current="privacy"
       title="Privacy"
-      summary="tabby collects no personal data, no usage analytics, and no cloud-stored writing data."
-      updatedAt="APR 19, 2026"
+      summary="tabby runs entirely on your Mac. No accounts, no cloud processing, no analytics. This policy explains exactly what the app accesses and why."
+      updatedAt="MAY 20, 2026"
     >
-      <p>We collect 0 personal information.</p>
-
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">Overview</h2>
       <p>
-        tabby does not require an account, does not run a hosted dashboard, and
-        does not send your writing or prompts to our servers.
+        tabby is an on-device AI autocomplete app for macOS. It is designed
+        around a local-first architecture - your writing, keystrokes, and
+        suggestions never leave your Mac. There are no user accounts, no hosted
+        dashboards, and no cloud-based processing.
       </p>
 
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        What the app accesses locally
+      </h2>
       <p>
-        The app is built around local-first behavior. Your text stays on your
-        Mac, and there is no analytics or telemetry pipeline tied to your
-        identity.
+        To provide inline suggestions, tabby reads data from your Mac through
+        macOS system APIs. All of this data stays on your device and is never
+        transmitted.
       </p>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Accessibility API data.</strong> tabby reads the content of the
+          currently focused text field, caret position, and element bounds
+          through the macOS Accessibility API. This is how it knows what you are
+          typing and where to place suggestions.
+        </li>
+        <li>
+          <strong>Input Monitoring.</strong> tabby monitors global keyboard
+          events to detect typing activity and Tab key presses for accepting
+          suggestions. It categorizes key events (text input, navigation,
+          shortcuts) but does not log or store individual keystrokes.
+        </li>
+        <li>
+          <strong>Clipboard contents.</strong> tabby reads the system clipboard
+          at the time of generating a suggestion to provide additional context to
+          the local language model. Clipboard data is not cached, stored, or
+          transmitted.
+        </li>
+        <li>
+          <strong>Screen capture.</strong> tabby can capture a region around the
+          focused text field using ScreenCaptureKit to provide visual context.
+          These captures are processed locally and are not stored or transmitted.
+        </li>
+      </ul>
 
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        What the app does not collect
+      </h2>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>No usage analytics or telemetry of any kind</li>
+        <li>No personal information, email addresses, or identifiers</li>
+        <li>No remote logging of text, keystrokes, or suggestions</li>
+        <li>No user accounts or authentication</li>
+        <li>No cookies or tracking pixels</li>
+      </ul>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        Network activity
+      </h2>
       <p>
-        For questions or concerns, email
+        tabby makes two types of network requests, both optional and
+        user-visible:
+      </p>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Update checks.</strong> tabby uses{" "}
+          <a
+            className="tabby-link font-semibold"
+            href="https://sparkle-project.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Sparkle
+          </a>{" "}
+          to check for app updates from{" "}
+          <span className="font-semibold">updates.tabbyapp.dev</span>. Automatic
+          update checks are disabled by default.
+        </li>
+        <li>
+          <strong>Model downloads.</strong> When you choose to download an
+          open-source GGUF model, tabby fetches it from{" "}
+          <a
+            className="tabby-link font-semibold"
+            href="https://huggingface.co"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hugging Face
+          </a>
+          . This only happens when you explicitly initiate a download.
+        </li>
+      </ul>
+      <p>No other network requests are made by the app.</p>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        Local storage
+      </h2>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Preferences.</strong> Settings like ghost text color, model
+          selection, and suggestion length are stored in macOS UserDefaults on
+          your device.
+        </li>
+        <li>
+          <strong>Downloaded models.</strong> GGUF model files you download are
+          stored on disk in the app&apos;s local directory. You can delete them
+          at any time from within the app.
+        </li>
+      </ul>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        macOS permissions
+      </h2>
+      <p>tabby requests the following macOS permissions:</p>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>
+          <strong>Accessibility.</strong> Required to detect focused text fields,
+          read their content, and position ghost text suggestions near the caret.
+        </li>
+        <li>
+          <strong>Input Monitoring.</strong> Required to detect typing activity
+          and handle Tab key acceptance of suggestions.
+        </li>
+        <li>
+          <strong>Screen Recording.</strong> Used for visual context capture
+          around the focused input area. You can deny this permission and tabby
+          will still function without visual context.
+        </li>
+      </ul>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        Third-party components
+      </h2>
+      <p>
+        tabby integrates the following third-party components. None of them
+        transmit your data off-device:
+      </p>
+      <ul className="list-disc space-y-2 pl-5">
+        <li>
+          <strong>llama.cpp / llama.swift.</strong> Local inference engine for
+          running GGUF models on your hardware.
+        </li>
+        <li>
+          <strong>Apple Intelligence.</strong> Apple&apos;s on-device
+          FoundationModels runtime (macOS 26+). Governed by Apple&apos;s own
+          privacy policy.
+        </li>
+        <li>
+          <strong>Sparkle.</strong> Open-source macOS update framework.
+        </li>
+        <li>
+          <strong>Hugging Face.</strong> Model hosting platform used for GGUF
+          downloads. Subject to Hugging Face&apos;s privacy policy during
+          downloads only.
+        </li>
+      </ul>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">Open source</h2>
+      <p>
+        tabby is licensed under{" "}
         <a
-          className="tabby-link ml-1 font-semibold"
-          href={`mailto:${SUPPORT_EMAIL}`}
+          className="tabby-link font-semibold"
+          href={`${GITHUB_URL}/blob/main/LICENSE`}
           target="_blank"
           rel="noopener noreferrer"
+        >
+          AGPL-3.0
+        </a>
+        . The full source code is available on{" "}
+        <a
+          className="tabby-link font-semibold"
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        . You can audit exactly what the app does at any time.
+      </p>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        Children&apos;s privacy
+      </h2>
+      <p>
+        tabby is not directed at children under 13. We do not knowingly collect
+        any data from children. Since tabby does not collect personal information
+        from anyone, there is no data to identify or remove.
+      </p>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">
+        Changes to this policy
+      </h2>
+      <p>
+        If this policy changes, we will update this page and the &quot;last
+        updated&quot; date above. For significant changes, we will note them in
+        the{" "}
+        <a className="tabby-link font-semibold" href="/release-notes">
+          release notes
+        </a>
+        .
+      </p>
+
+      <h2 className="text-lg font-semibold text-ink sm:text-xl">Contact</h2>
+      <p>
+        Questions about this policy? Email{" "}
+        <a
+          className="tabby-link font-semibold"
+          href={`mailto:${SUPPORT_EMAIL}`}
         >
           {SUPPORT_EMAIL}
         </a>

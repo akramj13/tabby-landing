@@ -162,7 +162,7 @@ export function TestimonialsSection() {
               accent="featured"
               className="min-h-53 lg:min-h-60"
               quoteClassName="sm:text-[1.15rem] lg:text-[1.22rem]"
-              quote="We are shipping updates faster because release summaries and internal docs start with a strong draft instead of a blank page — and nothing leaves the machine."
+              quote="We are shipping updates faster because release summaries and internal docs start with a strong draft instead of a blank page - and nothing leaves the machine."
               name="Noah Rivera"
               meta="May 2, 2026"
             />

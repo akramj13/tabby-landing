@@ -42,9 +42,8 @@ function CustomItem({ eyebrow, title, description, preview }: CustomItemProps) {
 
 function ModelsPreview() {
   const models = [
-    { name: "tabby-balanced-1", note: "good place to start", active: true },
-    { name: "tabby-fast-1", note: "lower latency", active: false },
-    { name: "tabby-depth-1", note: "higher quality", active: false },
+    { name: "tabby-fast", note: "~0.5 GB · speed-optimized", active: true },
+    { name: "tabby-quality", note: "~3.1 GB · higher quality", active: false },
   ];
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-4 shadow-[0_3px_0_var(--line)]">
@@ -78,9 +77,9 @@ function LengthPreview() {
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_3px_0_var(--line)]">
       <div className="flex items-center justify-between text-xs font-semibold tracking-[0.12em] uppercase text-muted">
-        <span>Short</span>
-        <span className="text-ink">Medium</span>
-        <span>Long</span>
+        <span>3-7 words</span>
+        <span className="text-ink">7-12 words</span>
+        <span>12-20 words</span>
       </div>
       <div className="relative mt-4 h-2 rounded-full border-2 border-line bg-background">
         <motion.div
@@ -155,7 +154,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               eyebrow="models"
               title="choose your model"
-              description="Pick the balance that fits your workflow, from fast completions to sharper suggestions."
+              description="Two built-in models ship with tabby. Pick fast for speed, or quality when you want sharper suggestions. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>
@@ -165,7 +164,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               eyebrow="length"
               title="short or long"
-              description="Keep completions short and invisible, or let tabby expand when you need more momentum."
+              description="Three presets control how many words tabby suggests at a time. Default is 7-12 - enough to finish your thought, not enough to take over."
               preview={<LengthPreview />}
             />
           </ScaleIn>

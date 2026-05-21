@@ -213,14 +213,14 @@ export function AlternatingFeatureSection() {
       />
       <FadeIn delay={0.1}>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed tracking-tight text-muted sm:text-base">
-          A few examples of Tabby quietly finishing thoughts in the apps you
-          already use — clips from a real session.
+          A few examples of tabby quietly finishing thoughts in the apps you
+          already use - clips from a real session.
         </p>
       </FadeIn>
       <div className="mt-14 space-y-14 sm:space-y-16 md:space-y-20">
         <FeatureRow
           layout="text-left"
-          headline="Write your emails faster"
+          headline="write your emails faster"
           icon="/app-icons/gmail.svg"
           label="email"
           start={14}
@@ -228,7 +228,7 @@ export function AlternatingFeatureSection() {
         />
         <FeatureRow
           layout="text-right"
-          headline="Write your notes faster"
+          headline="write your notes faster"
           icon="/app-icons/apple-notes.svg"
           label="notes"
           start={23}
@@ -236,7 +236,7 @@ export function AlternatingFeatureSection() {
         />
         <FeatureRow
           layout="text-left"
-          headline="Write your Slack messages faster"
+          headline="write your Slack messages faster"
           icon="/app-icons/slack.png"
           iconPad
           label="slack"
@@ -245,7 +245,7 @@ export function AlternatingFeatureSection() {
         />
         <FeatureRow
           layout="text-right"
-          headline="Write your messages faster"
+          headline="write your messages faster"
           icon="/app-icons/imessage.svg"
           label="messages"
           start={41}

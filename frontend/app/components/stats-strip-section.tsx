@@ -9,63 +9,47 @@ import {
 } from "framer-motion";
 import { useRef, type ComponentType, type SVGProps } from "react";
 import { ModelIcon, OpenSourceIcon, PrivateIcon } from "./icons";
-import { CountUp } from "./motion";
 
-type StatProps = {
-  displayValue: string;
-  label: string;
-  hint: string;
+type CardProps = {
+  title: string;
+  description: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-const STATS: StatProps[] = [
+const CARDS: CardProps[] = [
   {
-    displayValue: "Models",
-    label: "open source model customization",
-    hint: "Use Tabby's built-in local downloads or bring your own GGUF model.",
-    Icon: ModelIcon,
+    title: "Open Source",
+    description:
+      "AGPL-3.0 licensed. Free forever - read every line, fork it, contribute back.",
+    Icon: OpenSourceIcon,
   },
   {
-    displayValue: "100%",
-    label: "private, no cloud",
-    hint: "Your text, keystrokes, and suggestions stay on your Mac.",
+    title: "On-Device",
+    description:
+      "No cloud, no analytics, no accounts. Your writing never leaves your Mac.",
     Icon: PrivateIcon,
   },
   {
-    displayValue: "AGPL",
-    label: "open source and free",
-    hint: "No accounts, no dashboard, and nothing locked behind a paywall.",
-    Icon: OpenSourceIcon,
+    title: "Model Customization",
+    description:
+      "Apple Intelligence, open-source GGUF models, or bring your own.",
+    Icon: ModelIcon,
   },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function Stat({
-  displayValue,
-  label,
-  hint,
-  Icon,
-}: StatProps) {
+function Card({ title, description, Icon }: CardProps) {
   return (
-    <div className="flex h-full min-h-64 flex-col rounded-[1.25rem] border-2 border-line bg-background px-5 py-6 shadow-[0_4px_0_var(--line)] sm:px-6">
-      <div className="flex items-start justify-between gap-4">
-        <div className="tabby-display text-[2.55rem] leading-none tracking-tight text-ink sm:text-[3.2rem]">
-          {displayValue === "100%" ? (
-            <CountUp to={100} suffix="%" />
-          ) : (
-            displayValue
-          )}
-        </div>
-        <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-[1rem] border-2 border-line bg-accent-soft text-ink shadow-[0_3px_0_var(--line)] sm:h-14 sm:w-14">
-          <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
-        </div>
+    <div className="flex h-full flex-col rounded-[1.25rem] border-2 border-line bg-background px-5 py-6 shadow-[0_4px_0_var(--line)] sm:px-6">
+      <div className="flex h-13 w-13 items-center justify-center rounded-[1rem] border-2 border-line bg-accent-soft text-ink shadow-[0_3px_0_var(--line)] sm:h-14 sm:w-14">
+        <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
       </div>
-      <div className="mt-4 text-base font-semibold tracking-tight text-ink sm:text-lg">
-        {label}
+      <div className="tabby-display mt-5 text-[1.75rem] leading-[1.05] tracking-tight text-ink sm:text-[2.1rem]">
+        {title}
       </div>
-      <div className="mt-2 text-sm leading-relaxed tracking-tight text-subtle sm:text-base">
-        {hint}
+      <div className="mt-3 text-sm leading-relaxed tracking-tight text-subtle sm:text-base">
+        {description}
       </div>
     </div>
   );
@@ -130,9 +114,9 @@ export function StatsStripSection() {
           }}
           className="grid grid-cols-1 gap-4 md:grid-cols-3"
         >
-          {STATS.map((stat) => (
+          {CARDS.map((card) => (
             <motion.div
-              key={stat.label}
+              key={card.title}
               variants={{
                 hidden: { opacity: 0, y: 18 },
                 visible: {
@@ -143,11 +127,10 @@ export function StatsStripSection() {
               }}
               className="h-full"
             >
-              <Stat
-                displayValue={stat.displayValue}
-                label={stat.label}
-                hint={stat.hint}
-                Icon={stat.Icon}
+              <Card
+                title={card.title}
+                description={card.description}
+                Icon={card.Icon}
               />
             </motion.div>
           ))}
