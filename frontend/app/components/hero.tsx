@@ -2,7 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
-import { DOWNLOAD_URL, GITHUB_URL } from "../lib/site";
+import { GITHUB_URL } from "../lib/site";
+import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
 import { TextAnimate } from "./text";
@@ -104,15 +105,10 @@ export function Hero() {
               <GithubIcon className="h-6 w-6 shrink-0" />
               <GithubStarLabel />
             </Link>
-            <Link
-              href={DOWNLOAD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={primaryActionClass}
-            >
+            <DownloadButton className={primaryActionClass}>
               <AppleIcon className="h-6 w-6 shrink-0" />
               Download for Mac
-            </Link>
+            </DownloadButton>
           </motion.div>
         </motion.div>
       </section>

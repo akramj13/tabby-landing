@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { CREATOR, SITE_URL } from "./lib/site";
+import { Providers } from "./components/providers";
 
 const bodyFont = DM_Sans({
   variable: "--font-body",
@@ -56,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodyFont.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-ink">
-        {children}
+        <Providers>{children}</Providers>
         <Analytics />
       </body>
     </html>

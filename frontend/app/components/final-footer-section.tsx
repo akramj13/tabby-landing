@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CREATOR, DOWNLOAD_URL, GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
+import { CREATOR, GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
+import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon, LinkedInIcon, XIcon } from "./icons";
 import { FadeIn } from "./motion";
@@ -38,15 +39,10 @@ export function FinalFooterSection() {
           </div>
 
           <div className="w-full max-w-85 space-y-3">
-            <Link
-              href={DOWNLOAD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={footerPrimaryActionClass}
-            >
+            <DownloadButton className={footerPrimaryActionClass}>
               <AppleIcon className="h-5 w-5" />
               Download for Mac
-            </Link>
+            </DownloadButton>
             <Link
               href={GITHUB_URL}
               target="_blank"
