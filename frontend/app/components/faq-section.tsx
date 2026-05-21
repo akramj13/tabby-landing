@@ -44,7 +44,7 @@ export const FAQ_ITEMS = [
   {
     question: "How much space do the models take?",
     answer:
-      "tabby-fast is about 0.5 GB and tabby-quality is about 3.1 GB. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
+      "tabby-fast is about 0.4 GB and tabby-quality is about 0.8 GB. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
   },
   {
     question: "Does tabby work offline?",

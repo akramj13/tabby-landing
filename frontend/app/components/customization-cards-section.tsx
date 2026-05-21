@@ -42,8 +42,8 @@ function CustomItem({ eyebrow, title, description, preview }: CustomItemProps) {
 
 function ModelsPreview() {
   const models = [
-    { name: "tabby-fast", note: "~0.5 GB · speed-optimized", active: true },
-    { name: "tabby-quality", note: "~3.1 GB · higher quality", active: false },
+    { name: "tabby-fast", note: "~0.4 GB · speed-optimized", active: true },
+    { name: "tabby-quality", note: "~0.8 GB · higher quality", active: false },
   ];
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-4 shadow-[0_3px_0_var(--line)]">
