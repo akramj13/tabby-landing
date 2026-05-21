@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
-import { DOWNLOAD_URL, GITHUB_URL } from "../lib/site";
+import { DISCORD_URL, DOWNLOAD_URL, GITHUB_URL } from "../lib/site";
 import { GithubStarLabel } from "./github-star-label";
-import { AppleIcon, GithubIcon } from "./icons";
+import { AppleIcon, DiscordIcon, GithubIcon } from "./icons";
 
 const textLinks = [
   { href: "#demo", label: "demo" },
@@ -86,6 +86,15 @@ export function Header() {
         </div>
 
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <Link
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={secondaryActionClass}
+          >
+            <DiscordIcon className="h-5 w-5" />
+            Discord
+          </Link>
           <Link
             href={GITHUB_URL}
             target="_blank"

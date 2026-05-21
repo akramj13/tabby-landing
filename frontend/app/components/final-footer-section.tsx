@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CREATOR, GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
+import { CREATOR, DISCORD_URL, GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
 import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
-import { AppleIcon, GithubIcon, LinkedInIcon, XIcon } from "./icons";
+import { AppleIcon, DiscordIcon, GithubIcon, LinkedInIcon, XIcon } from "./icons";
 import { FadeIn } from "./motion";
 
 const footerPrimaryActionClass =
@@ -21,6 +21,7 @@ const FOOTER_LINKS = [
 const SOCIALS = [
   { label: "LinkedIn", href: CREATOR.linkedin, Icon: LinkedInIcon },
   { label: "X", href: CREATOR.x, Icon: XIcon },
+  { label: "Discord", href: DISCORD_URL, Icon: DiscordIcon },
 ] as const;
 
 export function FinalFooterSection() {
