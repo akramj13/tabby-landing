@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
-import { DISCORD_URL, DOWNLOAD_URL, GITHUB_URL } from "../lib/site";
+import { DISCORD_URL, GITHUB_URL } from "../lib/site";
+import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, DiscordIcon, GithubIcon } from "./icons";
 
@@ -104,15 +105,10 @@ export function Header() {
             <GithubIcon className="h-5 w-5" />
             <GithubStarLabel />
           </Link>
-          <Link
-            href={DOWNLOAD_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={primaryActionClass}
-          >
+          <DownloadButton className={primaryActionClass}>
             <AppleIcon className="h-5 w-5" />
             Download for Mac
-          </Link>
+          </DownloadButton>
         </div>
       </div>
     </header>
