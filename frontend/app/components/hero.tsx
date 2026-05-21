@@ -53,7 +53,7 @@ export function Hero() {
           >
             <h1
               aria-label="Write at the speed of thought. In any app."
-              className="tabby-display mx-auto max-w-5xl text-center leading-[0.88] tracking-[-0.04em] text-ink"
+              className="tabby-display mx-auto max-w-5xl text-center leading-[0.94] tracking-tight text-ink"
             >
               <TextAnimate
                 as="span"
@@ -63,7 +63,7 @@ export function Hero() {
                 delay={0.18}
                 startOnView={false}
                 once
-                className="inline text-[3.4rem] font-extrabold sm:text-[5.2rem] lg:text-[6.8rem]"
+                className="inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
                 segmentClassName="will-change-transform"
               >
                 Write at the speed of thought.
@@ -76,7 +76,7 @@ export function Hero() {
                 delay={0.46}
                 startOnView={false}
                 once
-                className="ml-[0.15em] inline text-[3.4rem] font-extrabold text-accent sm:text-[5.2rem] lg:text-[6.8rem]"
+                className="ml-[0.18em] inline text-[3.15rem] text-accent sm:text-[4.8rem] lg:text-[6.2rem]"
                 segmentClassName="will-change-transform"
               >
                 In any app.
