@@ -1,8 +1,32 @@
-# Tabby Landing Page
+# tabby landing page
 
-Marketing site for Tabby, the macOS menu bar app that brings on-device inline autocomplete to native and web text fields.
+<p align="center">
+  <img width="128" alt="tabby logo" src="https://github.com/user-attachments/assets/8a67095e-4d03-4055-8d4c-8871335152dd" />
+</p>
 
-The product app lives in the main Tabby repository. This repository owns the public landing page: the hero, demo section, app examples, feature storytelling, FAQ, legal pages, metadata, and static assets that explain the product to users before they download it.
+<p align="center">
+  <em>Landing page for tabby, the on-device AI autocomplete for macOS.</em>
+</p>
+
+<p align="center">
+  <a href="https://tabbyapp.dev"><strong>tabbyapp.dev</strong></a> &middot;
+  <a href="https://github.com/FuJacob/tabby"><strong>Product repo</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/FuJacob/tabby/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/FuJacob/tabby" /></a>
+  <a href="https://github.com/FuJacob/tabby/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/FuJacob/tabby/total" /></a>
+  <a href="https://github.com/FuJacob/tabby/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/FuJacob/tabby?style=flat" /></a>
+  <a href="LICENSE"><img alt="License: AGPL v3" src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" /></a>
+</p>
+
+<p align="center">
+  <a href="https://buymeacoffee.com/tabbyapp" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;" /></a>
+  <br />
+  Built by <a href="https://github.com/FuJacob">@FuJacob</a> and <a href="https://github.com/jam-cai">@jam-cai</a>
+</p>
+
+---
 
 ## Tech Stack
 
@@ -11,6 +35,7 @@ The product app lives in the main Tabby repository. This repository owns the pub
 - **TypeScript**
 - **Tailwind CSS 4**
 - **Framer Motion** for page motion and interaction details
+- **Supabase** for mailing list collection
 - **Vercel Analytics**
 
 ## Project Structure
@@ -20,25 +45,39 @@ frontend/
   app/
     components/        Reusable landing-page sections and UI primitives
     lib/site.ts        Site-wide URLs, support email, and creator metadata
+    lib/supabase.ts    Supabase client
     privacy/           Privacy policy route
     release-notes/     Release notes route
     terms/             Terms route
     page.tsx           Home page composition
   public/              Icons, app logos, and static media
+  .env.example         Environment variable template
   package.json         Scripts and dependencies
 ```
 
-The home page is intentionally composed from section components in `frontend/app/components/`. That keeps the page easy to reorder while letting each section own its copy, layout, and motion behavior.
+The home page is composed from section components in `frontend/app/components/`. Each section owns its copy, layout, and motion behavior.
 
 ## Local Development
 
 ```bash
 cd frontend
+cp .env.example .env.local   # fill in your keys
 npm install
 npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the values:
+
+| Variable | Description |
+|----------|-------------|
+| `GITHUB_TOKEN` | GitHub PAT for star count fetching |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/public key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only) |
 
 ## Scripts
 
@@ -55,17 +94,9 @@ npm run start    # Serve the production build locally
 
 Global links and metadata live in `frontend/app/lib/site.ts`. Update that file when the landing page needs a new canonical site URL, GitHub link, release-download URL, support email, or creator profile.
 
-Most visual sections are self-contained:
-
-- `hero.tsx` owns the first viewport and primary CTA.
-- `demo-video-section.tsx` owns the demo embed area.
-- `apps-carousel-section.tsx` owns the app compatibility carousel.
-- `how-it-works-section.tsx`, `alternating-feature-section.tsx`, and `customization-cards-section.tsx` own the core product explanation.
-- `privacy-section.tsx`, `faq-section.tsx`, and `final-footer-section.tsx` own trust, objections, and final conversion copy.
-
 ## Deployment
 
-The app is a standard Next.js site and can be deployed from `frontend/` on Vercel or any platform that supports Next.js. Before shipping copy or SEO changes, run:
+The app is a standard Next.js site deployed on Vercel. Before shipping:
 
 ```bash
 cd frontend
@@ -73,6 +104,6 @@ npm run lint
 npm run build
 ```
 
-## Repository Hygiene
+## License
 
-Do not commit generated build output, local environment files, dependency folders, or macOS `.DS_Store` metadata. The root `.gitignore` covers Finder metadata for the whole repository, while `frontend/.gitignore` covers the Next.js app-specific outputs.
+AGPL-3.0 &mdash; see [LICENSE](LICENSE) for details.
