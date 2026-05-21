@@ -66,7 +66,7 @@ export function Header() {
               <span className="tabby-display text-[2.5rem] leading-[0.88] tracking-tight text-ink sm:text-[3rem]">
                 tabby
               </span>
-              <span className="rounded-md border-2 border-line bg-accent/15 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase leading-none tracking-widest text-accent">
+              <span className="text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-ink/40">
                 beta
               </span>
             </span>

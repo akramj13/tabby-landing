@@ -48,7 +48,7 @@ export function LegalHeader({ current }: LegalHeaderProps) {
               <span className="tabby-display text-[2.4rem] leading-[0.88] tracking-tight text-ink sm:text-[2.8rem]">
                 tabby
               </span>
-              <span className="rounded-md border-2 border-line bg-accent/15 px-1.5 py-0.5 text-[0.55rem] font-bold uppercase leading-none tracking-widest text-accent">
+              <span className="text-[0.55rem] font-semibold uppercase leading-none tracking-widest text-ink/40">
                 beta
               </span>
             </span>
