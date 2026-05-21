@@ -154,7 +154,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               eyebrow="models"
               title="choose your model"
-              description="Two built-in models ship with tabby. Pick fast for speed, or quality when you want sharper suggestions. You can also drop in your own GGUF."
+              description="Two built-in models ship with tabby. Pick fast for speed, or balanced when you want sharper suggestions. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>
