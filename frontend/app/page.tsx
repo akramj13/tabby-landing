@@ -3,6 +3,7 @@ import { AlternatingFeatureSection } from "./components/alternating-feature-sect
 import { CustomizationCardsSection } from "./components/customization-cards-section";
 import { DemoVideoSection } from "./components/demo-video-section";
 import { FaqSection } from "./components/faq-section";
+import { PermissionsSection } from "./components/permissions-section";
 import { FinalFooterSection } from "./components/final-footer-section";
 import { Header } from "./components/header";
 import { Hero } from "./components/hero";
@@ -64,6 +65,13 @@ export default function Home() {
 
         <section className="px-6 sm:px-8 lg:px-10">
           <CustomizationCardsSection />
+        </section>
+
+        <section
+          id="privacy"
+          className="tabby-anchor px-6 sm:px-8 lg:px-10"
+        >
+          <PermissionsSection />
         </section>
 
         <section id="faq" className="tabby-anchor px-6 sm:px-8 lg:px-10">
