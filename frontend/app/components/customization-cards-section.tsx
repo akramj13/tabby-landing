@@ -42,25 +42,18 @@ function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps
 
 const MODELS = [
   {
-    name: "cotabby-swift-1",
+    name: "tabby-fast-1",
     note: "~0.4 GB · speed-optimized",
     tag: "fast",
     color: "#ff8273",
     tint: "rgba(255, 130, 115, 0.16)",
   },
   {
-    name: "cotabby-balanced-1",
-    note: "~0.6 GB · balanced quality",
+    name: "tabby-balanced-1",
+    note: "~1.1 GB · balanced quality",
     tag: "balanced",
     color: "#5aa888",
     tint: "rgba(90, 168, 136, 0.16)",
-  },
-  {
-    name: "cotabby-careful-1",
-    note: "~1.1 GB · most accurate",
-    tag: "accurate",
-    color: "#6f93cf",
-    tint: "rgba(111, 147, 207, 0.16)",
   },
 ] as const;
 
@@ -205,7 +198,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Cpu}
               title="choose your model"
-              description="Three built-in models ship with Cotabby. Pick swift for speed, or careful when you want sharper suggestions. You can also drop in your own GGUF."
+              description="Two built-in models ship with Cotabby. Pick fast for speed, or balanced when you want sharper suggestions. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>

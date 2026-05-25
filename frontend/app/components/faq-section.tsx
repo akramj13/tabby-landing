@@ -24,7 +24,7 @@ export const FAQ_ITEMS = [
   {
     question: "What is the difference between the Apple Intelligence and Open Source engines?",
     answer:
-      "Apple Intelligence uses Apple's built-in FoundationModels runtime - no download required, but it needs macOS 26 and supported hardware. The Open Source engine runs local GGUF models through llama.cpp, ships with three built-in models (cotabby-swift-1, cotabby-balanced-1, and cotabby-careful-1), and lets you bring your own. If Apple Intelligence isn't available on your Mac, the Open Source engine still works.",
+      "Apple Intelligence uses Apple's built-in FoundationModels runtime - no download required, but it needs macOS 26 and supported hardware. The Open Source engine runs local GGUF models through llama.cpp, ships with two built-in models (tabby-fast-1 and tabby-balanced-1), and lets you bring your own. If Apple Intelligence isn't available on your Mac, the Open Source engine still works.",
   },
   {
     question: "What apps does Cotabby work with?",
@@ -44,7 +44,7 @@ export const FAQ_ITEMS = [
   {
     question: "How much space do the models take?",
     answer:
-      "They range from about 0.4 GB for cotabby-swift-1 up to about 1.1 GB for cotabby-careful-1, with cotabby-balanced-1 (~0.6 GB) in between. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
+      "They range from about 0.4 GB for tabby-fast-1 up to about 1.1 GB for tabby-balanced-1. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
   },
   {
     question: "Does Cotabby work offline?",
@@ -59,7 +59,7 @@ export const FAQ_ITEMS = [
   {
     question: "Does Cotabby slow down my Mac?",
     answer:
-      "Cotabby only runs inference when you pause typing, and the models are designed to be lightweight. cotabby-swift-1 uses minimal resources. You might notice slightly more CPU usage with the larger models like cotabby-careful-1, but it shouldn't affect normal use.",
+      "Cotabby only runs inference when you pause typing, and the models are designed to be lightweight. tabby-fast-1 uses minimal resources. You might notice slightly more CPU usage with the larger tabby-balanced-1, but it shouldn't affect normal use.",
   },
 ];
 
