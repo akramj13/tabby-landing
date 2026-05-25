@@ -6,7 +6,7 @@ import { GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
 export const metadata: Metadata = {
   title: "Privacy - Cotabby",
   description:
-    "Privacy policy for Cotabby - on-device AI autocomplete for macOS.",
+    "Privacy policy for Cotabby - local AI autocomplete for macOS.",
 };
 
 export default function PrivacyPage() {
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
     >
       <h2 className="text-lg font-bold text-ink sm:text-xl">Overview</h2>
       <p>
-        Cotabby is an on-device AI autocomplete app for macOS. It is designed
+        Cotabby is a local AI autocomplete app for macOS. It is designed
         around a local-first architecture - your writing, keystrokes, and
         suggestions never leave your Mac. There are no user accounts, no hosted
         dashboards, and no cloud-based processing.

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { FadeIn, WordReveal } from "./motion";
 
 const VIDEO_ID = "p3TIgxQFQGE";
@@ -39,6 +39,7 @@ function SegmentPlayer({ start, end }: SegmentPlayerProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     onYTReady(() => {
@@ -59,6 +60,9 @@ function SegmentPlayer({ start, end }: SegmentPlayerProps) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onReady: (e: any) => {
             e.target.playVideo();
+            // Reveal only once the player is initialized, so YouTube's
+            // brief loading chrome (controls/title) never flashes.
+            setReady(true);
             intervalRef.current = setInterval(() => {
               try {
                 const t = playerRef.current?.getCurrentTime?.();
@@ -79,7 +83,15 @@ function SegmentPlayer({ start, end }: SegmentPlayerProps) {
     };
   }, [uid, start, end]);
 
-  return <div id={uid} className="h-full w-full" />;
+  return (
+    <div
+      className={`h-full w-full transition-opacity duration-500 ${
+        ready ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div id={uid} className="h-full w-full" />
+    </div>
+  );
 }
 
 type VideoBlockProps = {

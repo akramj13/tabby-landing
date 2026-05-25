@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Cpu, SlidersHorizontal, Sparkles, type LucideIcon } from "lucide-react";
 import {
@@ -40,38 +40,86 @@ function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps
   );
 }
 
+const MODELS = [
+  {
+    name: "cotabby-swift-1",
+    note: "~0.4 GB · speed-optimized",
+    tag: "fast",
+    color: "#ff8273",
+    tint: "rgba(255, 130, 115, 0.16)",
+  },
+  {
+    name: "cotabby-balanced-1",
+    note: "~0.6 GB · balanced quality",
+    tag: "balanced",
+    color: "#5aa888",
+    tint: "rgba(90, 168, 136, 0.16)",
+  },
+  {
+    name: "cotabby-careful-1",
+    note: "~1.1 GB · most accurate",
+    tag: "accurate",
+    color: "#6f93cf",
+    tint: "rgba(111, 147, 207, 0.16)",
+  },
+] as const;
+
 function ModelsPreview() {
-  const models = [
-    { name: "cotabby-swift-1", note: "~0.4 GB · speed-optimized", active: true },
-    { name: "cotabby-swift-pro-1", note: "~0.6 GB · faster, sharper", active: false },
-    { name: "cotabby-balanced-1", note: "~0.8 GB · higher quality", active: false },
-    { name: "cotabby-careful-1", note: "~1.1 GB · most accurate", active: false },
-  ];
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setActive((i) => (i + 1) % MODELS.length),
+      2200,
+    );
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-2 shadow-[0_5px_0_var(--line)]">
-      {models.map((m) => (
-        <div
-          key={m.name}
-          className={`flex items-center gap-3 rounded-[0.85rem] px-3 py-2.5 ${
-            m.active ? "bg-accent/15" : ""
-          }`}
-        >
-          <span
-            className={`h-2 w-2 shrink-0 rounded-full ${m.active ? "bg-accent" : "bg-subtle-foreground/40"}`}
-          />
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold tracking-tight text-ink">
-              {m.name}
-            </p>
-            <p className="text-xs tracking-tight text-subtle">{m.note}</p>
+      {MODELS.map((m, i) => {
+        const isActive = i === active;
+        return (
+          <div
+            key={m.name}
+            className="relative flex items-center gap-3 rounded-[0.85rem] px-3 py-2.5"
+          >
+            {isActive && (
+              <motion.div
+                layoutId="model-active-highlight"
+                className="absolute inset-0 rounded-[0.85rem]"
+                style={{ backgroundColor: m.tint }}
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            <motion.span
+              className="relative z-10 h-2 w-2 shrink-0 rounded-full"
+              animate={{
+                backgroundColor: isActive ? m.color : "rgba(120, 120, 120, 0.4)",
+              }}
+              transition={{ duration: 0.4 }}
+            />
+            <div className="relative z-10 min-w-0 flex-1">
+              <p className="text-sm font-bold tracking-tight text-ink">
+                {m.name}
+              </p>
+              <p className="text-xs tracking-tight text-subtle">{m.note}</p>
+            </div>
+            {isActive && (
+              <motion.span
+                key={m.tag}
+                initial={{ opacity: 0, y: 5, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                style={{ backgroundColor: m.color }}
+                className="relative z-10 shrink-0 rounded-full px-2.5 py-0.5 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-white"
+              >
+                {m.tag}
+              </motion.span>
+            )}
           </div>
-          {m.active && (
-            <span className="shrink-0 rounded-full bg-accent/20 px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-accent-deep">
-              active
-            </span>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -157,7 +205,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Cpu}
               title="choose your model"
-              description="Four built-in models ship with Cotabby. Pick swift for speed, or careful when you want sharper suggestions. You can also drop in your own GGUF."
+              description="Three built-in models ship with Cotabby. Pick swift for speed, or careful when you want sharper suggestions. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>

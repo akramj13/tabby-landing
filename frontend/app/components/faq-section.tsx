@@ -4,7 +4,7 @@ export const FAQ_ITEMS = [
   {
     question: "What is Cotabby?",
     answer:
-      "Cotabby is an on-device AI autocomplete for macOS. It sits in your menu bar, watches the text field you're typing in, and suggests the next few words as ghost text. Everything runs locally on your Mac.",
+      "Cotabby is a local AI autocomplete for macOS. It sits in your menu bar, watches the text field you're typing in, and suggests the next few words as ghost text. Everything runs locally on your Mac.",
   },
   {
     question: "Is Cotabby free?",
@@ -19,12 +19,12 @@ export const FAQ_ITEMS = [
   {
     question: "How does Cotabby actually work?",
     answer:
-      "Cotabby reads the focused text field through macOS Accessibility APIs, feeds the text around your caret to an on-device model, and renders the continuation as ghost text near your cursor. Press Tab to accept in chunks, or just keep typing to ignore it.",
+      "Cotabby reads the focused text field through macOS Accessibility APIs, feeds the text around your caret to a local model, and renders the continuation as ghost text near your cursor. Press Tab to accept in chunks, or just keep typing to ignore it.",
   },
   {
     question: "What is the difference between the Apple Intelligence and Open Source engines?",
     answer:
-      "Apple Intelligence uses Apple's built-in FoundationModels runtime - no download required, but it needs macOS 26 and supported hardware. The Open Source engine runs local GGUF models through llama.cpp, ships with four built-in models (cotabby-swift-1, cotabby-swift-pro-1, cotabby-balanced-1, and cotabby-careful-1), and lets you bring your own. If Apple Intelligence isn't available on your Mac, the Open Source engine still works.",
+      "Apple Intelligence uses Apple's built-in FoundationModels runtime - no download required, but it needs macOS 26 and supported hardware. The Open Source engine runs local GGUF models through llama.cpp, ships with three built-in models (cotabby-swift-1, cotabby-balanced-1, and cotabby-careful-1), and lets you bring your own. If Apple Intelligence isn't available on your Mac, the Open Source engine still works.",
   },
   {
     question: "What apps does Cotabby work with?",
@@ -44,7 +44,7 @@ export const FAQ_ITEMS = [
   {
     question: "How much space do the models take?",
     answer:
-      "They range from about 0.4 GB for cotabby-swift-1 up to about 1.1 GB for cotabby-careful-1, with cotabby-swift-pro-1 (~0.6 GB) and cotabby-balanced-1 (~0.8 GB) in between. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
+      "They range from about 0.4 GB for cotabby-swift-1 up to about 1.1 GB for cotabby-careful-1, with cotabby-balanced-1 (~0.6 GB) in between. Apple Intelligence uses the system runtime, so no separate download. You can also add your own GGUF models if you prefer something different.",
   },
   {
     question: "Does Cotabby work offline?",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { MouseEvent } from "react";
 import { GITHUB_URL } from "../lib/site";
 import { DownloadButton } from "./download-button";
+import { useEmailGate } from "./email-gate";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
 
@@ -47,6 +48,7 @@ function scrollToAnchor(event: MouseEvent<HTMLAnchorElement>, href: string) {
 }
 
 export function Header() {
+  const { openMailingList } = useEmailGate();
   return (
     <header id="site-header" className="border-b-2 border-line pb-6 sm:pb-8">
       <div className="flex w-full flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -82,11 +84,18 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(event) => scrollToAnchor(event, link.href)}
-                className="tabby-link text-sm font-bold tracking-tight underline-offset-[6px] decoration-accent decoration-2 transition hover:text-ink hover:underline sm:text-base"
+                className="tabby-link text-sm font-bold tracking-tight transition hover:text-ink sm:text-base"
               >
                 {link.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={openMailingList}
+              className="tabby-link text-sm font-bold tracking-tight transition hover:text-ink sm:text-base"
+            >
+              join mailing list
+            </button>
           </nav>
         </div>
 

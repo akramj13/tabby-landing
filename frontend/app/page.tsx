@@ -14,6 +14,7 @@ import { SloganCtaSection } from "./components/slogan-cta-section";
 import { StatsStripSection } from "./components/stats-strip-section";
 import { StructuredData } from "./components/structured-data";
 import { FloatingButton } from "./components/floating-button";
+import { GiantWordmarkSection } from "./components/giant-wordmark-section";
 import Image from "next/image";
 export default function Home() {
   return (
@@ -98,6 +99,8 @@ export default function Home() {
         <section className="px-6 sm:px-8 lg:px-10">
           <FinalFooterSection />
         </section>
+
+        <GiantWordmarkSection />
       </div>
     </div>
   );

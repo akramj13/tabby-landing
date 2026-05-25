@@ -1,9 +1,16 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GITHUB_URL } from "../lib/site";
 import { DownloadButton } from "./download-button";
+import { GhostAcceptText } from "./ghost-accept-text";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
 import { TextAnimate } from "./text";
@@ -35,8 +42,34 @@ const copyItem: Variants = {
   },
 };
 
+// Rotating hero headlines. Each is a lead clause (blurs in word-by-word) plus a
+// short accept-phrase (the ghost-text accept animation). Kept similar in length
+// so the layout barely shifts as they cycle.
+const HEADLINES = [
+  { lead: "Write at the speed of thought.", accept: "In any app." },
+  { lead: "Finish your thoughts faster.", accept: "In any app." },
+  { lead: "Skip the repetitive typing.", accept: "On your Mac." },
+  { lead: "Turn quick notes into words.", accept: "In any app." },
+  { lead: "Let your ideas keep flowing.", accept: "Right inline." },
+] as const;
+
+const HEADLINE_INTERVAL_MS = 5600;
+
 export function Hero() {
   const revealState = "visible" as const;
+  const prefersReducedMotion = useReducedMotion();
+  const [headlineIndex, setHeadlineIndex] = useState(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const id = setInterval(
+      () => setHeadlineIndex((i) => (i + 1) % HEADLINES.length),
+      HEADLINE_INTERVAL_MS,
+    );
+    return () => clearInterval(id);
+  }, [prefersReducedMotion]);
+
+  const headline = HEADLINES[headlineIndex];
 
   return (
     <main id="hero" className="relative mt-6 sm:mt-8">
@@ -52,35 +85,39 @@ export function Hero() {
             className="mx-auto flex max-w-6xl flex-col items-center"
           >
             <h1
-              aria-label="Write at the speed of thought. In any app."
+              aria-label={`${headline.lead} ${headline.accept}`}
               className="tabby-display mx-auto max-w-5xl text-center leading-[0.94] tracking-tight text-ink"
             >
-              <TextAnimate
-                as="span"
-                by="word"
-                animation="blurInUp"
-                duration={0.8}
-                delay={0.18}
-                startOnView={false}
-                once
-                className="inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
-                segmentClassName="will-change-transform"
-              >
-                Write at the speed of thought.
-              </TextAnimate>
-              <TextAnimate
-                as="span"
-                by="word"
-                animation="blurInUp"
-                duration={0.65}
-                delay={0.46}
-                startOnView={false}
-                once
-                className="ml-[0.18em] inline text-[3.15rem] text-accent sm:text-[4.8rem] lg:text-[6.2rem]"
-                segmentClassName="will-change-transform"
-              >
-                In any app.
-              </TextAnimate>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={headlineIndex}
+                  exit={{
+                    opacity: 0,
+                    filter: "blur(8px)",
+                    transition: { duration: 0.3, ease: EASE },
+                  }}
+                  className="inline-block"
+                >
+                  <TextAnimate
+                    as="span"
+                    by="word"
+                    animation="blurInUp"
+                    duration={0.8}
+                    delay={0.1}
+                    startOnView={false}
+                    once
+                    className="inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
+                    segmentClassName="will-change-transform"
+                  >
+                    {headline.lead}
+                  </TextAnimate>
+                  <GhostAcceptText
+                    text={headline.accept}
+                    startDelay={1.3}
+                    className="ml-[0.18em] inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
+                  />
+                </motion.span>
+              </AnimatePresence>
             </h1>
           </motion.div>
 

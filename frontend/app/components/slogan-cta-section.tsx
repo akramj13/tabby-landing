@@ -18,6 +18,15 @@ export function SloganCtaSection() {
   return (
     <section className="relative overflow-hidden rounded-4xl border-2 border-line bg-surface-2 px-6 py-14 shadow-[0_11.8px_0_var(--line)] sm:px-10 sm:py-20">
       <PawMark className="pointer-events-none absolute right-8 top-7 z-10 w-12 -rotate-12 text-ink/80 sm:w-14" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <PawMark className="absolute left-[3%] top-8 w-9 rotate-[16deg] text-ink/15 sm:w-11" />
+        <PawMark className="absolute left-[18%] bottom-9 w-7 -rotate-[22deg] text-ink/12 sm:w-9" />
+        <PawMark className="absolute left-[33%] top-10 w-6 rotate-[8deg] text-ink/12 sm:w-8" />
+        <PawMark className="absolute left-[47%] bottom-6 w-8 rotate-[28deg] text-ink/15 sm:w-10" />
+        <PawMark className="absolute left-[61%] top-9 w-6 -rotate-[12deg] text-ink/12 sm:w-8" />
+        <PawMark className="absolute left-[74%] bottom-10 w-9 rotate-[18deg] text-ink/15 sm:w-11" />
+        <PawMark className="absolute left-[88%] top-12 w-7 -rotate-[24deg] text-ink/13 sm:w-9" />
+      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.05]"

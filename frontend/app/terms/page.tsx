@@ -5,7 +5,7 @@ import { GITHUB_URL, SUPPORT_EMAIL } from "../lib/site";
 export const metadata: Metadata = {
   title: "Terms of Service - Cotabby",
   description:
-    "Terms of service for Cotabby - on-device AI autocomplete for macOS.",
+    "Terms of service for Cotabby - local AI autocomplete for macOS.",
 };
 
 export default function TermsPage() {
@@ -26,7 +26,7 @@ export default function TermsPage() {
         Description of service
       </h2>
       <p>
-        Cotabby is a macOS menu bar application that provides on-device AI
+        Cotabby is a macOS menu bar application that provides local AI
         autocomplete across text fields. It uses local language models to
         generate inline suggestions that appear as ghost text near your cursor.
         All inference runs on your Mac - no text is sent to external servers.

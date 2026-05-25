@@ -106,7 +106,7 @@ function DataFlowVisual() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-moss opacity-60" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss" />
           </span>
-          on-device
+          local
         </span>
       </motion.div>
 
@@ -126,7 +126,7 @@ function DataFlowVisual() {
 
           <FlowNode accent>
             <span className="text-[0.7rem] font-bold tracking-widest uppercase opacity-50">Cotabby</span>
-            <span className="mt-1 text-sm font-bold tracking-tight">on-device engine</span>
+            <span className="mt-1 text-sm font-bold tracking-tight">local engine</span>
           </FlowNode>
 
           <Arrow />
@@ -173,9 +173,9 @@ export function PrivacySection() {
 
           <FadeIn delay={0.1}>
             <p className="max-w-xl text-base leading-relaxed tracking-tight text-muted sm:text-lg">
-              Cotabby runs through on-device engines on your Mac, whether that is
+              Cotabby runs through local engines on your Mac, whether that is
               Apple Intelligence or a local GGUF model. Every keystroke and
-              suggestion stays on-device, with no required hosted API, no
+              suggestion stays local, with no required hosted API, no
               sign-up, and no background uploads.
             </p>
           </FadeIn>
@@ -183,7 +183,7 @@ export function PrivacySection() {
           <Stagger stagger={0.1} className="grid gap-3">
             <StaggerItem>
               <Pillar
-                label="On-device inference"
+                label="Local inference"
                 description="Use Apple Intelligence or a local GGUF model, with no cloud round-trip required."
               />
             </StaggerItem>

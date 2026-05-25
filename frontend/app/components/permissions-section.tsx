@@ -52,18 +52,12 @@ function PermissionCard({ permission }: { permission: Permission }) {
         <h3 className="mt-5 text-[1.6rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.85rem]">
           {permission.title}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed tracking-tight text-muted sm:text-base">
+        <p className="mt-3 mb-5 text-sm leading-relaxed tracking-tight text-muted sm:text-base">
           {permission.description}
         </p>
-        <div className="mt-auto flex items-start gap-2.5 border-t-2 border-line-soft pt-5">
+        <div className="mt-auto flex items-start gap-3 rounded-2xl border-2 border-line-soft bg-surface-3 p-4">
           <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-moss text-background">
-            <svg viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
-              <path
-                fillRule="evenodd"
-                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-6.5 6.5a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l2.47 2.47 5.97-5.97a.75.75 0 0 1 1.06 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <Check className="h-3.5 w-3.5" strokeWidth={3} />
           </span>
           <p className="text-sm font-medium leading-relaxed tracking-tight text-ink/85">
             {permission.stays}

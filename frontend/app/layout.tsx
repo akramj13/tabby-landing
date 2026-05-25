@@ -16,9 +16,9 @@ const displayFont = Bricolage_Grotesque({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const title = "Cotabby - on-device AI autocomplete for macOS";
+const title = "Cotabby - local AI autocomplete for macOS";
 const description =
-  "On-device AI autocomplete for macOS text fields. Use Apple Intelligence or local GGUF models, accept inline suggestions with Tab, and keep every token on your Mac.";
+  "Local AI autocomplete for macOS text fields. Use Apple Intelligence or local GGUF models, accept inline suggestions with Tab, and keep every token on your Mac.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "local AI autocomplete",
     "Apple Intelligence autocomplete",
     "GGUF autocomplete",
-    "on-device AI Mac",
+    "local AI Mac",
   ],
   authors: [{ name: CREATOR.name, url: CREATOR.linkedin }],
   creator: CREATOR.name,
