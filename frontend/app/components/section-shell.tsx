@@ -14,14 +14,6 @@ export function SectionShell({ children, className }: SectionShellProps) {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-28 -top-28 h-104 w-104 rounded-full bg-accent-soft/60 blur-[100px] sm:h-136 sm:w-136 lg:-right-36 lg:-top-36"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-36 -left-28 h-104 w-104 rounded-full bg-moss/25 blur-[100px] sm:h-136 sm:w-136 lg:-bottom-44 lg:-left-36"
-      />
-      <div
-        aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:

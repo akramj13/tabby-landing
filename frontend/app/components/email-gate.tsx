@@ -75,7 +75,7 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
             aria-label="Close modal"
           />
 
-          <div className="relative w-full max-w-md rounded-3xl border-2 border-line bg-background p-8 shadow-[0_8px_0_var(--line)]">
+          <div className="relative w-full max-w-md rounded-3xl border-2 border-line bg-surface p-8 shadow-[0_13.4px_0_var(--line)]">
             <button
               type="button"
               onClick={() => setIsOpen(false)}

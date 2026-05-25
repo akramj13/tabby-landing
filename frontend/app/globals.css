@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfaf7;
-  --foreground: #0a0a0a;
-  --muted-foreground: #3d3d3d;
-  --subtle-foreground: #6f6f6f;
-  --surface-1: #f7f5ef;
-  --surface-2: #f9f7f1;
-  --surface-3: #f2eedf;
-  --surface-4: #ece7d2;
-  --line: #0a0a0a;
-  --line-soft: rgba(10, 10, 10, 0.12);
-  --accent: #2b7fff;
-  --accent-soft: #cfe2ff;
-  --accent-deep: #1857c4;
-  --moss: #8eae82;
-  --button-primary: #0a0a0a;
-  --button-primary-hover: #1f1f1f;
-  --button-text: #faf8f3;
-  --shadow-shell: 0 7px 0 var(--line);
-  --shadow-card: 0 4px 0 var(--line);
+  --background: #f1e8d4;
+  --foreground: #1c1c1c;
+  --muted-foreground: #4a4a4a;
+  --subtle-foreground: #7a7a7a;
+  --surface-1: #faf7f0;
+  --surface-2: #faf7f0;
+  --surface-3: #f3ecdc;
+  --surface-4: #ebe1cc;
+  --line: #1c1c1c;
+  --line-soft: rgba(28, 28, 28, 0.12);
+  --accent: #ff8273;
+  --accent-soft: #ffd6cf;
+  --accent-deep: #f56a59;
+  --moss: #aec6cf;
+  --button-primary: #1c1c1c;
+  --button-primary-hover: #000000;
+  --button-text: #f9f6f0;
+  --shadow-shell: 0 11.8px 0 var(--line);
+  --shadow-card: 0 6.7px 0 var(--line);
 }
 
 @theme inline {
@@ -82,7 +82,7 @@ a {
 }
 
 ::selection {
-  background: rgba(43, 127, 255, 0.24);
+  background: rgba(255, 130, 115, 0.28);
   color: var(--foreground);
 }
 
@@ -119,14 +119,14 @@ a {
 .tabby-chip {
   border: 2px solid var(--line);
   background: var(--surface-2);
-  box-shadow: 0 3px 0 var(--line);
+  box-shadow: 0 5px 0 var(--line);
 }
 
 .tabby-button {
   position: relative;
   overflow: hidden;
   border: 2px solid var(--line);
-  box-shadow: 0 4px 0 var(--line);
+  box-shadow: 0 6.7px 0 var(--line);
   transform: translate3d(0, 0, 0);
   transition:
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -161,7 +161,7 @@ a {
 @media (hover: hover) {
   .tabby-button:hover {
     transform: translate3d(0, 2px, 0) scale(0.985);
-    box-shadow: 0 2px 0 var(--line);
+    box-shadow: 0 3.4px 0 var(--line);
   }
 
   .tabby-button:hover::after {
@@ -171,7 +171,7 @@ a {
 
 .tabby-button:active {
   transform: translate3d(0, 3px, 0) scale(0.98);
-  box-shadow: 0 1px 0 var(--line);
+  box-shadow: 0 1.7px 0 var(--line);
 }
 
 .tabby-button:focus-visible {
@@ -180,12 +180,12 @@ a {
 }
 
 .tabby-button-secondary {
-  background: var(--surface-3);
+  background: #ffdd00;
   color: var(--foreground);
 }
 
 .tabby-button-secondary:hover {
-  background: var(--surface-4);
+  background: #f2d000;
 }
 
 .tabby-button-primary {

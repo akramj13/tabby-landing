@@ -24,7 +24,7 @@ function Avatar({ initials, tone }: AvatarProps) {
         : "bg-surface-4";
   return (
     <div
-      className={`flex h-10 w-10 items-center justify-center rounded-[0.9rem] border-2 border-line text-ink shadow-[0_2px_0_var(--line)] ${bg}`}
+      className={`flex h-10 w-10 items-center justify-center rounded-[0.9rem] border-2 border-line text-ink shadow-[0_3.4px_0_var(--line)] ${bg}`}
     >
       <span className="text-sm font-bold tracking-tight">{initials}</span>
     </div>
@@ -59,7 +59,7 @@ function ReviewCard({
   return (
     <HoverLift lift={4} className="h-full">
       <article
-        className={`relative flex h-full flex-col rounded-[1.3rem] border-2 border-line p-6 shadow-[0_5px_0_var(--line)] sm:p-7 ${surfaceClass} ${className}`}
+        className={`relative flex h-full flex-col rounded-[1.3rem] border-2 border-line p-6 shadow-[0_8.4px_0_var(--line)] sm:p-7 ${surfaceClass} ${className}`}
       >
         {showBig && (
           <span

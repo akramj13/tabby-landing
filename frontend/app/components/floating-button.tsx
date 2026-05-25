@@ -8,7 +8,7 @@ const floatingActionClass =
   "tabby-button tabby-button-primary inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight sm:h-14 sm:px-7";
 
 const bmcClass =
-  "inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border-2 border-line bg-[#FFDD00] px-4 text-sm font-bold tracking-tight text-[#000000] shadow-[0_3px_0_var(--line)] transition-colors hover:bg-[#FFDD00]/85 sm:h-11 sm:px-5 sm:text-base";
+  "inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border-2 border-line bg-[#FFDD00] px-4 text-sm font-bold tracking-tight text-[#000000] shadow-[0_5px_0_var(--line)] transition-colors hover:bg-[#FFDD00]/85 sm:h-11 sm:px-5 sm:text-base";
 
 export const FloatingButton = () => {
   const [isVisible, setIsVisible] = useState(false);

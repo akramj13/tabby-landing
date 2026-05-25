@@ -93,7 +93,7 @@ function VideoBlock({ className = "", label, start, end }: VideoBlockProps) {
   return (
     <div
       aria-label={`${label} demo video`}
-      className={`relative aspect-video w-full overflow-hidden rounded-[1.35rem] border-2 border-line bg-background shadow-[0_7px_0_var(--line)] ${className}`}
+      className={`relative aspect-video w-full overflow-hidden rounded-[1.35rem] border-2 border-line bg-surface shadow-[0_11.8px_0_var(--line)] ${className}`}
     >
       <SegmentPlayer start={start} end={end} />
       <div className="absolute inset-0 z-10" />
@@ -135,7 +135,7 @@ function SectionHeadline({
   return (
     <div className={align === "right" ? "md:flex md:justify-end" : ""}>
       <div className="inline-flex items-center gap-4">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[0.85rem] border-2 border-line bg-surface-2 shadow-[0_3px_0_var(--line)] sm:h-14 sm:w-14">
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[0.85rem] border-2 border-line bg-surface-2 shadow-[0_5px_0_var(--line)] sm:h-14 sm:w-14">
           <Image
             src={icon}
             alt=""

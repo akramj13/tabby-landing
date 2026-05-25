@@ -1,5 +1,6 @@
 "use client";
 
+import { Accessibility, Check, Keyboard, ScanLine, type LucideIcon } from "lucide-react";
 import {
   FadeIn,
   HoverLift,
@@ -10,8 +11,7 @@ import {
 } from "./motion";
 
 type Permission = {
-  eyebrow: string;
-  icon: "accessibility" | "input" | "screen";
+  icon: LucideIcon;
   title: string;
   description: string;
   stays: string;
@@ -19,98 +19,55 @@ type Permission = {
 
 const permissions: Permission[] = [
   {
-    eyebrow: "accessibility",
-    icon: "accessibility",
+    icon: Accessibility,
     title: "reads text fields",
     description:
-      "Reads the focused text field, caret position, and surrounding text via the macOS Accessibility API to place suggestions.",
-    stays: "Text content is processed in-memory and never written to disk or sent anywhere.",
+      "Reads the focused field, caret position, and nearby text through the macOS Accessibility API to place suggestions.",
+    stays: "Processed in memory, never written to disk or sent anywhere.",
   },
   {
-    eyebrow: "input monitoring",
-    icon: "input",
+    icon: Keyboard,
     title: "detects your typing",
     description:
-      "Monitors keyboard events to detect typing activity and Tab presses for accepting suggestions. Keys are categorized, never logged.",
-    stays: "Keystrokes are categorized but never logged, stored, or transmitted.",
+      "Watches keyboard events to detect typing and Tab presses for accepting suggestions.",
+    stays: "Categorized as you type, never logged, stored, or transmitted.",
   },
   {
-    eyebrow: "screen recording",
-    icon: "screen",
+    icon: ScanLine,
     title: "captures visual context",
     description:
-      "Captures a small region around the focused text field via ScreenCaptureKit so the model can read formatting and context.",
-    stays: "Screenshots are processed locally in real-time and immediately discarded.",
+      "Captures a small region around the focused field via ScreenCaptureKit so the model can read layout and context.",
+    stays: "Read locally in real time, discarded the instant it's used.",
   },
 ];
 
-function PermissionIcon({ type }: { type: Permission["icon"] }) {
-  if (type === "accessibility") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="8" r="1.5" fill="currentColor" stroke="none" />
-        <path d="M8 13.5L12 11l4 2.5" />
-        <path d="M9.5 18l1.5-4h2l1.5 4" />
-      </svg>
-    );
-  }
-  if (type === "input") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-        <path d="M6 10h0" />
-        <path d="M10 10h0" />
-        <path d="M14 10h0" />
-        <path d="M18 10h0" />
-        <path d="M8 14h8" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-      <rect x="2" y="3" width="20" height="14" rx="2" />
-      <path d="M8 21h8" />
-      <path d="M12 17v4" />
-    </svg>
-  );
-}
-
 function PermissionCard({ permission }: { permission: Permission }) {
+  const Icon = permission.icon;
   return (
     <HoverLift lift={5} className="h-full">
-      <article className="tabby-panel-soft flex h-full min-h-96 flex-col gap-4 rounded-[1.55rem] p-6 sm:min-h-100 sm:p-7">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-line bg-surface-3 text-ink shadow-[0_2px_0_var(--line)]">
-            <PermissionIcon type={permission.icon} />
-          </div>
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-moss sm:text-[0.75rem]">
-            {permission.eyebrow}
-          </p>
+      <article className="tabby-panel-soft flex h-full flex-col rounded-[1.55rem] p-6 sm:p-7">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-line bg-surface-3 text-ink shadow-[0_3.4px_0_var(--line)]">
+          <Icon className="h-6 w-6" strokeWidth={2} />
         </div>
-        <h3 className="text-[1.65rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.9rem]">
+        <h3 className="mt-5 text-[1.6rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.85rem]">
           {permission.title}
         </h3>
-        <p className="max-w-md text-sm leading-relaxed tracking-tight text-muted sm:text-base">
+        <p className="mt-3 text-sm leading-relaxed tracking-tight text-muted sm:text-base">
           {permission.description}
         </p>
-        <div className="mt-auto rounded-[1.2rem] border-2 border-line bg-surface-2 p-4 shadow-[0_3px_0_var(--line)]">
-          <div className="flex items-center gap-2">
-            <svg
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="h-4 w-4 shrink-0 text-moss"
-            >
+        <div className="mt-auto flex items-start gap-2.5 border-t-2 border-line-soft pt-5">
+          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-moss text-background">
+            <svg viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
               <path
                 fillRule="evenodd"
-                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z"
+                d="M13.78 4.22a.75.75 0 0 1 0 1.06l-6.5 6.5a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l2.47 2.47 5.97-5.97a.75.75 0 0 1 1.06 0Z"
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-sm leading-relaxed tracking-tight text-muted">
-              {permission.stays}
-            </p>
-          </div>
+          </span>
+          <p className="text-sm font-medium leading-relaxed tracking-tight text-ink/85">
+            {permission.stays}
+          </p>
         </div>
       </article>
     </HoverLift>
@@ -132,10 +89,10 @@ export function PermissionsSection() {
         </p>
       </FadeIn>
 
-      <Stagger stagger={0.12} className="mt-12 grid gap-6 lg:grid-cols-3">
+      <Stagger stagger={0.12} className="mt-14 grid items-stretch gap-8 lg:grid-cols-3">
         {permissions.map((p, i) => (
-          <StaggerItem key={p.eyebrow}>
-            <ScaleIn delay={i * 0.08}>
+          <StaggerItem key={p.title} className="h-full">
+            <ScaleIn delay={i * 0.08} className="h-full">
               <PermissionCard permission={p} />
             </ScaleIn>
           </StaggerItem>

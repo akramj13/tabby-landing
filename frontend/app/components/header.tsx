@@ -13,6 +13,7 @@ const textLinks = [
   { href: "#how-it-works", label: "how it works" },
   { href: "#privacy", label: "privacy" },
   { href: "#faq", label: "faq" },
+  { href: "/feedback", label: "report bug" },
 ] as const;
 
 const secondaryActionClass =
@@ -53,17 +54,17 @@ export function Header() {
           <Link
             href="#top"
             onClick={(event) => scrollToAnchor(event, "#top")}
-            className="flex items-center gap-3"
+            className="group flex items-center gap-3"
           >
             <Image
               src="/app-icons/new-logo.png"
               alt="Cotabby logo"
               width={48}
               height={48}
-              className="h-11 w-11 rounded-[0.95rem] border-2 border-line bg-surface-2 shadow-[0_3px_0_var(--line)]"
+              className="h-11 w-11 rounded-[0.95rem] border-2 border-line bg-surface-2 shadow-[0_5px_0_var(--line)]"
             />
             <span className="flex h-11 items-center gap-2">
-              <span className="tabby-display text-[2.5rem] leading-[0.88] tracking-tight text-ink sm:text-[3rem]">
+              <span className="tabby-display text-[2.5rem] leading-[0.88] tracking-tight text-ink underline-offset-[8px] decoration-accent decoration-[3px] group-hover:underline sm:text-[3rem]">
                 Cotabby
               </span>
               <span className="text-[0.65rem] font-semibold uppercase leading-none tracking-widest text-ink/40">
@@ -81,7 +82,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(event) => scrollToAnchor(event, link.href)}
-                className="tabby-link text-sm font-bold tracking-tight transition hover:text-ink sm:text-base"
+                className="tabby-link text-sm font-bold tracking-tight underline-offset-[6px] decoration-accent decoration-2 transition hover:text-ink hover:underline sm:text-base"
               >
                 {link.label}
               </Link>

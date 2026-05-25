@@ -5,7 +5,8 @@ import { GITHUB_URL } from "../lib/site";
 import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
-import { FadeIn, ParallaxY, ScaleIn, WordReveal } from "./motion";
+import { PawMark } from "./paw-mark";
+import { FadeIn, ScaleIn, WordReveal } from "./motion";
 
 const primaryActionClass =
   "tabby-button tabby-button-primary inline-flex h-14 min-w-[260px] items-center justify-center gap-3 rounded-2xl px-8 text-[1.15rem] font-bold leading-none tracking-tight sm:h-16 sm:min-w-[320px] sm:text-[1.4rem]";
@@ -15,7 +16,8 @@ const secondaryActionClass =
 
 export function SloganCtaSection() {
   return (
-    <section className="relative overflow-hidden rounded-4xl border-2 border-line bg-surface-2 px-6 py-14 shadow-[0_7px_0_var(--line)] sm:px-10 sm:py-20">
+    <section className="relative overflow-hidden rounded-4xl border-2 border-line bg-surface-2 px-6 py-14 shadow-[0_11.8px_0_var(--line)] sm:px-10 sm:py-20">
+      <PawMark className="pointer-events-none absolute right-8 top-7 z-10 w-12 -rotate-12 text-ink/80 sm:w-14" />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -25,19 +27,6 @@ export function SloganCtaSection() {
           backgroundSize: "20px 20px",
         }}
       />
-      <ParallaxY
-        strength={30}
-        className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent-soft/50 blur-3xl"
-      >
-        <div />
-      </ParallaxY>
-      <ParallaxY
-        strength={-40}
-        className="pointer-events-none absolute -bottom-20 -left-16 h-72 w-72 rounded-full bg-moss/25 blur-3xl"
-      >
-        <div />
-      </ParallaxY>
-
       <div className="relative z-10 flex flex-col items-center gap-7 text-center">
         <WordReveal
           as="h2"

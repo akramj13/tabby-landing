@@ -36,7 +36,7 @@ const stepCardVariants: Variants = {
 function InstallVisual() {
   return (
     <div className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4">
-      <div className="flex items-center justify-between gap-3 rounded-[0.8rem] border-2 border-line bg-background px-4 py-3 shadow-[0_3px_0_var(--line)]">
+      <div className="flex items-center justify-between gap-3 rounded-[0.8rem] border-2 border-line bg-background px-4 py-3 shadow-[0_5px_0_var(--line)]">
         <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-subtle">
             macOS install
@@ -45,7 +45,7 @@ function InstallVisual() {
             Download the .dmg
           </p>
         </div>
-        <span className="inline-flex items-center rounded-[0.55rem] border-2 border-line bg-accent/15 px-3 py-1.5 text-xs font-bold tracking-tight text-ink shadow-[0_2px_0_var(--line)]">
+        <span className="inline-flex items-center rounded-[0.55rem] border-2 border-line bg-accent/15 px-3 py-1.5 text-xs font-bold tracking-tight text-ink shadow-[0_3.4px_0_var(--line)]">
           drag to Applications
         </span>
       </div>
@@ -81,7 +81,7 @@ function TypeAnywhereVisual() {
               transition: { duration: 0.42, ease: EASE },
             },
           }}
-          className="inline-flex items-center rounded-[0.7rem] border-2 border-line bg-surface-2 px-3 py-1.5 text-xs font-semibold tracking-tight text-ink shadow-[0_2px_0_var(--line)] sm:text-sm"
+          className="inline-flex items-center rounded-[0.7rem] border-2 border-line bg-surface-2 px-3 py-1.5 text-xs font-semibold tracking-tight text-ink shadow-[0_3.4px_0_var(--line)] sm:text-sm"
         >
           {app}
         </motion.span>

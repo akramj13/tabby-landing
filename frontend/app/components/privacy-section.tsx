@@ -31,7 +31,7 @@ type PillarProps = {
 
 function Pillar({ label, description }: PillarProps) {
   return (
-    <div className="flex gap-4 rounded-[1.1rem] border-2 border-line bg-surface-2 p-5 shadow-[0_3px_0_var(--line)]">
+    <div className="flex gap-4 rounded-[1.1rem] border-2 border-line bg-surface-2 p-5 shadow-[0_5px_0_var(--line)]">
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-line bg-accent/15 text-ink">
         <svg
           width="16"
@@ -69,7 +69,7 @@ function Arrow() {
 
 function FlowNode({ children, accent = false }: { children: React.ReactNode; accent?: boolean }) {
   return (
-    <div className={`flex flex-col items-center justify-center rounded-2xl border-2 border-line px-4 py-3.5 text-center shadow-[0_3px_0_var(--line)] ${accent ? "bg-ink text-background" : "bg-surface-2 text-ink"}`}>
+    <div className={`flex flex-col items-center justify-center rounded-2xl border-2 border-line px-4 py-3.5 text-center shadow-[0_5px_0_var(--line)] ${accent ? "bg-ink text-background" : "bg-surface-2 text-ink"}`}>
       {children}
     </div>
   );
@@ -96,7 +96,7 @@ function DataFlowVisual() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.35 }}
       variants={flowContainer}
-      className="overflow-hidden rounded-[1.7rem] border-2 border-line bg-surface-3 p-6 shadow-[0_5px_0_var(--line)] sm:p-8"
+      className="overflow-hidden rounded-[1.7rem] border-2 border-line bg-surface-3 p-6 shadow-[0_8.4px_0_var(--line)] sm:p-8"
     >
       {/* Header */}
       <motion.div variants={flowItem} className="mb-6 flex items-center justify-between">

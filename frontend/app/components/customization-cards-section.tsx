@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { Cpu, SlidersHorizontal, Sparkles, type LucideIcon } from "lucide-react";
 import {
   FadeIn,
   HoverLift,
@@ -12,25 +13,24 @@ import {
 } from "./motion";
 
 type CustomItemProps = {
-  eyebrow: string;
+  icon: LucideIcon;
   title: string;
   description: string;
   preview: ReactNode;
 };
 
-function CustomItem({ eyebrow, title, description, preview }: CustomItemProps) {
+function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps) {
   return (
     <HoverLift lift={5} className="h-full">
       <article className="tabby-panel-soft flex h-full min-h-124 flex-col gap-4 rounded-[1.55rem] p-6 sm:min-h-128 sm:p-7">
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-moss sm:text-[0.75rem]">
-            {eyebrow}
-          </p>
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-line bg-surface-3 text-ink shadow-[0_3.4px_0_var(--line)]">
+            <Icon className="h-5 w-5" strokeWidth={2} />
+          </div>
+          <h3 className="text-[1.65rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.9rem]">
+            {title}
+          </h3>
         </div>
-        <h3 className="text-[1.65rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.9rem]">
-          {title}
-        </h3>
         <p className="min-h-23 max-w-md text-sm leading-relaxed tracking-tight text-muted sm:min-h-24 sm:text-base">
           {description}
         </p>
@@ -42,40 +42,43 @@ function CustomItem({ eyebrow, title, description, preview }: CustomItemProps) {
 
 function ModelsPreview() {
   const models = [
-    { name: "cotabby-fast-1", note: "~0.4 GB · speed-optimized", active: true },
+    { name: "cotabby-swift-1", note: "~0.4 GB · speed-optimized", active: true },
+    { name: "cotabby-swift-pro-1", note: "~0.6 GB · faster, sharper", active: false },
     { name: "cotabby-balanced-1", note: "~0.8 GB · higher quality", active: false },
+    { name: "cotabby-careful-1", note: "~1.1 GB · most accurate", active: false },
   ];
   return (
-    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-4 shadow-[0_3px_0_var(--line)]">
-      <div className="space-y-2.5">
-        {models.map((m) => (
-          <div
-            key={m.name}
-            className={`flex items-center justify-between gap-3 rounded-[0.7rem] border-2 px-3 py-2 ${
-              m.active
-                ? "border-line bg-accent/15 shadow-[0_2px_0_var(--line)]"
-                : "border-line-soft bg-background"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <span
-                className={`h-2 w-2 rounded-full ${m.active ? "bg-accent" : "bg-subtle-foreground/40"}`}
-              />
-              <span className="text-sm font-bold tracking-tight text-ink">
-                {m.name}
-              </span>
-            </div>
-            <span className="text-xs tracking-tight text-subtle">{m.note}</span>
+    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-2 shadow-[0_5px_0_var(--line)]">
+      {models.map((m) => (
+        <div
+          key={m.name}
+          className={`flex items-center gap-3 rounded-[0.85rem] px-3 py-2.5 ${
+            m.active ? "bg-accent/15" : ""
+          }`}
+        >
+          <span
+            className={`h-2 w-2 shrink-0 rounded-full ${m.active ? "bg-accent" : "bg-subtle-foreground/40"}`}
+          />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-bold tracking-tight text-ink">
+              {m.name}
+            </p>
+            <p className="text-xs tracking-tight text-subtle">{m.note}</p>
           </div>
-        ))}
-      </div>
+          {m.active && (
+            <span className="shrink-0 rounded-full bg-accent/20 px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-accent-deep">
+              active
+            </span>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
 
 function LengthPreview() {
   return (
-    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_3px_0_var(--line)]">
+    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_5px_0_var(--line)]">
       <div className="flex items-center justify-between text-xs font-bold tracking-[0.12em] uppercase text-muted">
         <span>3-7 words</span>
         <span className="text-ink">7-12 words</span>
@@ -94,7 +97,7 @@ function LengthPreview() {
           whileInView={{ left: "55%" }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-line bg-background shadow-[0_2px_0_var(--line)]"
+          className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-line bg-background shadow-[0_3.4px_0_var(--line)]"
         />
       </div>
       <p className="mt-4 text-sm leading-relaxed tracking-tight text-subtle">
@@ -108,15 +111,15 @@ function LengthPreview() {
 function PersonalizationPreview() {
   const signals = ["writing style", "memory", "adapts over time"];
   return (
-    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_3px_0_var(--line)]">
+    <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_5px_0_var(--line)]">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center rounded-full border-2 border-line bg-moss/15 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink shadow-[0_2px_0_var(--line)]">
+        <span className="inline-flex items-center rounded-full border-2 border-line bg-moss/15 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink shadow-[0_3.4px_0_var(--line)]">
           coming soon
         </span>
         {signals.map((signal, i) => (
           <span
             key={signal}
-            className={`inline-flex items-center rounded-full border-2 border-line px-3 py-1 text-xs font-bold tracking-tight shadow-[0_2px_0_var(--line)] ${
+            className={`inline-flex items-center rounded-full border-2 border-line px-3 py-1 text-xs font-bold tracking-tight shadow-[0_3.4px_0_var(--line)] ${
               i === 0 ? "bg-accent/20 text-ink" : "bg-background text-muted"
             }`}
           >
@@ -152,9 +155,9 @@ export function CustomizationCardsSection() {
         <StaggerItem>
           <ScaleIn>
             <CustomItem
-              eyebrow="models"
+              icon={Cpu}
               title="choose your model"
-              description="Two built-in models ship with tabby. Pick fast for speed, or balanced when you want sharper suggestions. You can also drop in your own GGUF."
+              description="Four built-in models ship with Cotabby. Pick swift for speed, or careful when you want sharper suggestions. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>
@@ -162,7 +165,7 @@ export function CustomizationCardsSection() {
         <StaggerItem>
           <ScaleIn delay={0.08}>
             <CustomItem
-              eyebrow="length"
+              icon={SlidersHorizontal}
               title="short or long"
               description="Three presets control how many words Cotabby suggests at a time. Default is 7-12 - enough to finish your thought, not enough to take over."
               preview={<LengthPreview />}
@@ -172,7 +175,7 @@ export function CustomizationCardsSection() {
         <StaggerItem>
           <ScaleIn delay={0.16}>
             <CustomItem
-              eyebrow="ai personalization"
+              icon={Sparkles}
               title="learns your voice"
               description="Coming soon: Cotabby will adapt to how you naturally write, keep lightweight memory over time, and make suggestions feel more like you."
               preview={<PersonalizationPreview />}

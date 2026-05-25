@@ -14,6 +14,7 @@ import { SloganCtaSection } from "./components/slogan-cta-section";
 import { StatsStripSection } from "./components/stats-strip-section";
 import { StructuredData } from "./components/structured-data";
 import { FloatingButton } from "./components/floating-button";
+import Image from "next/image";
 export default function Home() {
   return (
     <div
@@ -25,9 +26,9 @@ export default function Home() {
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           backgroundImage: `
-            linear-gradient(90deg, rgba(14,42,71,0.22) 1px, transparent 0),
-            linear-gradient(180deg, rgba(14,42,71,0.22) 1px, transparent 0),
-            repeating-linear-gradient(45deg, rgba(108,184,230,0.22) 0 2px, transparent 2px 6px)
+            linear-gradient(90deg, rgba(28,28,28,0.10) 1px, transparent 0),
+            linear-gradient(180deg, rgba(28,28,28,0.10) 1px, transparent 0),
+            repeating-linear-gradient(45deg, rgba(255,130,115,0.14) 0 2px, transparent 2px 6px)
           `,
           backgroundSize: "96px 96px, 96px 96px, 96px 96px",
         }}
@@ -36,10 +37,21 @@ export default function Home() {
       <ScrollProgressBar />
       <FloatingButton />
       <div className="relative z-10 mx-auto flex w-full max-w-340 flex-col gap-16 sm:gap-20 lg:gap-24">
-        <SectionShell>
-          <Header />
-          <Hero />
-        </SectionShell>
+        <div className="relative">
+          <SectionShell>
+            <Header />
+            <Hero />
+          </SectionShell>
+          <Image
+            src="/app-icons/cat-sleep.svg"
+            alt=""
+            aria-hidden="true"
+            width={675}
+            height={600}
+            priority
+            className="pointer-events-none absolute bottom-0 right-4 z-20 w-40 translate-y-[52%] sm:right-10 sm:w-60 sm:translate-y-[55%] lg:right-16 lg:w-[24rem] lg:translate-y-[55%]"
+          />
+        </div>
 
         <section className="px-6 sm:px-8 lg:px-10">
           <StatsStripSection />

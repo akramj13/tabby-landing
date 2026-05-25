@@ -41,8 +41,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Card({ title, description, Icon }: CardProps) {
   return (
-    <div className="flex h-full flex-col rounded-[1.25rem] border-2 border-line bg-background px-5 py-6 shadow-[0_4px_0_var(--line)] sm:px-6">
-      <div className="flex h-13 w-13 items-center justify-center rounded-[1rem] border-2 border-line bg-accent-soft text-ink shadow-[0_3px_0_var(--line)] sm:h-14 sm:w-14">
+    <div className="flex h-full flex-col rounded-[1.25rem] border-2 border-line bg-surface px-5 py-6 shadow-[0_6.7px_0_var(--line)] sm:px-6">
+      <div className="flex h-13 w-13 items-center justify-center rounded-[1rem] border-2 border-line bg-accent-soft text-ink shadow-[0_5px_0_var(--line)] sm:h-14 sm:w-14">
         <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
       </div>
       <div className="tabby-display mt-5 text-[1.75rem] leading-[1.05] tracking-tight text-ink sm:text-[2.1rem]">
