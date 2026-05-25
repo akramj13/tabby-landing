@@ -1,6 +1,6 @@
 // Single source of truth for site-wide constants.
 
-export const SITE_URL = "https://tabby.app"; // TODO: replace with real domain
+export const SITE_URL = "https://cotabby.app";
 export const GITHUB_URL = "https://github.com/FuJacob/cotabby";
 export const DOWNLOAD_URL = "https://github.com/FuJacob/cotabby/releases/latest/download/cotabby.dmg";
 

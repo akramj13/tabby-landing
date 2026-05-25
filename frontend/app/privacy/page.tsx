@@ -89,7 +89,7 @@ export default function PrivacyPage() {
             Sparkle
           </a>{" "}
           to check for app updates from{" "}
-          <span className="font-bold">updates.tabbyapp.dev</span>. Automatic
+          <span className="font-bold">updates.cotabby.app</span>. Automatic
           update checks are disabled by default.
         </li>
         <li>
