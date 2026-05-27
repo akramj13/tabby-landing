@@ -159,9 +159,9 @@ export function Hero() {
               rel="noopener noreferrer"
               className="group font-semibold"
               style={{
-                color: "#ec4899",
+                  color: "#ffffff",
                 textDecorationLine: "underline",
-                textDecorationColor: "#1c1c1c",
+                  textDecorationColor: "#ec4899",
                 textDecorationThickness: "1px",
                 textUnderlineOffset: "2px",
               }}
