@@ -7,7 +7,7 @@ import { AppleIcon, DiscordIcon, GithubIcon, LinkedInIcon, XIcon } from "./icons
 import { FadeIn } from "./motion";
 
 const footerPrimaryActionClass =
-  "tabby-button tabby-button-primary inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[1rem] font-bold leading-none tracking-tight sm:h-14 sm:text-[1.2rem]";
+  "tabby-button tabby-button-blue inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[1rem] font-bold leading-none tracking-tight sm:h-14 sm:text-[1.2rem]";
 
 const footerSecondaryActionClass =
   "tabby-button tabby-button-secondary inline-flex h-14 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[1rem] font-bold leading-none tracking-tight sm:text-[1.2rem]";

@@ -9,7 +9,7 @@ import { PawMark } from "./paw-mark";
 import { FadeIn, ScaleIn, WordReveal } from "./motion";
 
 const primaryActionClass =
-  "tabby-button tabby-button-primary inline-flex h-14 min-w-[260px] items-center justify-center gap-3 rounded-2xl px-8 text-[1.15rem] font-bold leading-none tracking-tight sm:h-16 sm:min-w-[320px] sm:text-[1.4rem]";
+  "tabby-button tabby-button-blue inline-flex h-14 min-w-[260px] items-center justify-center gap-3 rounded-2xl px-8 text-[1.15rem] font-bold leading-none tracking-tight sm:h-16 sm:min-w-[320px] sm:text-[1.4rem]";
 
 const secondaryActionClass =
   "tabby-button tabby-button-secondary inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[1.05rem] font-bold leading-none tracking-tight sm:h-16 sm:text-[1.2rem]";

@@ -1,9 +1,18 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { submitFeedback } from "./action";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { createScreenshotUploadUrls, submitFeedback } from "./action";
+import { getSupabase } from "../lib/supabase";
+import {
+  ALLOWED_IMAGE_TYPES,
+  FEEDBACK_BUCKET,
+  MAX_SCREENSHOTS,
+  MAX_SCREENSHOT_BYTES,
+} from "../lib/feedback";
 
 type FeedbackType = "bug" | "feature";
+
+type Screenshot = { file: File; previewUrl: string };
 
 const inputClass =
   "w-full rounded-xl border-2 border-line-soft bg-surface-2 px-4 py-3 text-sm font-semibold tracking-tight text-ink placeholder:text-subtle/60 transition focus:border-line focus:outline-none sm:text-base";
@@ -13,15 +22,108 @@ const textareaClass = `${inputClass} min-h-28 resize-y`;
 export function FeedbackForm() {
   const [type, setType] = useState<FeedbackType>("bug");
   const [pending, startTransition] = useTransition();
+  const [phase, setPhase] = useState<"idle" | "uploading" | "submitting">(
+    "idle",
+  );
+  const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [result, setResult] = useState<{
     success: boolean;
     message: string;
     issueUrl?: string;
   } | null>(null);
 
+  // Revoke any leftover object URLs when the form unmounts.
+  const screenshotsRef = useRef(screenshots);
+  useEffect(() => {
+    screenshotsRef.current = screenshots;
+  }, [screenshots]);
+  useEffect(() => {
+    return () => {
+      screenshotsRef.current.forEach((s) => URL.revokeObjectURL(s.previewUrl));
+    };
+  }, []);
+
+  function addFiles(fileList: FileList | null) {
+    if (!fileList || fileList.length === 0) return;
+    const room = MAX_SCREENSHOTS - screenshots.length;
+    const accepted: Screenshot[] = [];
+    let error: string | null = null;
+
+    for (const file of Array.from(fileList)) {
+      if (accepted.length >= room) {
+        error = `You can attach at most ${MAX_SCREENSHOTS} screenshots.`;
+        break;
+      }
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        error = "Only PNG, JPEG, GIF, or WebP images are allowed.";
+        continue;
+      }
+      if (file.size > MAX_SCREENSHOT_BYTES) {
+        error = "Each image must be 5 MB or smaller.";
+        continue;
+      }
+      accepted.push({ file, previewUrl: URL.createObjectURL(file) });
+    }
+
+    if (accepted.length > 0) setScreenshots((prev) => [...prev, ...accepted]);
+    setFileError(error);
+  }
+
+  function removeScreenshot(previewUrl: string) {
+    URL.revokeObjectURL(previewUrl);
+    setScreenshots((prev) => prev.filter((s) => s.previewUrl !== previewUrl));
+    setFileError(null);
+  }
+
+  async function uploadScreenshots(): Promise<
+    { ok: true; paths: string[] } | { ok: false; error: string }
+  > {
+    const uploadRes = await createScreenshotUploadUrls(
+      screenshots.map((s) => ({
+        name: s.file.name,
+        type: s.file.type,
+        size: s.file.size,
+      })),
+    );
+    if (!uploadRes.success) return { ok: false, error: uploadRes.error };
+
+    const supabase = getSupabase();
+    try {
+      await Promise.all(
+        uploadRes.uploads.map(({ path, token }, i) =>
+          supabase.storage
+            .from(FEEDBACK_BUCKET)
+            .uploadToSignedUrl(path, token, screenshots[i].file, {
+              contentType: screenshots[i].file.type,
+            })
+            .then(({ error }) => {
+              if (error) throw error;
+            }),
+        ),
+      );
+    } catch {
+      return { ok: false, error: "Failed to upload screenshots. Please try again." };
+    }
+    return { ok: true, paths: uploadRes.uploads.map((u) => u.path) };
+  }
+
   function handleSubmit(formData: FormData) {
     setResult(null);
     startTransition(async () => {
+      let screenshotPaths: string[] | undefined;
+      if (screenshots.length > 0) {
+        setPhase("uploading");
+        const uploaded = await uploadScreenshots();
+        if (!uploaded.ok) {
+          setPhase("idle");
+          setResult({ success: false, message: uploaded.error });
+          return;
+        }
+        screenshotPaths = uploaded.paths;
+      }
+
+      setPhase("submitting");
       const res = await submitFeedback({
         type,
         title: formData.get("title") as string,
@@ -30,9 +132,14 @@ export function FeedbackForm() {
         expectedBehavior: (formData.get("expected") as string) || undefined,
         appVersion: (formData.get("appVersion") as string) || undefined,
         macosVersion: (formData.get("macosVersion") as string) || undefined,
+        screenshotPaths,
       });
+      setPhase("idle");
 
       if (res.success) {
+        screenshots.forEach((s) => URL.revokeObjectURL(s.previewUrl));
+        setScreenshots([]);
+        setFileError(null);
         setResult({
           success: true,
           message: "Thanks! Your feedback has been submitted.",
@@ -43,6 +150,13 @@ export function FeedbackForm() {
       }
     });
   }
+
+  const submitLabel =
+    phase === "uploading"
+      ? "Uploading screenshots..."
+      : pending
+        ? "Submitting..."
+        : "Submit Feedback";
 
   return (
     <form action={handleSubmit} className="mt-8 space-y-5">
@@ -201,6 +315,64 @@ export function FeedbackForm() {
         </div>
       )}
 
+      {/* Screenshots */}
+      <div>
+        <label className="mb-1.5 block text-sm font-bold tracking-tight text-ink">
+          Screenshots{" "}
+          <span className="font-medium text-subtle">(optional)</span>
+        </label>
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+          {screenshots.map((s) => (
+            <div
+              key={s.previewUrl}
+              className="group relative aspect-square overflow-hidden rounded-xl border-2 border-line-soft bg-surface-2"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={s.previewUrl}
+                alt={s.file.name}
+                className="h-full w-full object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => removeScreenshot(s.previewUrl)}
+                disabled={pending}
+                aria-label={`Remove ${s.file.name}`}
+                className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-lg border-2 border-line bg-surface text-base leading-none text-ink shadow-[0_2px_0_var(--line)] transition hover:bg-surface-4 disabled:opacity-50"
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+
+          {screenshots.length < MAX_SCREENSHOTS && (
+            <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-line-soft bg-surface-2 text-subtle transition hover:border-line hover:text-ink focus-within:border-line">
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/gif,image/webp"
+                multiple
+                disabled={pending}
+                onChange={(e) => {
+                  addFiles(e.target.files);
+                  e.target.value = "";
+                }}
+                className="sr-only"
+              />
+              <span className="text-2xl leading-none">+</span>
+              <span className="text-xs font-bold tracking-tight">Add</span>
+            </label>
+          )}
+        </div>
+        <p className="mt-1.5 text-xs font-medium tracking-tight text-subtle">
+          PNG, JPEG, GIF, or WebP · up to {MAX_SCREENSHOTS} images · 5 MB each
+        </p>
+        {fileError && (
+          <p className="mt-1.5 text-xs font-semibold tracking-tight text-accent">
+            {fileError}
+          </p>
+        )}
+      </div>
+
       {/* Result message */}
       {result && (
         <div
@@ -233,7 +405,7 @@ export function FeedbackForm() {
         disabled={pending}
         className="tabby-button tabby-button-primary inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold tracking-tight disabled:opacity-50 sm:h-14 sm:px-8 sm:text-base"
       >
-        {pending ? "Submitting..." : "Submit Feedback"}
+        {submitLabel}
       </button>
     </form>
   );

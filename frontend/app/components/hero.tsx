@@ -21,7 +21,7 @@ const secondaryActionClass =
   "tabby-button tabby-button-secondary inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
 
 const primaryActionClass =
-  "tabby-button tabby-button-primary inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
+  "tabby-button tabby-button-blue inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
 
 const copyContainer: Variants = {
   hidden: {},
@@ -73,7 +73,7 @@ export function Hero() {
 
   return (
     <main id="hero" className="relative mt-6 sm:mt-8">
-      <section className="mx-auto flex max-w-6xl flex-col items-center px-2 py-10 text-center sm:px-4 sm:py-14 lg:py-18">
+      <section className="mx-auto flex max-w-6xl flex-col items-center px-2 pt-14 pb-28 text-center sm:px-4 sm:py-14 lg:py-18">
         <motion.div
           variants={copyContainer}
           initial="hidden"
@@ -147,6 +147,35 @@ export function Hero() {
               Download for Mac
             </DownloadButton>
           </motion.div>
+
+          <motion.p
+            variants={copyItem}
+            className="mt-5 text-xs tracking-tight text-subtle sm:text-sm"
+          >
+            Cotabby is free and 100% open source.{" "}
+            <Link
+              href="https://ko-fi.com/cotabby"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group font-semibold text-[#0071e3] underline decoration-1 underline-offset-2 transition-colors hover:text-[#0062c4]"
+            >
+              Support development &amp; buy us a coffee
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="ml-1 inline-block align-[-0.15em] transition-transform group-hover:scale-110"
+              >
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.49 4.04 3 5.5l7 7Z" />
+              </svg>
+            </Link>
+          </motion.p>
         </motion.div>
       </section>
     </main>

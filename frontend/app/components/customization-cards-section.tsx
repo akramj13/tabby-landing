@@ -42,6 +42,13 @@ function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps
 
 const MODELS = [
   {
+    name: "tabby-nano-1",
+    note: "~0.4 GB · smallest & fastest",
+    tag: "nano",
+    color: "#e0a32e",
+    tint: "rgba(224, 163, 46, 0.16)",
+  },
+  {
     name: "tabby-fast-1",
     note: "~0.4 GB · speed-optimized",
     tag: "fast",
@@ -50,10 +57,17 @@ const MODELS = [
   },
   {
     name: "tabby-balanced-1",
-    note: "~1.1 GB · balanced quality",
+    note: "~3.1 GB · balanced quality",
     tag: "balanced",
     color: "#5aa888",
     tint: "rgba(90, 168, 136, 0.16)",
+  },
+  {
+    name: "tabby-max-1",
+    note: "~5.0 GB · most capable",
+    tag: "max",
+    color: "#8b7fd4",
+    tint: "rgba(139, 127, 212, 0.16)",
   },
 ] as const;
 
@@ -198,7 +212,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Cpu}
               title="choose your model"
-              description="Two built-in models ship with Cotabby. Pick fast for speed, or balanced when you want sharper suggestions. You can also drop in your own GGUF."
+              description="Four built-in models ship with Cotabby - from tiny nano for instant suggestions up to max when you want the sharpest output. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>

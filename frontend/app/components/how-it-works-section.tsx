@@ -3,6 +3,8 @@
 import { motion, type Variants, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { FadeIn } from "./motion";
+import { DownloadButton } from "./download-button";
+import { AppleIcon } from "./icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -39,45 +41,10 @@ function InstallVisual() {
       <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-subtle">
         macOS install
       </p>
-      <div className="mt-3 flex items-center gap-3">
-        <span className="inline-flex items-center gap-2 text-sm font-bold tracking-tight text-ink">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-ink"
-            aria-hidden="true"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <path d="M7 10l5 5 5-5" />
-            <path d="M12 15V3" />
-          </svg>
-          Cotabby.dmg
-        </span>
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-subtle"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14" />
-          <path d="m13 6 6 6-6 6" />
-        </svg>
-        <span className="inline-flex items-center rounded-[0.55rem] border-2 border-line bg-accent/15 px-3 py-1.5 text-xs font-bold tracking-tight text-ink shadow-[0_3.4px_0_var(--line)]">
-          Applications
-        </span>
-      </div>
+      <DownloadButton className="tabby-button tabby-button-blue mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight">
+        <AppleIcon className="h-5 w-5 shrink-0" />
+        Download for Mac
+      </DownloadButton>
     </div>
   );
 }

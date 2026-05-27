@@ -14,10 +14,12 @@
   --accent: #ff8273;
   --accent-soft: #ffd6cf;
   --accent-deep: #f56a59;
-  --moss: #aec6cf;
+  --moss: #00bfff;
   --button-primary: #1c1c1c;
   --button-primary-hover: #000000;
-  --button-text: #f9f6f0;
+  --button-text: #5cb0fc;
+  --button-blue: #0071e3;
+  --button-blue-hover: #0062c4;
   --shadow-shell: 0 11.8px 0 var(--line);
   --shadow-card: 0 6.7px 0 var(--line);
 }
@@ -195,6 +197,21 @@ a {
 
 .tabby-button-primary:hover {
   background: var(--button-primary-hover);
+}
+
+.tabby-button-blue {
+  background: var(--button-blue);
+  color: #ffffff;
+  box-shadow: 0 6.7px 0 var(--line);
+}
+
+.tabby-button-blue:hover {
+  background: var(--button-blue-hover);
+  box-shadow: 0 3.4px 0 var(--line);
+}
+
+.tabby-button-blue:active {
+  box-shadow: 0 1.7px 0 var(--line);
 }
 
 .tabby-link {

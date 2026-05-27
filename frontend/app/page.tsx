@@ -44,13 +44,22 @@ export default function Home() {
             <Hero />
           </SectionShell>
           <Image
+            src="/app-icons/cat-standing.svg"
+            alt=""
+            aria-hidden="true"
+            width={998}
+            height={887}
+            priority
+            className="pointer-events-none absolute bottom-0 left-[-36] z-20 w-44 translate-y-[10%] sm:left-10 sm:w-64 sm:translate-y-[10%] lg:left-[-24] lg:w-[26rem] lg:translate-y-[4%]"
+          />
+          <Image
             src="/app-icons/cat-sleep.svg"
             alt=""
             aria-hidden="true"
             width={675}
             height={600}
             priority
-            className="pointer-events-none absolute bottom-0 right-4 z-20 w-40 translate-y-[52%] sm:right-10 sm:w-60 sm:translate-y-[55%] lg:right-16 lg:w-[24rem] lg:translate-y-[55%]"
+            className="pointer-events-none absolute bottom-0 right-4 z-20 w-40 translate-y-[54%] sm:right-10 sm:w-60 sm:translate-y-[55%] lg:right-16 lg:w-[24rem] lg:translate-y-[55%]"
           />
         </div>
 
@@ -81,10 +90,7 @@ export default function Home() {
           <CustomizationCardsSection />
         </section>
 
-        <section
-          id="privacy"
-          className="tabby-anchor px-6 sm:px-8 lg:px-10"
-        >
+        <section id="privacy" className="tabby-anchor px-6 sm:px-8 lg:px-10">
           <PermissionsSection />
         </section>
 
