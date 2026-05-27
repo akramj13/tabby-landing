@@ -157,18 +157,21 @@ export function Hero() {
               href="https://ko-fi.com/cotabby"
               target="_blank"
               rel="noopener noreferrer"
-              className="group font-semibold text-[#0071e3] underline decoration-1 underline-offset-2 transition-colors hover:text-[#0062c4]"
+              className="group font-semibold"
+              style={{
+                color: "#ec4899",
+                textDecorationLine: "underline",
+                textDecorationColor: "#1c1c1c",
+                textDecorationThickness: "1px",
+                textUnderlineOffset: "2px",
+              }}
             >
               Support development &amp; buy us a coffee
               <svg
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                fill="currentColor"
                 aria-hidden="true"
                 className="ml-1 inline-block align-[-0.15em] transition-transform group-hover:scale-110"
               >

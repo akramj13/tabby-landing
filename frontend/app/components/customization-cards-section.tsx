@@ -42,8 +42,15 @@ function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps
 
 const MODELS = [
   {
+    name: "tabby-pico-1",
+    note: "~0.1 GB · ultra-light",
+    tag: "pico",
+    color: "#36b5c4",
+    tint: "rgba(54, 181, 196, 0.16)",
+  },
+  {
     name: "tabby-nano-1",
-    note: "~0.4 GB · smallest & fastest",
+    note: "~0.4 GB · tiny & fast",
     tag: "nano",
     color: "#e0a32e",
     tint: "rgba(224, 163, 46, 0.16)",
@@ -212,7 +219,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Cpu}
               title="choose your model"
-              description="Four built-in models ship with Cotabby - from tiny nano for instant suggestions up to max when you want the sharpest output. You can also drop in your own GGUF."
+              description="Five built-in models ship with Cotabby - from the featherweight pico for instant suggestions up to max when you want the sharpest output. You can also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>
