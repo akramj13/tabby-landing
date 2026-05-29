@@ -59,10 +59,12 @@ export function Header() {
             className="flex items-center gap-3"
           >
             <Image
-              src="/app-icons/new-logo.png"
+              src="/app-icons/new-logo.webp"
               alt="Cotabby logo"
               width={48}
               height={48}
+              sizes="44px"
+              priority
               className="h-11 w-11 rounded-[0.95rem] border-2 border-line bg-surface-2 shadow-[0_5px_0_var(--line)]"
             />
             <span className="flex h-11 items-center gap-2">

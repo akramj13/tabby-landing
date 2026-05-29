@@ -8,12 +8,14 @@ import { Providers } from "./components/providers";
 const bodyFont = Inter_Tight({
   variable: "--font-body",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const displayFont = Bricolage_Grotesque({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["800"],
+  display: "swap",
 });
 
 const title = "Cotabby - local AI autocomplete for macOS";

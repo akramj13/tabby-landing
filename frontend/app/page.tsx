@@ -16,6 +16,9 @@ import { StructuredData } from "./components/structured-data";
 import { FloatingButton } from "./components/floating-button";
 import { GiantWordmarkSection } from "./components/giant-wordmark-section";
 import Image from "next/image";
+
+export const dynamic = "force-static";
+
 export default function Home() {
   return (
     <div
@@ -50,6 +53,7 @@ export default function Home() {
             width={998}
             height={887}
             priority
+            sizes="(min-width: 1024px) 26rem, (min-width: 640px) 16rem, 11rem"
             className="pointer-events-none absolute bottom-0 left-[-36] z-20 w-44 translate-y-[10%] sm:left-10 sm:w-64 sm:translate-y-[10%] lg:left-[-24] lg:w-[26rem] lg:translate-y-[4%]"
           />
           <Image
@@ -59,6 +63,7 @@ export default function Home() {
             width={675}
             height={600}
             priority
+            sizes="(min-width: 1024px) 24rem, (min-width: 640px) 15rem, 10rem"
             className="pointer-events-none absolute bottom-0 right-4 z-20 w-40 translate-y-[54%] sm:right-10 sm:w-60 sm:translate-y-[55%] lg:right-16 lg:w-[24rem] lg:translate-y-[55%]"
           />
         </div>

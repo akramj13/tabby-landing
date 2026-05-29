@@ -36,12 +36,33 @@ type SegmentPlayerProps = { start: number; end: number };
 
 function SegmentPlayer({ start, end }: SegmentPlayerProps) {
   const uid = useId().replace(/:/g, "yt");
+  const hostRef = useRef<HTMLDivElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [shouldMount, setShouldMount] = useState(false);
   const [ready, setReady] = useState(false);
 
+  // Defer iframe API load until this player is near the viewport.
+  // Saves ~1 MB of YouTube JS on initial page load.
   useEffect(() => {
+    const el = hostRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldMount(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "300px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldMount) return;
     onYTReady(() => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       playerRef.current = new (window as any).YT.Player(uid, {
@@ -60,8 +81,6 @@ function SegmentPlayer({ start, end }: SegmentPlayerProps) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onReady: (e: any) => {
             e.target.playVideo();
-            // Reveal only once the player is initialized, so YouTube's
-            // brief loading chrome (controls/title) never flashes.
             setReady(true);
             intervalRef.current = setInterval(() => {
               try {
@@ -81,10 +100,11 @@ function SegmentPlayer({ start, end }: SegmentPlayerProps) {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [uid, start, end]);
+  }, [shouldMount, uid, start, end]);
 
   return (
     <div
+      ref={hostRef}
       className={`h-full w-full transition-opacity duration-500 ${
         ready ? "opacity-100" : "opacity-0"
       }`}
@@ -249,7 +269,7 @@ export function AlternatingFeatureSection() {
         <FeatureRow
           layout="text-left"
           headline="write your Slack messages faster"
-          icon="/app-icons/slack.png"
+          icon="/app-icons/slack.webp"
           iconPad
           label="slack"
           start={33}

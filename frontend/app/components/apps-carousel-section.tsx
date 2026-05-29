@@ -3,15 +3,15 @@ import { CotabbyLogoChip } from "./cotabby-logo-chip";
 
 export function AppsCarouselSection() {
   const chips = [
-    { label: "Apple Mail", iconSrc: "/app-icons/apple-mail.png" },
+    { label: "Apple Mail", iconSrc: "/app-icons/apple-mail.webp" },
     { label: "Apple Notes", iconSrc: "/app-icons/apple-notes.svg" },
-    { label: "Google Chrome", iconSrc: "/app-icons/google-chrome.png" },
-    { label: "Microsoft Outlook", iconSrc: "/app-icons/microsoft-outlook.png" },
+    { label: "Google Chrome", iconSrc: "/app-icons/google-chrome.webp" },
+    { label: "Microsoft Outlook", iconSrc: "/app-icons/microsoft-outlook.webp" },
     { label: "Gmail", iconSrc: "/app-icons/gmail.svg" },
     { label: "iMessage", iconSrc: "/app-icons/imessage.svg" },
     { label: "Notion", iconSrc: "/app-icons/notion.svg" },
     { label: "Discord", iconSrc: "/app-icons/discord.webp" },
-    { label: "Slack", iconSrc: "/app-icons/slack.png" },
+    { label: "Slack", iconSrc: "/app-icons/slack.webp" },
   ];
   const track = [...chips, ...chips];
   const reverseTrack = [...chips.slice().reverse(), ...chips.slice().reverse()];

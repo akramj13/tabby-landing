@@ -107,23 +107,13 @@ function TabVisual() {
     <div className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4">
       <div className="flex items-center gap-3">
         <motion.kbd
-          animate={
-            prefersReducedMotion
-              ? { y: 0, boxShadow: "0 3px 0 var(--line)" }
-              : {
-                  y: [0, -2, 0],
-                  boxShadow: [
-                    "0 3px 0 var(--line)",
-                    "0 5px 0 var(--line)",
-                    "0 3px 0 var(--line)",
-                  ],
-                }
-          }
+          animate={prefersReducedMotion ? { y: 0 } : { y: [0, -2, 0] }}
           transition={
             prefersReducedMotion
               ? { duration: 0 }
               : { duration: 1.3, ease: "easeInOut", repeat: Infinity }
           }
+          style={{ boxShadow: "0 3px 0 var(--line)" }}
           className="inline-flex h-10 min-w-13 items-center justify-center rounded-[0.6rem] border-2 border-line bg-background px-2.5 text-sm font-bold text-ink"
         >
           Tab

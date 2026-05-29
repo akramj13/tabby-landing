@@ -21,10 +21,10 @@ export function CotabbyLogoChip({
         <Image
           src={iconSrc}
           alt={`${label} icon`}
-          width={24}
-          height={24}
+          width={48}
+          height={48}
+          sizes="24px"
           className="h-6 w-6 object-contain"
-          unoptimized
         />
       </div>
       <span className="text-muted">{label}</span>

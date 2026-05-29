@@ -99,21 +99,28 @@ function ModelsPreview() {
             key={m.name}
             className="relative flex items-center gap-3 rounded-[0.85rem] px-3 py-2.5"
           >
-            {isActive && (
-              <motion.div
-                layoutId="model-active-highlight"
-                className="absolute inset-0 rounded-[0.85rem]"
-                style={{ backgroundColor: m.tint }}
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
-            <motion.span
-              className="relative z-10 h-2 w-2 shrink-0 rounded-full"
-              animate={{
-                backgroundColor: isActive ? m.color : "rgba(120, 120, 120, 0.4)",
-              }}
-              transition={{ duration: 0.4 }}
+            <motion.div
+              initial={false}
+              animate={{ opacity: isActive ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              style={{ backgroundColor: m.tint }}
+              className="pointer-events-none absolute inset-0 rounded-[0.85rem]"
             />
+            <span className="relative z-10 h-2 w-2 shrink-0">
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-full"
+                style={{ background: "rgba(120, 120, 120, 0.4)" }}
+              />
+              <motion.span
+                aria-hidden
+                initial={false}
+                animate={{ opacity: isActive ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ backgroundColor: m.color }}
+                className="absolute inset-0 rounded-full"
+              />
+            </span>
             <div className="relative z-10 min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <p className="truncate text-sm font-bold tracking-tight text-ink">
@@ -159,19 +166,22 @@ function LengthPreview() {
       </div>
       <div className="relative mt-4 h-2 rounded-full border-2 border-line bg-background">
         <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: "55%" }}
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 0.55 }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-0 top-0 h-full rounded-full bg-accent"
+          style={{ transformOrigin: "0% 50%" }}
+          className="absolute inset-y-0 left-0 w-full rounded-full bg-accent"
         />
         <motion.div
-          initial={{ left: "0%" }}
-          whileInView={{ left: "55%" }}
+          initial={{ x: "0%" }}
+          whileInView={{ x: "55%" }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-line bg-background shadow-[0_3.4px_0_var(--line)]"
-        />
+          className="pointer-events-none absolute inset-y-0 left-0 w-full"
+        >
+          <span className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-line bg-background shadow-[0_3.4px_0_var(--line)]" />
+        </motion.div>
       </div>
       <p className="mt-4 text-sm leading-relaxed tracking-tight text-subtle">
         Suggestions stay concise by default so they still feel like an extension
