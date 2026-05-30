@@ -16,6 +16,7 @@ import { getSupabase } from "../lib/supabase";
 import { DOWNLOAD_URL } from "../lib/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const NEWSLETTER_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type GateMode = "download" | "newsletter";
 
@@ -30,6 +31,10 @@ const EmailGateContext = createContext<EmailGateContextType>({
 });
 
 export const useEmailGate = () => useContext(EmailGateContext);
+
+function isValidNewsletterEmail(value: string) {
+  return NEWSLETTER_EMAIL_RE.test(value.trim());
+}
 
 export function EmailGateProvider({ children }: { children: ReactNode }) {
   const prefersReducedMotion = useReducedMotion();
@@ -56,6 +61,11 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const normalizedEmail = email.trim();
+    if (!isValidNewsletterEmail(normalizedEmail)) {
+      setStatus("error");
+      return;
+    }
     const downloadWindow =
       mode === "download" ? window.open("about:blank", "_blank") : null;
     setStatus("loading");
@@ -63,7 +73,7 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
     try {
       const { error } = await getSupabase()
         .from("mailing_list")
-        .insert({ email });
+        .insert({ email: normalizedEmail });
       if (error) throw error;
       setStatus("success");
       if (mode === "download") {
