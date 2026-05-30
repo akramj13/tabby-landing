@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter_Tight } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { CREATOR, SITE_URL } from "./lib/site";
 import { Providers } from "./components/providers";
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-background text-ink">
         <Providers>{children}</Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
