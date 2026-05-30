@@ -23,6 +23,7 @@ type FeedbackPayload = {
   appVersion?: string;
   macosVersion?: string;
   screenshotPaths?: string[];
+  categories?: string[];
 };
 
 type ActionResult =
@@ -160,8 +161,11 @@ export async function submitFeedback(
     return { success: false, error: "Description is required." };
   }
 
-  const labels =
+  const labels: string[] =
     data.type === "bug" ? ["bug"] : ["enhancement"];
+  if (data.type === "bug" && data.categories && data.categories.length > 0) {
+    labels.push(...data.categories);
+  }
   const body =
     data.type === "bug" ? buildBugBody(data) : buildFeatureBody(data);
 

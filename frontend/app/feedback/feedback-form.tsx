@@ -35,6 +35,12 @@ type FeedbackType = "bug" | "feature";
 
 type Screenshot = { file: File; previewUrl: string };
 
+const CATEGORIES: { label: string; value: string; description: string }[] = [
+  { label: "Keystroke / Input", value: "area:input", description: "Tab not working, keystrokes swallowed, input blocked" },
+  { label: "App Compatibility", value: "area:compat", description: "Bug only in a specific app (Word, Outlook, Mail, etc.)" },
+  { label: "Performance / Crash", value: "area:perf", description: "Slow response, hang, or crash" },
+];
+
 type Step = { id: string; value: string };
 
 const inputClass =
@@ -79,6 +85,7 @@ function FieldLabel({
 
 export function FeedbackForm() {
   const [type, setType] = useState<FeedbackType>("bug");
+  const [categories, setCategories] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
   const [phase, setPhase] = useState<"idle" | "uploading" | "submitting">(
     "idle",
@@ -279,6 +286,7 @@ export function FeedbackForm() {
         appVersion: (formData.get("appVersion") as string) || undefined,
         macosVersion: (formData.get("macosVersion") as string) || undefined,
         screenshotPaths,
+        categories: categories.length > 0 ? categories : undefined,
       });
       setPhase("idle");
 
@@ -286,6 +294,7 @@ export function FeedbackForm() {
         screenshots.forEach((s) => URL.revokeObjectURL(s.previewUrl));
         setScreenshots([]);
         setSteps(freshSteps());
+        setCategories([]);
         setFileError(null);
         setResult({
           success: true,
@@ -377,6 +386,43 @@ export function FeedbackForm() {
           Feature Request
         </button>
       </fieldset>
+
+      {/* Category (bug only) */}
+      {type === "bug" && (
+        <div>
+          <FieldLabel>
+            Category{" "}
+            <span className="font-medium text-subtle">(optional)</span>
+          </FieldLabel>
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((cat) => {
+              const selected = categories.includes(cat.value);
+              return (
+                <button
+                  key={cat.value}
+                  type="button"
+                  onClick={() =>
+                    setCategories((prev) =>
+                      selected
+                        ? prev.filter((c) => c !== cat.value)
+                        : [...prev, cat.value],
+                    )
+                  }
+                  title={cat.description}
+                  className={`flex items-center gap-1.5 rounded-xl border-2 px-3 py-2 text-xs font-bold tracking-tight transition sm:text-sm ${
+                    selected
+                      ? "border-line bg-surface-4 text-ink shadow-[0_3.4px_0_var(--line)]"
+                      : "border-line-soft bg-surface-2 text-muted hover:border-line hover:text-ink"
+                  }`}
+                >
+                  {selected && <CheckCircle2 className="h-3.5 w-3.5 shrink-0" strokeWidth={2.25} />}
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Title */}
       <div>
