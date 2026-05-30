@@ -57,12 +57,11 @@ function freshSteps(): Step[] {
 }
 
 function FieldLabel({
-  icon: Icon,
   htmlFor,
   children,
   required,
 }: {
-  icon: LucideIcon;
+  icon?: LucideIcon;
   htmlFor?: string;
   children: React.ReactNode;
   required?: boolean;
@@ -70,15 +69,10 @@ function FieldLabel({
   return (
     <label
       htmlFor={htmlFor}
-      className="mb-1.5 flex items-center gap-2 text-sm font-bold tracking-tight text-ink"
+      className="mb-1.5 block text-sm font-bold tracking-tight text-ink"
     >
-      <span className="grid h-7 w-7 place-items-center rounded-lg border-2 border-line-soft bg-surface-2 text-ink">
-        <Icon className="h-3.5 w-3.5" strokeWidth={2.25} />
-      </span>
-      <span className="flex items-center gap-1">
-        {children}
-        {required && <span className="text-accent">*</span>}
-      </span>
+      {children}
+      {required && <span className="ml-1 text-accent">*</span>}
     </label>
   );
 }
