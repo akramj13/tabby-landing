@@ -174,6 +174,7 @@ function TypeAnywhereVisual() {
             y: -3,
             transition: { duration: 0.22, ease: EASE },
           }}
+          role="img"
           aria-label={app.name}
           className="relative h-11 w-11 overflow-hidden rounded-[0.7rem] border-2 border-line bg-surface-2 shadow-[0_3.4px_0_var(--line)]"
         >

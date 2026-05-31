@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { CREATOR, SITE_URL } from "./lib/site";
+import { AnnouncementBanner } from "./components/announcement-banner";
 import { Providers } from "./components/providers";
 
 const bodyFont = Inter_Tight({
@@ -67,7 +68,12 @@ export default function RootLayout({
       lang="en"
       className={`${bodyFont.variable} ${displayFont.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-background text-ink">
+      <head>
+        <link rel="preconnect" href="https://i.ytimg.com" crossOrigin="" />
+        <link rel="preconnect" href="https://www.youtube.com" crossOrigin="" />
+      </head>
+      <body className="flex min-h-full flex-col bg-background pt-12 text-ink">
+        <AnnouncementBanner />
         <Providers>{children}</Providers>
         <Analytics />
         <SpeedInsights />

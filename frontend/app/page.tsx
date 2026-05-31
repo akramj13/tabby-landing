@@ -48,12 +48,13 @@ export default function Home() {
             <Hero />
           </SectionShell>
           <Image
-            src="/app-icons/cat-standing.svg"
+            src="/app-icons/cat-standing.webp"
             alt=""
             aria-hidden="true"
-            width={998}
-            height={887}
+            width={832}
+            height={740}
             priority
+            fetchPriority="high"
             sizes="(min-width: 1024px) 26rem, (min-width: 640px) 16rem, 11rem"
             className="pointer-events-none absolute bottom-0 left-[-36] z-20 w-44 translate-y-[10%] sm:left-10 sm:w-64 sm:translate-y-[10%] lg:left-[-24] lg:w-[26rem] lg:translate-y-[4%]"
           />

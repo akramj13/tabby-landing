@@ -8,12 +8,11 @@ export function SleepingCatMascot() {
     <div className={POSITION_CLASS} aria-hidden="true">
       <div className="tabby-cat-breathe w-full">
         <Image
-          src="/app-icons/cat-sleep.svg"
+          src="/app-icons/cat-sleep.webp"
           alt=""
           aria-hidden="true"
-          width={675}
-          height={600}
-          priority
+          width={768}
+          height={683}
           sizes="(min-width: 1024px) 24rem, (min-width: 640px) 15rem, 10rem"
           className="h-auto w-full"
         />

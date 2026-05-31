@@ -36,7 +36,7 @@ export function LazyYouTube({
           io.disconnect();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: "0px" },
     );
     io.observe(el);
     return () => io.disconnect();

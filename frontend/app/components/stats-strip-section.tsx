@@ -60,10 +60,10 @@ function ModelEvidence() {
       name: "Apple",
       icon: (
         <Image
-          src="/app-icons/Apple_Intelligence.png"
+          src="/app-icons/Apple_Intelligence.webp"
           alt=""
-          width={32}
-          height={32}
+          width={96}
+          height={96}
           className="h-8 w-8 object-contain"
         />
       ),
@@ -72,10 +72,10 @@ function ModelEvidence() {
       name: "GGUF",
       icon: (
         <Image
-          src="/app-icons/hf-logo.png"
+          src="/app-icons/hf-logo.webp"
           alt=""
-          width={32}
-          height={32}
+          width={96}
+          height={96}
           className="h-8 w-8 object-contain"
         />
       ),
