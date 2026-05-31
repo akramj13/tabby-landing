@@ -1,20 +1,52 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { FadeIn, WordReveal } from "./motion";
 import { CotabbyLogoChip } from "./cotabby-logo-chip";
 
+const CHIPS = [
+  { label: "Apple Mail", iconSrc: "/app-icons/apple-mail.webp" },
+  { label: "Apple Notes", iconSrc: "/app-icons/apple-notes.svg" },
+  { label: "Google Chrome", iconSrc: "/app-icons/google-chrome.webp" },
+  { label: "Microsoft Outlook", iconSrc: "/app-icons/microsoft-outlook.webp" },
+  { label: "Gmail", iconSrc: "/app-icons/gmail.svg" },
+  { label: "iMessage", iconSrc: "/app-icons/imessage.svg" },
+  { label: "Notion", iconSrc: "/app-icons/notion.svg" },
+  { label: "Discord", iconSrc: "/app-icons/discord.webp" },
+  { label: "Slack", iconSrc: "/app-icons/slack.webp" },
+];
+
+const TRACK = [...CHIPS, ...CHIPS];
+const REVERSE_TRACK = [...CHIPS.slice().reverse(), ...CHIPS.slice().reverse()];
+
+const PING_INTERVAL_MS = 4000;
+const PING_DURATION_MS = 720;
+
 export function AppsCarouselSection() {
-  const chips = [
-    { label: "Apple Mail", iconSrc: "/app-icons/apple-mail.webp" },
-    { label: "Apple Notes", iconSrc: "/app-icons/apple-notes.svg" },
-    { label: "Google Chrome", iconSrc: "/app-icons/google-chrome.webp" },
-    { label: "Microsoft Outlook", iconSrc: "/app-icons/microsoft-outlook.webp" },
-    { label: "Gmail", iconSrc: "/app-icons/gmail.svg" },
-    { label: "iMessage", iconSrc: "/app-icons/imessage.svg" },
-    { label: "Notion", iconSrc: "/app-icons/notion.svg" },
-    { label: "Discord", iconSrc: "/app-icons/discord.webp" },
-    { label: "Slack", iconSrc: "/app-icons/slack.webp" },
-  ];
-  const track = [...chips, ...chips];
-  const reverseTrack = [...chips.slice().reverse(), ...chips.slice().reverse()];
+  const prefersReducedMotion = useReducedMotion();
+  const [pingingLabel, setPingingLabel] = useState<string | null>(null);
+  const lastIndexRef = useRef(-1);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    let resetTimer: ReturnType<typeof setTimeout> | null = null;
+    const id = setInterval(() => {
+      let i = Math.floor(Math.random() * CHIPS.length);
+      if (i === lastIndexRef.current && CHIPS.length > 1) {
+        i = (i + 1) % CHIPS.length;
+      }
+      lastIndexRef.current = i;
+      setPingingLabel(CHIPS[i].label);
+      if (resetTimer) clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => setPingingLabel(null), PING_DURATION_MS);
+    }, PING_INTERVAL_MS);
+
+    return () => {
+      clearInterval(id);
+      if (resetTimer) clearTimeout(resetTimer);
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <div className="mx-auto">
@@ -34,12 +66,13 @@ export function AppsCarouselSection() {
           className="tabby-marquee-track"
           aria-label="Supported apps carousel"
         >
-          {track.map((app, index) => (
+          {TRACK.map((app, index) => (
             <CotabbyLogoChip
               key={`chip-${app.label}-${index}`}
               label={app.label}
               iconSrc={app.iconSrc}
               className="tabby-marquee-item"
+              pinging={pingingLabel === app.label}
             />
           ))}
         </div>
@@ -47,12 +80,13 @@ export function AppsCarouselSection() {
           className="tabby-marquee-track tabby-marquee-track-reverse"
           aria-hidden="true"
         >
-          {reverseTrack.map((app, index) => (
+          {REVERSE_TRACK.map((app, index) => (
             <CotabbyLogoChip
               key={`chip-rev-${app.label}-${index}`}
               label={app.label}
               iconSrc={app.iconSrc}
               className="tabby-marquee-item"
+              pinging={pingingLabel === app.label}
             />
           ))}
         </div>

@@ -2,7 +2,7 @@
 
 import {
   AnimatePresence,
-  motion,
+  m,
   useReducedMotion,
 } from "framer-motion";
 import {
@@ -12,7 +12,6 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { getSupabase } from "../lib/supabase";
 import { DOWNLOAD_URL } from "../lib/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -71,6 +70,7 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
     setStatus("loading");
 
     try {
+      const { getSupabase } = await import("../lib/supabase");
       const { error } = await getSupabase()
         .from("mailing_list")
         .insert({ email: normalizedEmail });
@@ -103,11 +103,11 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
       {children}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             key="email-gate"
             className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           >
-            <motion.div
+            <m.div
               className="absolute inset-0 bg-black/50 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -122,7 +122,7 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
               aria-label="Close modal"
             />
 
-            <motion.div
+            <m.div
               initial={
                 prefersReducedMotion
                   ? { opacity: 0 }
@@ -205,8 +205,8 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
                 )}
               </>
             )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </EmailGateContext.Provider>

@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, type Variants, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { m, type Variants, useReducedMotion } from "framer-motion";
+import { Folder } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { FadeIn } from "./motion";
 import { DownloadButton } from "./download-button";
 import { AppleIcon } from "./icons";
@@ -35,12 +37,92 @@ const stepCardVariants: Variants = {
   }),
 };
 
+type InstallPhase = "idle" | "dragging" | "dropped" | "hidden" | "reset";
+
+const INSTALL_PHASE_DURATION_MS: Record<InstallPhase, number> = {
+  idle: 500,
+  dragging: 1100,
+  dropped: 350,
+  hidden: 450,
+  reset: 350,
+};
+
+const INSTALL_NEXT_PHASE: Record<InstallPhase, InstallPhase> = {
+  idle: "dragging",
+  dragging: "dropped",
+  dropped: "hidden",
+  hidden: "reset",
+  reset: "idle",
+};
+
 function InstallVisual() {
+  const prefersReducedMotion = useReducedMotion() ?? false;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [phase, setPhase] = useState<InstallPhase>("idle");
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion || !isInView) return;
+    const id = setTimeout(() => {
+      setPhase((p) => INSTALL_NEXT_PHASE[p]);
+    }, INSTALL_PHASE_DURATION_MS[phase]);
+    return () => clearTimeout(id);
+  }, [phase, isInView, prefersReducedMotion]);
+
+  const atDestination = phase === "dragging" || phase === "dropped" || phase === "hidden";
+  const shrunk = phase === "dropped" || phase === "hidden";
+  const invisible = phase === "hidden";
+
   return (
-    <div className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4">
+    <div
+      ref={containerRef}
+      className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4"
+    >
       <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-subtle">
         macOS install
       </p>
+      <div className="relative mt-3 flex h-14 items-center justify-end rounded-[0.8rem] border-2 border-dashed border-line-soft bg-background/40 px-3">
+        <m.div
+          aria-hidden="true"
+          initial={false}
+          animate={
+            prefersReducedMotion
+              ? { left: "calc(100% - 2.75rem)", opacity: 0, scale: 1 }
+              : {
+                  left: atDestination ? "calc(100% - 2.75rem)" : "0rem",
+                  scale: shrunk ? 0.55 : 1,
+                  opacity: invisible || phase === "reset" ? 0 : 1,
+                }
+          }
+          transition={{
+            duration: INSTALL_PHASE_DURATION_MS[phase] / 1000,
+            ease: phase === "dragging" ? EASE : "easeOut",
+          }}
+          className="absolute top-1/2 z-10 h-9 w-9 -translate-y-1/2 overflow-hidden rounded-[0.55rem] border-2 border-line bg-surface shadow-[0_2px_0_var(--line)]"
+        >
+          <Image
+            src="/app-icons/new-logo.webp"
+            alt=""
+            fill
+            sizes="36px"
+            className="object-cover"
+          />
+        </m.div>
+        <div className="flex h-10 w-11 shrink-0 items-center justify-center rounded-[0.55rem] border-2 border-line bg-moss/25 shadow-[0_2px_0_var(--line)]">
+          <Folder className="h-5 w-5 text-ink" strokeWidth={2.2} />
+        </div>
+      </div>
       <DownloadButton className="tabby-button tabby-button-blue mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight">
         <AppleIcon className="h-5 w-5 shrink-0" />
         Download for Mac
@@ -49,40 +131,62 @@ function InstallVisual() {
   );
 }
 
-function TypeAnywhereVisual() {
-  const apps = ["Mail", "Notes", "Slack", "Notion", "Docs"];
+const TYPE_ANYWHERE_APPS = [
+  { name: "Gmail", icon: "/app-icons/gmail.svg", rotate: -7, from: -18 },
+  { name: "Notes", icon: "/app-icons/apple-notes.svg", rotate: 5, from: 14 },
+  { name: "Slack", icon: "/app-icons/slack.webp", rotate: -3, from: -12 },
+  { name: "Notion", icon: "/app-icons/notion.svg", rotate: 8, from: 20 },
+  { name: "iMessage", icon: "/app-icons/imessage.svg", rotate: -6, from: -16 },
+  { name: "Outlook", icon: "/app-icons/microsoft-outlook.webp", rotate: 4, from: 10 },
+  { name: "Discord", icon: "/app-icons/discord.webp", rotate: -2, from: -22 },
+] as const;
 
+function TypeAnywhereVisual() {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.6 }}
+      viewport={{ once: true, amount: 0.4 }}
       variants={{
         hidden: {},
         visible: {
-          transition: { staggerChildren: 0.06, delayChildren: 0.08 },
+          transition: { staggerChildren: 0.07, delayChildren: 0.08 },
         },
       }}
-      className="flex flex-wrap gap-2"
+      className="flex flex-wrap items-center gap-2.5"
     >
-      {apps.map((app) => (
-        <motion.span
-          key={app}
+      {TYPE_ANYWHERE_APPS.map((app) => (
+        <m.div
+          key={app.name}
           variants={{
-            hidden: { opacity: 0, y: 12, scale: 0.92 },
+            hidden: { opacity: 0, x: app.from, y: 14, scale: 0.85, rotate: 0 },
             visible: {
               opacity: 1,
+              x: 0,
               y: 0,
               scale: 1,
-              transition: { duration: 0.42, ease: EASE },
+              rotate: app.rotate,
+              transition: { duration: 0.5, ease: EASE },
             },
           }}
-          className="inline-flex items-center rounded-[0.7rem] border-2 border-line bg-surface-2 px-3 py-1.5 text-xs font-semibold tracking-tight text-ink shadow-[0_3.4px_0_var(--line)] sm:text-sm"
+          whileHover={{
+            rotate: 0,
+            y: -3,
+            transition: { duration: 0.22, ease: EASE },
+          }}
+          aria-label={app.name}
+          className="relative h-11 w-11 overflow-hidden rounded-[0.7rem] border-2 border-line bg-surface-2 shadow-[0_3.4px_0_var(--line)]"
         >
-          {app}
-        </motion.span>
+          <Image
+            src={app.icon}
+            alt=""
+            fill
+            sizes="44px"
+            className="object-contain p-1.5"
+          />
+        </m.div>
       ))}
-      <motion.span
+      <m.span
         variants={{
           hidden: { opacity: 0, y: 12, scale: 0.92 },
           visible: {
@@ -92,62 +196,198 @@ function TypeAnywhereVisual() {
             transition: { duration: 0.42, ease: EASE },
           },
         }}
-        className="inline-flex items-center rounded-[0.7rem] border-2 border-dashed border-line-soft px-3 py-1.5 text-xs font-semibold tracking-tight text-subtle sm:text-sm"
+        className="inline-flex h-11 items-center rounded-[0.7rem] border-2 border-dashed border-line-soft px-3 text-xs font-semibold tracking-tight text-subtle sm:text-sm"
       >
         + anywhere
-      </motion.span>
-    </motion.div>
+      </m.span>
+    </m.div>
   );
 }
 
+const TAB_FRAGMENTS = [
+  "Thanks for the catch.",
+  " I'll fold this into the deck",
+  " and tighten the closing CTA.",
+] as const;
+
+const TAB_GHOST_COLOR = "rgba(255, 130, 115, 0.6)";
+const TAB_INK_COLOR = "rgb(28, 28, 28)";
+
+type TabPhase =
+  | "idle"
+  | "ghost-1"
+  | "tap-1"
+  | "ghost-2"
+  | "tap-2"
+  | "ghost-3"
+  | "tap-3"
+  | "done"
+  | "reset";
+
+const TAB_PHASE_DURATION_MS: Record<TabPhase, number> = {
+  idle: 450,
+  "ghost-1": 600,
+  "tap-1": 360,
+  "ghost-2": 650,
+  "tap-2": 360,
+  "ghost-3": 650,
+  "tap-3": 360,
+  done: 1600,
+  reset: 450,
+};
+
+const TAB_NEXT_PHASE: Record<TabPhase, TabPhase> = {
+  idle: "ghost-1",
+  "ghost-1": "tap-1",
+  "tap-1": "ghost-2",
+  "ghost-2": "tap-2",
+  "tap-2": "ghost-3",
+  "ghost-3": "tap-3",
+  "tap-3": "done",
+  done: "reset",
+  reset: "idle",
+};
+
+// For each fragment index i (0-2): visible from ghost-(i+1) onward; turns ink during tap-(i+1).
+const TAB_GHOST_PHASES: Record<number, readonly TabPhase[]> = {
+  0: ["ghost-1", "tap-1", "ghost-2", "tap-2", "ghost-3", "tap-3", "done"],
+  1: ["ghost-2", "tap-2", "ghost-3", "tap-3", "done"],
+  2: ["ghost-3", "tap-3", "done"],
+};
+
+const TAB_INK_PHASES: Record<number, readonly TabPhase[]> = {
+  0: ["tap-1", "ghost-2", "tap-2", "ghost-3", "tap-3", "done"],
+  1: ["tap-2", "ghost-3", "tap-3", "done"],
+  2: ["tap-3", "done"],
+};
+
 function TabVisual() {
   const prefersReducedMotion = useReducedMotion() ?? false;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [phase, setPhase] = useState<TabPhase>("idle");
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion || !isInView) return;
+    const id = setTimeout(() => {
+      setPhase((p) => TAB_NEXT_PHASE[p]);
+    }, TAB_PHASE_DURATION_MS[phase]);
+    return () => clearTimeout(id);
+  }, [phase, isInView, prefersReducedMotion]);
+
+  const isPressing =
+    phase === "tap-1" || phase === "tap-2" || phase === "tap-3";
+
+  const tapsCompleted =
+    phase === "done"
+      ? 3
+      : phase === "tap-3" || phase === "ghost-3"
+        ? 2
+        : phase === "tap-2" || phase === "ghost-2"
+          ? 1
+          : 0;
+
+  const armedDotIndex =
+    phase === "ghost-1" || phase === "tap-1"
+      ? 0
+      : phase === "ghost-2" || phase === "tap-2"
+        ? 1
+        : phase === "ghost-3" || phase === "tap-3"
+          ? 2
+          : -1;
 
   return (
-    <div className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4">
-      <div className="flex items-center gap-3">
-        <motion.kbd
-          animate={prefersReducedMotion ? { y: 0 } : { y: [0, -2, 0] }}
+    <div
+      ref={containerRef}
+      className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <m.kbd
+          animate={
+            prefersReducedMotion || !isPressing
+              ? { y: 0, scale: 1 }
+              : { y: [0, 4, 0], scale: [1, 0.92, 1] }
+          }
           transition={
-            prefersReducedMotion
-              ? { duration: 0 }
-              : { duration: 1.3, ease: "easeInOut", repeat: Infinity }
+            isPressing
+              ? { duration: 0.32, ease: "easeOut", times: [0, 0.4, 1] }
+              : { duration: 0.18, ease: "easeOut" }
           }
           style={{ boxShadow: "0 3px 0 var(--line)" }}
-          className="inline-flex h-10 min-w-13 items-center justify-center rounded-[0.6rem] border-2 border-line bg-background px-2.5 text-sm font-bold text-ink"
+          className="inline-flex h-11 min-w-14 items-center justify-center rounded-[0.65rem] border-2 border-line bg-background px-3 text-base font-bold text-ink"
         >
           Tab
-        </motion.kbd>
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-ink"
-          aria-hidden="true"
-        >
-          <path d="M5 12h14" />
-          <path d="m13 6 6 6-6 6" />
-        </svg>
-        <span className="text-sm tracking-tight text-ink">
-          ghost text becomes <span className="font-bold">your</span> words
-        </span>
+        </m.kbd>
+        <div className="flex items-center gap-1.5">
+          {[0, 1, 2].map((i) => {
+            const completed = i < tapsCompleted;
+            const armed = i === armedDotIndex;
+            return (
+              <m.span
+                key={i}
+                aria-hidden="true"
+                animate={{
+                  width: armed ? 22 : 12,
+                  backgroundColor: completed
+                    ? "var(--accent)"
+                    : armed
+                      ? "var(--foreground)"
+                      : "var(--line-soft)",
+                  scale: armed && isPressing ? 0.85 : 1,
+                }}
+                transition={{ duration: 0.28, ease: EASE }}
+                className="inline-block h-1.5 rounded-full"
+              />
+            );
+          })}
+          <span className="ml-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-subtle">
+            {tapsCompleted}/3 taps
+          </span>
+        </div>
       </div>
-      <div className="mt-4 overflow-hidden rounded-[0.8rem] border border-line-soft bg-background px-3 py-2 text-sm tracking-tight text-muted">
-        I folded your feedback into the deck
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: [0, 1, 1] }}
-          viewport={{ once: true, amount: 0.7 }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="text-accent"
-        >
-          {" and tightened the closing CTA."}
-        </motion.span>
+      <div className="mt-4 overflow-hidden rounded-[0.8rem] border border-line-soft bg-background px-3 py-2.5 text-sm leading-relaxed tracking-tight text-muted">
+        {prefersReducedMotion ? (
+          <span className="text-ink">{TAB_FRAGMENTS.join("")}</span>
+        ) : (
+          TAB_FRAGMENTS.map((fragment, i) => {
+            const visible = TAB_GHOST_PHASES[i].includes(phase);
+            const inked = TAB_INK_PHASES[i].includes(phase);
+            return (
+              <m.span
+                key={i}
+                initial={false}
+                animate={{
+                  opacity: visible ? 1 : 0,
+                  color: inked ? TAB_INK_COLOR : TAB_GHOST_COLOR,
+                }}
+                transition={{
+                  opacity: {
+                    duration: visible ? 0.34 : 0.24,
+                    ease: EASE,
+                  },
+                  color: {
+                    duration: 0.36,
+                    ease: EASE,
+                    delay: inked ? 0.14 : 0,
+                  },
+                }}
+              >
+                {fragment}
+              </m.span>
+            );
+          })
+        )}
       </div>
     </div>
   );
@@ -179,7 +419,7 @@ const steps: StepDefinition[] = [
 
 function StepCard({ index, step }: { index: number; step: StepDefinition }) {
   return (
-    <motion.article
+    <m.article
       custom={index}
       variants={stepCardVariants}
       whileHover={{ y: -4, transition: { duration: 0.22, ease: EASE } }}
@@ -200,7 +440,7 @@ function StepCard({ index, step }: { index: number; step: StepDefinition }) {
         {step.description}
       </p>
       <div className="mt-auto">{step.visual}</div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -218,7 +458,7 @@ export function HowItWorksSection() {
           </p>
         </div>
       </FadeIn>
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -233,7 +473,7 @@ export function HowItWorksSection() {
         {steps.map((step, index) => (
           <StepCard key={step.number} index={index} step={step} />
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

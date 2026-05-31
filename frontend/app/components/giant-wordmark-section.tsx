@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 export function GiantWordmarkSection() {
   const prefersReducedMotion = useReducedMotion() ?? false;
@@ -10,7 +10,7 @@ export function GiantWordmarkSection() {
       aria-hidden="true"
       className="-mx-3 -mb-14 select-none overflow-hidden sm:-mx-4 sm:-mb-16 lg:-mx-6 lg:-mb-20"
     >
-      <motion.div
+      <m.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "0px 0px -10% 0px" }}
@@ -50,7 +50,7 @@ export function GiantWordmarkSection() {
             cotabby
           </text>
         </svg>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

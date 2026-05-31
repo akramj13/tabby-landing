@@ -1,3 +1,5 @@
+import { CountUp } from "./motion";
+
 export function GithubStarLabel() {
-  return <span>600+ GitHub Stars</span>;
+  return <CountUp to={600} duration={1.6} suffix="+ GitHub Stars" />;
 }

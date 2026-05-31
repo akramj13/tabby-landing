@@ -4,7 +4,12 @@ export const FAQ_ITEMS = [
   {
     question: "What is Cotabby?",
     answer:
-      "Cotabby is a local AI autocomplete for macOS. It sits in your menu bar, watches the text field you're typing in, and suggests the next few words as ghost text. Everything runs locally on your Mac.",
+      "Cotabby is a local AI autocomplete for macOS. It sits in your menu bar, watches the text field you're typing in, and suggests the next few words as ghost text. Everything runs locally on your Mac. It also includes inline emoji autocomplete with the same :shortcut: style.",
+  },
+  {
+    question: "What is inline emoji autocomplete?",
+    answer:
+      "Type a colon followed by a couple of letters anywhere on your Mac (:smi, :tada, :+1) and Cotabby pops up a small list of matching emojis. Press Tab to insert the highlighted one without leaving your current app. The emoji match is fully local - it uses the gemoji shortcode set, no model required.",
   },
   {
     question: "Is Cotabby free?",

@@ -2,7 +2,7 @@
 
 import {
   AnimatePresence,
-  motion,
+  m,
   useReducedMotion,
   type Variants,
 } from "framer-motion";
@@ -73,23 +73,23 @@ export function Hero() {
 
   return (
     <main id="hero" className="relative mt-6 sm:mt-8">
-      <section className="mx-auto flex max-w-6xl flex-col items-center px-2 pt-14 pb-28 text-center sm:px-4 sm:py-14 lg:py-18">
-        <motion.div
+      <section className="mx-auto flex max-w-[88rem] flex-col items-center px-2 pt-14 pb-28 text-center sm:px-4 sm:py-14 lg:py-18">
+        <m.div
           variants={copyContainer}
           initial="hidden"
           animate={revealState}
           className="flex w-full flex-col items-center"
         >
-          <motion.div
+          <m.div
             variants={copyItem}
-            className="mx-auto flex max-w-6xl flex-col items-center"
+            className="mx-auto flex max-w-[88rem] flex-col items-center"
           >
             <h1
               aria-label={`${headline.lead} ${headline.accept}`}
-              className="tabby-display mx-auto max-w-5xl text-center leading-[0.94] tracking-tight text-ink"
+              className="tabby-display mx-auto max-w-[88rem] text-center leading-[0.94] tracking-tight text-ink"
             >
               <AnimatePresence mode="wait">
-                <motion.span
+                <m.span
                   key={headlineIndex}
                   exit={{
                     opacity: 0,
@@ -116,20 +116,20 @@ export function Hero() {
                     startDelay={1.3}
                     className="ml-[0.18em] inline text-[3.15rem] sm:text-[4.8rem] lg:text-[6.2rem]"
                   />
-                </motion.span>
+                </m.span>
               </AnimatePresence>
             </h1>
-          </motion.div>
+          </m.div>
 
-          <motion.p
+          <m.p
             variants={copyItem}
             className="mt-6 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-2xl"
           >
             Open-source AI autocomplete for the apps you already use, powered
             by Apple Intelligence or local models and kept entirely on your Mac.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             variants={copyItem}
             className="mt-9 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row"
           >
@@ -146,9 +146,9 @@ export function Hero() {
               <AppleIcon className="h-6 w-6 shrink-0" />
               Download for Mac
             </DownloadButton>
-          </motion.div>
+          </m.div>
 
-          <motion.p
+          <m.p
             variants={copyItem}
             className="mt-5 text-xs tracking-tight text-subtle sm:text-sm"
           >
@@ -178,8 +178,8 @@ export function Hero() {
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.49 4.04 3 5.5l7 7Z" />
               </svg>
             </Link>
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
       </section>
     </main>
   );

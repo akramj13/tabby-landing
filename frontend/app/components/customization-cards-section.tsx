@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Cpu, SlidersHorizontal, Sparkles, type LucideIcon } from "lucide-react";
 import {
   FadeIn,
@@ -92,18 +92,18 @@ function ModelsPreview() {
 
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-2 shadow-[0_5px_0_var(--line)]">
-      {MODELS.map((m, i) => {
+      {MODELS.map((model, i) => {
         const isActive = i === active;
         return (
           <div
-            key={m.name}
+            key={model.name}
             className="relative flex items-center gap-3 rounded-[0.85rem] px-3 py-2.5"
           >
-            <motion.div
+            <m.div
               initial={false}
               animate={{ opacity: isActive ? 1 : 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              style={{ backgroundColor: m.tint }}
+              style={{ backgroundColor: model.tint }}
               className="pointer-events-none absolute inset-0 rounded-[0.85rem]"
             />
             <span className="relative z-10 h-2 w-2 shrink-0">
@@ -112,42 +112,42 @@ function ModelsPreview() {
                 className="absolute inset-0 rounded-full"
                 style={{ background: "rgba(120, 120, 120, 0.4)" }}
               />
-              <motion.span
+              <m.span
                 aria-hidden
                 initial={false}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
-                style={{ backgroundColor: m.color }}
+                style={{ backgroundColor: model.color }}
                 className="absolute inset-0 rounded-full"
               />
             </span>
             <div className="relative z-10 min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <p className="truncate text-sm font-bold tracking-tight text-ink">
-                  {m.name}
+                  {model.name}
                 </p>
                 <span className="shrink-0 rounded-full border border-line-soft bg-background px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-widest text-subtle">
-                  {m.size}
+                  {model.size}
                 </span>
               </div>
               <p className="truncate text-xs tracking-tight text-subtle">
-                {m.file}
+                {model.file}
               </p>
               <p className="truncate text-[0.65rem] tracking-tight text-subtle/80">
-                {m.source}
+                {model.source}
               </p>
             </div>
             {isActive && (
-              <motion.span
-                key={m.tag}
+              <m.span
+                key={model.tag}
                 initial={{ opacity: 0, y: 5, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                style={{ backgroundColor: m.color }}
+                style={{ backgroundColor: model.color }}
                 className="relative z-10 shrink-0 rounded-full px-2.5 py-0.5 text-[0.62rem] font-bold uppercase tracking-widest text-white"
               >
-                {m.tag}
-              </motion.span>
+                {model.tag}
+              </m.span>
             )}
           </div>
         );
@@ -165,7 +165,7 @@ function LengthPreview() {
         <span>12-20 words</span>
       </div>
       <div className="relative mt-4 h-2 rounded-full border-2 border-line bg-background">
-        <motion.div
+        <m.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 0.55 }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -173,7 +173,7 @@ function LengthPreview() {
           style={{ transformOrigin: "0% 50%" }}
           className="absolute inset-y-0 left-0 w-full rounded-full bg-accent"
         />
-        <motion.div
+        <m.div
           initial={{ x: "0%" }}
           whileInView={{ x: "55%" }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -181,7 +181,7 @@ function LengthPreview() {
           className="pointer-events-none absolute inset-y-0 left-0 w-full"
         >
           <span className="absolute left-0 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-line bg-background shadow-[0_3.4px_0_var(--line)]" />
-        </motion.div>
+        </m.div>
       </div>
       <p className="mt-4 text-sm leading-relaxed tracking-tight text-subtle">
         Suggestions stay concise by default so they still feel like an extension

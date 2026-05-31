@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { FadeIn, ScaleIn, Stagger, StaggerItem } from "./motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -77,7 +77,7 @@ function FlowNode({ children, accent = false }: { children: React.ReactNode; acc
 
 function BlockedNode({ label }: { label: string }) {
   return (
-    <motion.div
+    <m.div
       variants={flowItem}
       className="flex items-center gap-1.5 rounded-xl border-2 border-dashed border-line-soft bg-background px-3 py-2"
     >
@@ -85,13 +85,13 @@ function BlockedNode({ label }: { label: string }) {
         <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       </svg>
       <span className="text-xs font-semibold tracking-tight text-subtle">{label}</span>
-    </motion.div>
+    </m.div>
   );
 }
 
 function DataFlowVisual() {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.35 }}
@@ -99,7 +99,7 @@ function DataFlowVisual() {
       className="overflow-hidden rounded-[1.7rem] border-2 border-line bg-surface-3 p-6 shadow-[0_8.4px_0_var(--line)] sm:p-8"
     >
       {/* Header */}
-      <motion.div variants={flowItem} className="mb-6 flex items-center justify-between">
+      <m.div variants={flowItem} className="mb-6 flex items-center justify-between">
         <span className="text-xs font-bold tracking-[0.14em] text-subtle uppercase">your mac</span>
         <span className="flex items-center gap-1.5 text-xs tracking-tight text-subtle">
           <span className="relative flex h-1.5 w-1.5">
@@ -108,10 +108,10 @@ function DataFlowVisual() {
           </span>
           local
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Mac boundary box */}
-      <motion.div
+      <m.div
         variants={flowItem}
         className="rounded-[1.1rem] border-2 border-dashed border-line-soft p-5"
       >
@@ -138,7 +138,7 @@ function DataFlowVisual() {
         </div>
 
         {/* Engine label */}
-        <motion.div
+        <m.div
           variants={flowItem}
           className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-surface-2 px-3 py-2"
         >
@@ -146,17 +146,17 @@ function DataFlowVisual() {
           <span className="text-xs font-semibold tracking-tight text-subtle">
             Apple Intelligence or local GGUF · no hosted API
           </span>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Blocked items */}
-      <motion.div variants={flowContainer} className="mt-5 flex flex-wrap items-center gap-2">
+      <m.div variants={flowContainer} className="mt-5 flex flex-wrap items-center gap-2">
         <span className="text-xs font-semibold tracking-tight text-subtle">blocked:</span>
         <BlockedNode label="cloud upload" />
         <BlockedNode label="telemetry" />
         <BlockedNode label="accounts" />
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 

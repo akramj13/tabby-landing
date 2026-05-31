@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  motion,
+  m,
   useScroll,
   useSpring,
   useTransform,
@@ -37,7 +37,7 @@ export function FadeIn({
   ...rest
 }: FadeInProps) {
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once, margin: "-10% 0px -10% 0px" }}
@@ -46,7 +46,7 @@ export function FadeIn({
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -67,7 +67,7 @@ export function Stagger({
     visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
   };
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once, margin: "-10% 0px -10% 0px" }}
@@ -75,7 +75,7 @@ export function Stagger({
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -85,9 +85,9 @@ type StaggerItemProps = HTMLMotionProps<"div"> & {
 
 export function StaggerItem({ children, ...rest }: StaggerItemProps) {
   return (
-    <motion.div variants={fadeUp} {...rest}>
+    <m.div variants={fadeUp} {...rest}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -98,14 +98,14 @@ type HeroRevealProps = HTMLMotionProps<"div"> & {
 
 export function HeroReveal({ children, delay = 0, ...rest }: HeroRevealProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.75, ease: EASE, delay }}
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -124,7 +124,7 @@ export function ScaleIn({
   ...rest
 }: ScaleInProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: from, y: 20 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once, margin: "-10% 0px -10% 0px" }}
@@ -132,7 +132,7 @@ export function ScaleIn({
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -157,9 +157,9 @@ export function ParallaxY({
   const smooth = useSpring(y, { stiffness: 120, damping: 24, mass: 0.4 });
 
   return (
-    <motion.div ref={localRef} style={{ y: smooth }} {...rest}>
+    <m.div ref={localRef} style={{ y: smooth }} {...rest}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -195,7 +195,7 @@ export function WordReveal({
     },
   };
 
-  const MotionTag = motion[as] as typeof motion.h2;
+  const MotionTag = m[as] as typeof m.h2;
 
   return (
     <MotionTag
@@ -212,13 +212,13 @@ export function WordReveal({
           aria-hidden="true"
           className="relative inline-block overflow-hidden pb-[0.12em] align-baseline"
         >
-          <motion.span
+          <m.span
             variants={child}
             className={`inline-block ${wordClassName ?? ""}`}
           >
             {word}
             {i < words.length - 1 ? "\u00A0" : ""}
-          </motion.span>
+          </m.span>
         </span>
       ))}
     </MotionTag>
@@ -232,13 +232,13 @@ type HoverLiftProps = HTMLMotionProps<"div"> & {
 
 export function HoverLift({ children, lift = 4, ...rest }: HoverLiftProps) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ y: -lift, transition: SPRING }}
       whileTap={{ y: -lift / 2, scale: 0.99 }}
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -301,20 +301,41 @@ type ScrollProgressBarProps = {
 };
 
 export function ScrollProgressBar({ className }: ScrollProgressBarProps) {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.4,
-  });
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      node.style.transform = `scaleX(${progress})`;
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
-    <motion.div
+    <div
+      ref={ref}
       aria-hidden="true"
-      style={{ scaleX, transformOrigin: "0% 50%" }}
+      style={{ transformOrigin: "0% 50%", transform: "scaleX(0)" }}
       className={
-        className ??
-        "fixed left-0 right-0 top-0 z-50 h-0.75 bg-accent"
+        className ?? "fixed left-0 right-0 top-0 z-50 h-0.75 bg-accent"
       }
     />
   );
@@ -402,7 +423,7 @@ export function Typewriter({
     <span ref={containerRef} className={className}>
       <span className={prefixClassName}>{displayedPrefix}</span>
       {showSuggestion && (
-        <motion.span
+        <m.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -410,20 +431,20 @@ export function Typewriter({
           className={suggestionClassName}
         >
           {suggestion}
-        </motion.span>
+        </m.span>
       )}
       {showAccepted && (
-        <motion.span
+        <m.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
           className={prefixClassName}
         >
           {suggestion}
-        </motion.span>
+        </m.span>
       )}
       {active && phase === "typing" && (
-        <motion.span
+        <m.span
           className="ml-px inline-block h-[1em] w-0.5 align-middle bg-ink"
           animate={{ opacity: [1, 0, 1] }}
           transition={{ duration: 0.9, repeat: Infinity }}

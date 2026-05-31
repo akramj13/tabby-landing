@@ -1,12 +1,14 @@
 "use client";
 
 import {
-  motion,
+  m,
   useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
+import { Plus } from "lucide-react";
+import Image from "next/image";
 import { useRef, type ReactNode } from "react";
 import { PawMark } from "./paw-mark";
 
@@ -19,66 +21,78 @@ type CardProps = {
 
 function OpenSourceEvidence() {
   return (
-    <div className="rounded-[0.9rem] border-2 border-line-soft bg-surface-2 p-3">
-      <div className="flex items-center gap-2 font-mono text-[0.72rem] sm:text-xs">
-        <span className="text-accent-deep">$</span>
-        <span className="text-ink">git clone</span>
-        <span className="truncate text-subtle">github.com/fujacob/cotabby</span>
-      </div>
-      <div className="mt-2.5 flex flex-wrap gap-1.5">
-        <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-widest text-accent-deep">
-          AGPL-3.0
-        </span>
-        <span className="rounded-full bg-background px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-widest text-subtle">
-          free forever
-        </span>
-      </div>
+    <div className="tabby-display text-[3.4rem] leading-[0.92] tracking-tight text-ink sm:text-[4.2rem]">
+      AGPL-3.0
     </div>
   );
 }
 
+const BLOCKED_WORDS = [
+  "cloud",
+  "analytics",
+  "accounts",
+  "telemetry",
+  "servers",
+] as const;
+
+const STRIKE_STYLE = {
+  textDecorationColor: "rgba(225, 29, 72, 0.9)",
+  textDecorationSkipInk: "none" as const,
+};
+
 function OnDeviceEvidence() {
-  const blocked = ["cloud", "analytics", "accounts"];
   return (
-    <div>
-      <div className="flex items-baseline gap-2">
-        <span className="tabby-display text-[2.4rem] leading-none tracking-tight text-ink">
-          100%
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+      {BLOCKED_WORDS.map((item) => (
+        <span
+          key={item}
+          className="tabby-display text-[1.7rem] leading-[1.18] tracking-tight text-ink/85 line-through decoration-[3px] sm:text-[2.05rem]"
+          style={STRIKE_STYLE}
+        >
+          {item}
         </span>
-        <span className="text-sm font-medium tracking-tight text-muted">
-          on your Mac
-        </span>
-      </div>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {blocked.map((item) => (
-          <span
-            key={item}
-            className="rounded-full bg-background px-2.5 py-0.5 text-xs font-semibold tracking-tight text-subtle line-through decoration-pop-red/70 decoration-2"
-          >
-            {item}
-          </span>
-        ))}
-      </div>
+      ))}
     </div>
   );
 }
 
 function ModelEvidence() {
   const engines = [
-    { name: "Apple Intelligence", tag: "system" },
-    { name: "Open-source GGUF", tag: "4 built-in" },
-    { name: "Bring your own", tag: ".gguf" },
+    {
+      name: "Apple",
+      icon: (
+        <Image
+          src="/app-icons/Apple_Intelligence.png"
+          alt=""
+          width={32}
+          height={32}
+          className="h-8 w-8 object-contain"
+        />
+      ),
+    },
+    {
+      name: "GGUF",
+      icon: (
+        <Image
+          src="/app-icons/hf-logo.png"
+          alt=""
+          width={32}
+          height={32}
+          className="h-8 w-8 object-contain"
+        />
+      ),
+    },
+    { name: "Custom", icon: <Plus className="h-7 w-7" strokeWidth={2.4} /> },
   ];
   return (
-    <div className="space-y-1">
+    <div className="flex items-end justify-around gap-3">
       {engines.map((e) => (
-        <div key={e.name} className="flex items-center gap-2.5">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-          <span className="flex-1 text-sm font-semibold tracking-tight text-ink">
+        <div key={e.name} className="flex flex-col items-center gap-2">
+          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-[0.8rem] border-2 border-line bg-surface-2 text-ink shadow-[0_3.4px_0_var(--line)]">
+            {e.icon}
+          </div>
+          <span className="text-sm font-bold tracking-tight text-ink">
             {e.name}
-          </span>
-          <span className="shrink-0 text-xs tracking-tight text-subtle">
-            {e.tag}
           </span>
         </div>
       ))}
@@ -101,7 +115,7 @@ const CARDS: CardProps[] = [
   },
   {
     title: "Model Customization",
-    description: "Apple Intelligence, local GGUF, or bring your own.",
+    description: "Pick your engine. Swap it whenever.",
     evidence: <ModelEvidence />,
     pawClassName: "right-5 top-7 w-[3.4rem] -rotate-[27deg]",
   },
@@ -164,7 +178,7 @@ export function StatsStripSection() {
 
   return (
     <section ref={sectionRef} className="mx-auto max-w-305">
-      <motion.div
+      <m.div
         style={{
           y: smoothY,
           scale: smoothScale,
@@ -173,7 +187,7 @@ export function StatsStripSection() {
         }}
         className="rounded-[1.6rem] p-2 sm:p-3"
       >
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.45 }}
@@ -186,7 +200,7 @@ export function StatsStripSection() {
           className="grid grid-cols-1 gap-4 md:grid-cols-3"
         >
           {CARDS.map((card) => (
-            <motion.div
+            <m.div
               key={card.title}
               variants={{
                 hidden: { opacity: 0, y: 18 },
@@ -204,10 +218,10 @@ export function StatsStripSection() {
                 evidence={card.evidence}
                 pawClassName={card.pawClassName}
               />
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }
