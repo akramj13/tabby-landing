@@ -1,3 +1,3 @@
 export function GithubStarLabel() {
-  return <span>500+ GitHub Stars</span>;
+  return <span>600+ GitHub Stars</span>;
 }
