@@ -42,37 +42,37 @@ function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps
 
 const MODELS = [
   {
-    name: "tabby-1-nano",
-    file: "SmolLM2-135M-Instruct-q8_0.gguf",
-    size: "~0.1 GB",
-    source: "Mungert/SmolLM2-135M-Instruct-GGUF",
+    name: "tabby-2-nano",
+    file: "Qwen3.5-0.8B-Base.i1-Q6_K.gguf",
+    size: "~0.8 GB",
+    source: "mradermacher/Qwen3.5-0.8B-Base-i1-GGUF",
     tag: "nano",
     color: "#36b5c4",
     tint: "rgba(54, 181, 196, 0.16)",
   },
   {
-    name: "tabby-1-mini",
-    file: "Qwen3-0.6B-Q4_K_M.gguf",
-    size: "~0.4 GB",
-    source: "unsloth/Qwen3-0.6B-GGUF",
+    name: "tabby-2-mini",
+    file: "Qwen3.5-2B-Base.i1-Q4_K_M.gguf",
+    size: "~1.4 GB",
+    source: "mradermacher/Qwen3.5-2B-Base-i1-GGUF",
     tag: "mini",
     color: "#e0a32e",
     tint: "rgba(224, 163, 46, 0.16)",
   },
   {
-    name: "tabby-1-base",
-    file: "gemma-4-E2B-it-Q4_K_M.gguf",
-    size: "~3.1 GB",
-    source: "unsloth/gemma-4-E2B-it-GGUF",
+    name: "tabby-2-base",
+    file: "gemma-4-E2B.i1-Q6_K.gguf",
+    size: "~4.5 GB",
+    source: "mradermacher/gemma-4-E2B-i1-GGUF",
     tag: "base",
     color: "#ff8273",
     tint: "rgba(255, 130, 115, 0.16)",
   },
   {
-    name: "tabby-1-pro",
-    file: "gemma-4-E4B-it-Q4_K_M.gguf",
+    name: "tabby-2-pro",
+    file: "gemma-4-E4B.i1-Q4_K_M.gguf",
     size: "~5.0 GB",
-    source: "unsloth/gemma-4-E4B-it-GGUF",
+    source: "mradermacher/gemma-4-E4B-i1-GGUF",
     tag: "pro",
     color: "#8b7fd4",
     tint: "rgba(139, 127, 212, 0.16)",
@@ -240,7 +240,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Cpu}
               title="choose your model"
-              description="Four built-in models ship with Cotabby - tabby-1-nano for instant suggestions, to tabby-1-pro for the sharpest output. Also drop in your own GGUF."
+              description="Four built-in models ship with Cotabby - tabby-2-nano for instant suggestions, to tabby-2-pro for the sharpest output. Also drop in your own GGUF."
               preview={<ModelsPreview />}
             />
           </ScaleIn>
