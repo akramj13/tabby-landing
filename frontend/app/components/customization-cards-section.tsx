@@ -210,10 +210,10 @@ function PersonalizationPreview() {
           </span>
         ))}
       </div>
-      <p className="mt-4 text-sm leading-relaxed tracking-tight text-muted">
-        Over time, Cotabby will learn the way you phrase things,
+      <p className="mt-4 text-center text-sm leading-relaxed tracking-tight text-muted">
+        Cotabby learns the way you phrase things and
         <span className="text-accent">
-          {" remember what matters to you, and keep suggestions sounding like you."}
+          {" keeps suggestions sounding like you."}
         </span>
       </p>
     </div>
@@ -226,7 +226,7 @@ export function CustomizationCardsSection() {
       <WordReveal
         as="h2"
         text="make Cotabby feel like yours"
-        className="tabby-display text-center text-[2.9rem] leading-[1.02] tracking-tight text-ink sm:text-[4.1rem]"
+        className="tabby-display text-center text-[2.4rem] leading-[1.02] tracking-tight text-ink sm:text-[4.1rem]"
       />
       <FadeIn delay={0.1}>
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed tracking-tight text-muted sm:text-base">
@@ -260,7 +260,7 @@ export function CustomizationCardsSection() {
             <CustomItem
               icon={Sparkles}
               title="learns your voice"
-              description="Coming soon: Cotabby will adapt to how you naturally write, keep lightweight memory over time, and make suggestions feel more like you."
+              description="Coming soon: Cotabby will adapt to how you write and make suggestions feel more like you."
               preview={<PersonalizationPreview />}
             />
           </ScaleIn>
