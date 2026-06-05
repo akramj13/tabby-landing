@@ -73,7 +73,7 @@ export function Hero() {
 
   return (
     <main id="hero" className="relative mt-6 sm:mt-8">
-      <section className="mx-auto grid max-w-[88rem] grid-cols-1 items-center gap-12 px-2 pt-14 pb-24 sm:px-4 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-16 lg:pt-8 lg:pb-40">
+      <section className="mx-auto grid max-w-[88rem] grid-cols-1 items-center gap-12 px-2 pt-10 pb-16 sm:px-4 sm:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-16 lg:pt-6 lg:pb-24">
         <m.div
           variants={copyContainer}
           initial="hidden"
