@@ -70,8 +70,8 @@ const APPS: AppMock[] = [
     accent: "#1a73e8",
     meta: "alex@cotabby.app",
     sub: "Re: Onboarding revamp",
-    prefix: "Hi Alex, I went through the new flow and it's ",
-    ghostText: "a big improvement. Let's ship it Friday.",
+    prefix: "Hi Alex, I tried the new flow and it's ",
+    ghostText: "a big improvement. Let's ship Friday.",
   },
   {
     key: "obsidian",
@@ -120,8 +120,8 @@ const APPS: AppMock[] = [
     avatar: "/discord-pfp.png",
     username: "jacob",
     meta: "general",
-    prefix: "pushed the fix for the crash, ",
-    ghostText: "pull main and tell me if it's gone.",
+    prefix: "just hopped on, queue for ranked? ",
+    ghostText: "we can hit diamond if we run a few games.",
   },
   {
     key: "imessage",
