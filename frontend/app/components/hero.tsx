@@ -104,7 +104,7 @@ export function Hero() {
                     y: -10,
                     transition: { duration: 0.3, ease: EASE },
                   }}
-                  className="inline-block text-[3.15rem] sm:text-[4.8rem] lg:text-[4.6rem]"
+                  className="inline-block text-[2.5rem] sm:text-[4.8rem] lg:text-[4.6rem]"
                 >
                   {headline.lead}{" "}
                   <span style={{ color: HERO_ACCEPT_COLOR }}>
