@@ -3,18 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { MouseEvent } from "react";
+import { DownloadButton } from "./download-button";
 import { useEmailGate } from "./email-gate";
-import { SupportButton } from "./support-button";
+import { AppleIcon } from "./icons";
 
 const textLinks = [
   { href: "#demo", label: "demo" },
   { href: "#how-it-works", label: "how it works" },
   { href: "#faq", label: "faq" },
-  { href: "/feedback", label: "report bug" },
 ] as const;
 
-const supportActionClass =
-  "h-12 rounded-2xl px-5 text-sm sm:h-14 sm:px-6 sm:text-base";
+const downloadActionClass =
+  "tabby-button tabby-button-blue inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-bold tracking-tight sm:h-14 sm:px-6 sm:text-base";
 
 function scrollToAnchor(event: MouseEvent<HTMLAnchorElement>, href: string) {
   if (!href.startsWith("#")) {
@@ -95,10 +95,10 @@ export function Header() {
         </div>
 
         <div className="flex w-full justify-start sm:w-auto sm:items-center lg:justify-end">
-          <SupportButton
-            className={supportActionClass}
-            iconClassName="h-4.5 w-4.5 sm:h-5 sm:w-5"
-          />
+          <DownloadButton className={downloadActionClass}>
+            <AppleIcon className="h-5 w-5" />
+            Download for Mac
+          </DownloadButton>
         </div>
       </div>
     </header>

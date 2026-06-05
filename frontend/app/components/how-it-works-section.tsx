@@ -4,9 +4,9 @@ import { m, type Variants, useReducedMotion } from "framer-motion";
 import { Folder } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { DownloadCtaContent } from "./cta-button-content";
 import { FadeIn } from "./motion";
 import { DownloadButton } from "./download-button";
+import { AppleIcon } from "./icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -123,8 +123,9 @@ function InstallVisual() {
           <Folder className="h-5 w-5 text-ink" strokeWidth={2.2} />
         </div>
       </div>
-      <DownloadButton className="tabby-button tabby-button-blue mt-3 inline-flex h-16 w-full items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight">
-        <DownloadCtaContent iconClassName="h-5 w-5" />
+      <DownloadButton className="tabby-button tabby-button-blue mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight">
+        <AppleIcon className="h-5 w-5 shrink-0" />
+        Download for Mac
       </DownloadButton>
     </div>
   );
@@ -316,18 +317,19 @@ function TabVisual() {
         <m.kbd
           animate={
             prefersReducedMotion || !isPressing
-              ? { y: 0, scale: 1 }
-              : { y: [0, 4, 0], scale: [1, 0.92, 1] }
+              ? { y: 0 }
+              : { y: [0, 2, 0] }
           }
           transition={
             isPressing
-              ? { duration: 0.32, ease: "easeOut", times: [0, 0.4, 1] }
+              ? { duration: 0.28, ease: "easeOut", times: [0, 0.4, 1] }
               : { duration: 0.18, ease: "easeOut" }
           }
-          style={{ boxShadow: "0 3px 0 var(--line)" }}
-          className="inline-flex h-11 min-w-14 items-center justify-center rounded-[0.65rem] border-2 border-line bg-background px-3 text-base font-bold text-ink"
+          className="inline-flex items-center gap-2 rounded-[0.7rem] px-4 py-3 text-[1.05rem] font-bold text-white"
+          style={{ background: "#3a3a3c" }}
         >
-          Tab
+          <span aria-hidden="true">⇥</span>
+          <span>tab</span>
         </m.kbd>
         <div className="flex items-center gap-1.5">
           {[0, 1, 2].map((i) => {

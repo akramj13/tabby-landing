@@ -6,8 +6,8 @@ import { useAnimate, useReducedMotion } from "framer-motion";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 // Ghost suggestion → accepted text. Mirrors Cotabby's own inline autocomplete:
-// a caret blinks, the phrase appears as faint-blue ghost text, then commits to ink.
-const GHOST_COLOR = "rgba(255, 130, 115, 0.5)"; // accent salmon #ff8273 @ 50%
+// a caret blinks, the phrase appears as coral ghost text, then commits to ink.
+const GHOST_COLOR = "#e85548";
 const INK_COLOR = "rgb(28, 28, 28)"; // --foreground #1c1c1c
 
 const sleep = (seconds: number) =>

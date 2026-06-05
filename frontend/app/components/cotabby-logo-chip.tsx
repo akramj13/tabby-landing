@@ -26,7 +26,9 @@ export function CotabbyLogoChip({
           width={48}
           height={48}
           sizes="24px"
-          className="h-6 w-6 object-contain"
+          className={`h-6 w-6 object-contain${
+            iconSrc.endsWith(".jpeg") ? " rounded-[0.5rem]" : ""
+          }`}
         />
       </div>
       <span className="text-muted">{label}</span>

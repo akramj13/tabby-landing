@@ -10,14 +10,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GITHUB_URL } from "../lib/site";
 import { DownloadButton } from "./download-button";
-import { GhostAcceptText } from "./ghost-accept-text";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
-import { TextAnimate } from "./text";
 import { HeroAppDemo } from "./hero-app-demo";
 import { HeroReveal } from "./motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const HERO_ACCEPT_COLOR = "#e85548";
 
 const secondaryActionClass =
   "tabby-button tabby-button-secondary inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
@@ -48,11 +47,10 @@ const copyItem: Variants = {
 // short accept-phrase (the ghost-text accept animation). Kept similar in length
 // so the layout barely shifts as they cycle.
 const HEADLINES = [
-  { lead: "Write at the speed of thought.", accept: "In any app." },
-  { lead: "Finish your thoughts faster.", accept: "In any app." },
-  { lead: "Skip the repetitive typing.", accept: "On your Mac." },
-  { lead: "Turn quick notes into words.", accept: "In any app." },
-  { lead: "Let your ideas keep flowing.", accept: "Right inline." },
+  { lead: "AI autocomplete", accept: "for your Mac." },
+  { lead: "Write faster", accept: "in every app." },
+  { lead: "Finish thoughts", accept: "before you type." },
+  { lead: "Finish words", accept: "right inline." },
 ] as const;
 
 const HEADLINE_INTERVAL_MS = 5600;
@@ -75,7 +73,7 @@ export function Hero() {
 
   return (
     <main id="hero" className="relative mt-6 sm:mt-8">
-      <section className="mx-auto grid max-w-[88rem] grid-cols-1 items-center gap-12 px-2 pt-14 pb-24 sm:px-4 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:gap-16 lg:py-16">
+      <section className="mx-auto grid max-w-[88rem] grid-cols-1 items-center gap-12 px-2 pt-14 pb-24 sm:px-4 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:items-start lg:gap-16 lg:pt-8 lg:pb-40">
         <m.div
           variants={copyContainer}
           initial="hidden"
@@ -93,31 +91,25 @@ export function Hero() {
               <AnimatePresence mode="wait">
                 <m.span
                   key={headlineIndex}
+                  initial={{ opacity: 0, filter: "blur(8px)", y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    y: 0,
+                    transition: { duration: 0.5, ease: EASE },
+                  }}
                   exit={{
                     opacity: 0,
                     filter: "blur(8px)",
+                    y: -10,
                     transition: { duration: 0.3, ease: EASE },
                   }}
-                  className="inline-block"
+                  className="inline-block text-[3.15rem] sm:text-[4.8rem] lg:text-[4.6rem]"
                 >
-                  <TextAnimate
-                    as="span"
-                    by="word"
-                    animation="blurInUp"
-                    duration={0.8}
-                    delay={0.1}
-                    startOnView={false}
-                    once
-                    className="inline text-[3.15rem] sm:text-[4.8rem] lg:text-[4.6rem]"
-                    segmentClassName="will-change-transform"
-                  >
-                    {headline.lead}
-                  </TextAnimate>
-                  <GhostAcceptText
-                    text={headline.accept}
-                    startDelay={1.3}
-                    className="ml-[0.18em] inline text-[3.15rem] sm:text-[4.8rem] lg:text-[4.6rem]"
-                  />
+                  {headline.lead}{" "}
+                  <span style={{ color: HERO_ACCEPT_COLOR }}>
+                    {headline.accept}
+                  </span>
                 </m.span>
               </AnimatePresence>
             </h1>
@@ -125,10 +117,10 @@ export function Hero() {
 
           <m.p
             variants={copyItem}
-            className="mt-6 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-xl"
+            className="mt-6 lg:mt-10 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-xl"
           >
-            Open-source AI autocomplete for the apps you already use, powered
-            by Apple Intelligence or local models and kept entirely on your Mac.
+            Open-source AI autocomplete for the apps you already use, powered by
+            Apple Intelligence or local models and kept entirely on your Mac.
           </m.p>
 
           <m.div

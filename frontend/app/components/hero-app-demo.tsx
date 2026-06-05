@@ -50,6 +50,10 @@ type AppMock = {
   prefix: string;
   /** The suggestion that ghosts in, then commits to the app's text color. */
   ghostText: string;
+  /** Optional avatar image (channel apps) — overrides the solid accent dot. */
+  avatar?: string;
+  /** Optional sender name (channel apps). Defaults to "you". */
+  username?: string;
 };
 
 const APPS: AppMock[] = [
@@ -65,25 +69,26 @@ const APPS: AppMock[] = [
     ghost: "#bdc1c6",
     accent: "#1a73e8",
     meta: "alex@cotabby.app",
-    sub: "Quick notes from today",
-    prefix: "Thanks for the quick notes — ",
-    ghostText: "I'll fold them into the deck tonight.",
+    sub: "Re: Onboarding revamp",
+    prefix: "Hi Alex, I went through the new flow and it's ",
+    ghostText: "a big improvement. Let's ship it Friday.",
   },
   {
-    key: "applemail",
-    name: "Mail — New Message",
-    short: "Apple Mail",
-    iconSrc: "/app-icons/apple-mail.webp",
-    kind: "email",
-    surface: "#ffffff",
-    text: "#1d1d1f",
-    subtle: "#86868b",
-    ghost: "#c7c7cc",
-    accent: "#1f8aff",
-    meta: "dana@team.com",
-    sub: "Re: Launch plan",
-    prefix: "Looks great — ",
-    ghostText: "let's ship it Friday and tell the team.",
+    key: "obsidian",
+    name: "Obsidian — Daily note",
+    short: "Obsidian",
+    iconSrc: "/app-icons/obsidian.jpeg",
+    kind: "note",
+    dark: true,
+    surface: "#1e1e1e",
+    text: "#dcddde",
+    subtle: "#8a8d91",
+    ghost: "#585b5e",
+    accent: "#a78bfa",
+    meta: "2026-06-05",
+    sub: "Daily note",
+    prefix: "Standup: shipped the onboarding flow, ",
+    ghostText: "next up is the billing migration.",
   },
   {
     key: "outlook",
@@ -97,9 +102,9 @@ const APPS: AppMock[] = [
     ghost: "#c8c8c8",
     accent: "#0f6cbd",
     meta: "finance@corp.com",
-    sub: "Q3 numbers",
-    prefix: "Attaching the deck — ",
-    ghostText: "the totals are on slide four.",
+    sub: "Q3 forecast",
+    prefix: "Hi team, the Q3 numbers are in and ",
+    ghostText: "revenue is up 18% over last quarter.",
   },
   {
     key: "slack",
@@ -113,8 +118,8 @@ const APPS: AppMock[] = [
     ghost: "#bcbcbc",
     accent: "#4a154b",
     meta: "design",
-    prefix: "Shipping the new hero today — ",
-    ghostText: "I'll drop a Loom once it's on staging.",
+    prefix: "the new hero is on staging, can someone ",
+    ghostText: "give it a quick design pass before we ship?",
   },
   {
     key: "discord",
@@ -128,9 +133,11 @@ const APPS: AppMock[] = [
     subtle: "#949ba4",
     ghost: "#5d6066",
     accent: "#5865f2",
+    avatar: "/discord-pfp.png",
+    username: "jacob",
     meta: "general",
-    prefix: "Pushed the fix — ",
-    ghostText: "give it a pull and let me know.",
+    prefix: "pushed the fix for the crash, ",
+    ghostText: "pull main and tell me if it's gone.",
   },
   {
     key: "imessage",
@@ -144,9 +151,9 @@ const APPS: AppMock[] = [
     ghost: "rgba(255,255,255,0.6)",
     accent: "#0b84ff",
     meta: "Maya",
-    received: "Are you close?",
-    prefix: "Running five late — ",
-    ghostText: "grab a table and I'll be right there.",
+    received: "are you close?",
+    prefix: "almost there, ",
+    ghostText: "grabbing coffee then heading over.",
   },
   {
     key: "notes",
@@ -161,8 +168,8 @@ const APPS: AppMock[] = [
     accent: "#f5c33b",
     meta: "Weekend trip",
     sub: "Today at 9:41 AM",
-    prefix: "Don't forget to pack ",
-    ghostText: "chargers, trail snacks, and the camera.",
+    prefix: "Packing list: chargers, snacks, ",
+    ghostText: "a rain jacket, and the good camera.",
   },
   {
     key: "notion",
@@ -176,8 +183,8 @@ const APPS: AppMock[] = [
     ghost: "#cfcdc8",
     accent: "#37352f",
     meta: "Q3 planning",
-    prefix: "This quarter we'll ",
-    ghostText: "halve onboarding time and ship the API.",
+    prefix: "Goal this quarter: cut onboarding time ",
+    ghostText: "in half and ship the public API.",
   },
 ];
 
@@ -211,7 +218,7 @@ function renderBody(app: AppMock, typed: ReactNode, line: string): ReactNode {
         </div>
       );
     case "channel": {
-      const username = app.dark ? app.accent : app.text;
+      const nameColor = app.dark ? app.accent : app.text;
       return (
         <div className="px-6 pb-7 pt-4">
           <div
@@ -224,18 +231,29 @@ function renderBody(app: AppMock, typed: ReactNode, line: string): ReactNode {
             >{`# ${app.meta}`}</span>
           </div>
           <div className="mt-4 flex gap-3.5">
-            <span
-              className="mt-0.5 h-11 w-11 shrink-0 rounded-full"
-              style={{ background: app.accent }}
-              aria-hidden="true"
-            />
+            {app.avatar ? (
+              <Image
+                src={app.avatar}
+                alt=""
+                width={44}
+                height={44}
+                sizes="44px"
+                className="mt-0.5 h-11 w-11 shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <span
+                className="mt-0.5 h-11 w-11 shrink-0 rounded-full"
+                style={{ background: app.accent }}
+                aria-hidden="true"
+              />
+            )}
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-2">
                 <span
                   className="text-[1.02rem] font-bold"
-                  style={{ color: username }}
+                  style={{ color: nameColor }}
                 >
-                  you
+                  {app.username ?? "you"}
                 </span>
                 <span className="text-[0.8rem]" style={{ color: app.subtle }}>
                   now
@@ -379,6 +397,7 @@ export function HeroAppDemo() {
   const showCaret = !reduce && (phase === "typing" || phase === "suggest");
   const typed = reduce || phase !== "typing" ? app.prefix : app.prefix.slice(0, typedLen);
   const line = app.dark ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.08)";
+  const headerBg = app.dark ? "#26262b" : "#f1f1f4";
 
   const typedLine = (
     <>
@@ -413,14 +432,11 @@ export function HeroAppDemo() {
         Outlook, Slack, Discord, iMessage, Notes, and Notion.
       </span>
 
-      <m.div
+      <div
         aria-hidden="true"
-        initial={false}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        animate={{ rotate: hovered || reduce ? 0 : -1.2, y: hovered ? -4 : 0 }}
-        transition={{ duration: 0.35, ease: EASE }}
-        className="relative mx-auto w-full max-w-[34rem] overflow-hidden rounded-[1.5rem] border-2 border-line bg-surface shadow-[0_11.8px_0_var(--line)]"
+        className="relative w-full max-w-[34rem] overflow-hidden rounded-[1.5rem] border-2 border-line bg-surface shadow-[0_11.8px_0_var(--line)]"
       >
         <AnimatePresence mode="wait" initial={false}>
           <m.div
@@ -431,7 +447,10 @@ export function HeroAppDemo() {
             transition={{ duration: 0.24, ease: EASE }}
           >
             {/* macOS title bar (window chrome) */}
-            <div className="flex items-center gap-3 border-b-2 border-line-soft bg-surface-3 px-4 py-3">
+            <div
+              className="flex items-center gap-3 px-4 py-3"
+              style={{ background: headerBg, borderBottom: `1px solid ${line}` }}
+            >
               <div className="flex items-center gap-1.5">
                 {WINDOW_DOTS.map((color) => (
                   <span
@@ -449,10 +468,15 @@ export function HeroAppDemo() {
                     width={32}
                     height={32}
                     sizes="20px"
-                    className="h-3.5 w-3.5 object-contain"
+                    className={`h-3.5 w-3.5 object-contain${
+                      app.iconSrc.endsWith(".jpeg") ? " rounded-[0.3rem]" : ""
+                    }`}
                   />
                 </span>
-                <span className="truncate text-[0.82rem] font-bold tracking-tight text-subtle">
+                <span
+                  className="truncate text-[0.82rem] font-bold tracking-tight"
+                  style={{ color: app.subtle }}
+                >
                   {app.name}
                 </span>
               </div>
@@ -460,7 +484,7 @@ export function HeroAppDemo() {
 
             {/* App content (per-app skin) */}
             <div
-              className="relative min-h-[15rem] sm:min-h-[16.5rem]"
+              className="relative min-h-[16rem] sm:min-h-[18rem]"
               style={{ background: app.surface }}
             >
               {renderBody(app, typedLine, line)}
@@ -468,22 +492,20 @@ export function HeroAppDemo() {
           </m.div>
         </AnimatePresence>
 
-        {/* Persistent Tab key — the accept affordance. Always present; it only
-            presses down on accept (never fades in/out). */}
-        <m.kbd
+        {/* Tab button — the accept affordance. Plain chunky dark key; it gives
+            a small press on accept and never fades in or out. */}
+        <m.div
           aria-hidden="true"
-          animate={
-            phase === "accept" && !reduce
-              ? { y: [0, 3, 0], scale: [1, 0.92, 1] }
-              : { y: 0, scale: 1 }
-          }
-          transition={{ duration: 0.34, ease: "easeOut", times: [0, 0.4, 1] }}
-          style={{ boxShadow: "0 3px 0 var(--line)" }}
-          className="absolute bottom-4 right-4 z-10 inline-flex h-9 items-center gap-1.5 rounded-[0.6rem] border-2 border-line bg-background px-3 text-sm font-bold tracking-tight text-ink"
+          initial={false}
+          animate={phase === "accept" && !reduce ? { y: [0, 2, 0] } : { y: 0 }}
+          transition={{ duration: 0.28, ease: "easeOut", times: [0, 0.4, 1] }}
+          className="absolute bottom-5 right-5 z-10 inline-flex items-center gap-2 rounded-[0.7rem] px-4 py-3 text-[1.05rem] font-bold text-white"
+          style={{ background: "#3a3a3c" }}
         >
-          <span aria-hidden="true">⇥</span> Tab
-        </m.kbd>
-      </m.div>
+          <span aria-hidden="true">⇥</span>
+          <span>tab</span>
+        </m.div>
+      </div>
 
       {/* App tabs — progress indicator + jump-to control. */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 lg:justify-start">
@@ -508,7 +530,9 @@ export function HeroAppDemo() {
                 width={40}
                 height={40}
                 sizes="22px"
-                className="h-6 w-6 object-contain"
+                className={`h-6 w-6 object-contain${
+                  entry.iconSrc.endsWith(".jpeg") ? " rounded-[0.5rem]" : ""
+                }`}
               />
             </button>
           );

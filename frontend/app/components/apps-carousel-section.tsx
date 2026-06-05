@@ -13,6 +13,7 @@ const CHIPS = [
   { label: "Gmail", iconSrc: "/app-icons/gmail.svg" },
   { label: "iMessage", iconSrc: "/app-icons/imessage.svg" },
   { label: "Notion", iconSrc: "/app-icons/notion.svg" },
+  { label: "Obsidian", iconSrc: "/app-icons/obsidian.jpeg" },
   { label: "Discord", iconSrc: "/app-icons/discord.webp" },
   { label: "Slack", iconSrc: "/app-icons/slack.webp" },
 ];
