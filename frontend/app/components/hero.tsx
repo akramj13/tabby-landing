@@ -117,7 +117,7 @@ export function Hero() {
 
           <m.p
             variants={copyItem}
-            className="mt-6 lg:mt-10 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-xl"
+            className="mt-6 lg:mt-10 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-xl text-center lg:text-left"
           >
             Open-source AI autocomplete for the apps you already use, powered by
             Apple Intelligence or local models and kept entirely on your Mac.

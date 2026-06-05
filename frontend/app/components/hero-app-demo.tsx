@@ -91,22 +91,6 @@ const APPS: AppMock[] = [
     ghostText: "next up is the billing migration.",
   },
   {
-    key: "outlook",
-    name: "Outlook — New Mail",
-    short: "Outlook",
-    iconSrc: "/app-icons/microsoft-outlook.webp",
-    kind: "email",
-    surface: "#ffffff",
-    text: "#242424",
-    subtle: "#616161",
-    ghost: "#c8c8c8",
-    accent: "#0f6cbd",
-    meta: "finance@corp.com",
-    sub: "Q3 forecast",
-    prefix: "Hi team, the Q3 numbers are in and ",
-    ghostText: "revenue is up 18% over last quarter.",
-  },
-  {
     key: "slack",
     name: "Slack — #design",
     short: "Slack",
@@ -170,21 +154,6 @@ const APPS: AppMock[] = [
     sub: "Today at 9:41 AM",
     prefix: "Packing list: chargers, snacks, ",
     ghostText: "a rain jacket, and the good camera.",
-  },
-  {
-    key: "notion",
-    name: "Notion — Q3 planning",
-    short: "Notion",
-    iconSrc: "/app-icons/notion.svg",
-    kind: "doc",
-    surface: "#ffffff",
-    text: "#37352f",
-    subtle: "#9b9a97",
-    ghost: "#cfcdc8",
-    accent: "#37352f",
-    meta: "Q3 planning",
-    prefix: "Goal this quarter: cut onboarding time ",
-    ghostText: "in half and ship the public API.",
   },
 ];
 
@@ -429,7 +398,7 @@ export function HeroAppDemo() {
     <div ref={containerRef} className="w-full select-none">
       <span className="sr-only">
         A live preview of Cotabby suggesting text inside Gmail, Apple Mail,
-        Outlook, Slack, Discord, iMessage, Notes, and Notion.
+        Slack, Discord, iMessage, and Notes.
       </span>
 
       <div
