@@ -133,9 +133,6 @@ function ModelsPreview() {
               <p className="truncate text-xs tracking-tight text-subtle">
                 {model.file}
               </p>
-              <p className="truncate text-[0.65rem] tracking-tight text-subtle/80">
-                {model.source}
-              </p>
             </div>
             {isActive && (
               <m.span
