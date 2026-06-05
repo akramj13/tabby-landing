@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const RELEASE_DATE = new Date("2026-06-05T00:00:00Z");
+const RELEASE_DATE = new Date("2026-06-05T10:52:24Z");
 
 function formatRelative(from: Date, to: Date) {
   const seconds = Math.max(0, Math.floor((to.getTime() - from.getTime()) / 1000));
