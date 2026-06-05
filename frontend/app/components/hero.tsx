@@ -47,7 +47,7 @@ const copyItem: Variants = {
 // short accept-phrase (the ghost-text accept animation). Kept similar in length
 // so the layout barely shifts as they cycle.
 const HEADLINES = [
-  { lead: "AI autocomplete", accept: "for macOS." },
+  { lead: "AI suggestions", accept: "for macOS." },
   { lead: "Write faster", accept: "in every app." },
   { lead: "Finish thoughts", accept: "before you type." },
   { lead: "Finish words", accept: "right inline." },
