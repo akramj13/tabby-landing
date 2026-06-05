@@ -33,7 +33,7 @@ export function AnnouncementBanner() {
   return (
     <div
       style={{ color: "#ffffff" }}
-      className="fixed inset-x-0 top-0 z-[60] flex h-12 items-center justify-center bg-[#3a3a3a] px-4 text-sm font-medium tracking-tight sm:text-base"
+      className="fixed inset-x-0 top-0 z-[60] flex h-12 items-center justify-center bg-[var(--accent-deep)] px-4 text-sm font-medium tracking-tight sm:text-base"
     >
       <span className="truncate">
         v0.5.0-beta released {relative}. Send feedback at{" "}
