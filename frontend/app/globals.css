@@ -111,12 +111,6 @@ a {
   box-shadow: var(--shadow-card);
 }
 
-.tabby-panel-soft {
-  border: 2px solid var(--line);
-  background: var(--surface-2);
-  box-shadow: var(--shadow-card);
-}
-
 .tabby-chip {
   border: 2px solid var(--line);
   background: var(--surface-2);
@@ -364,6 +358,7 @@ a {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  gap: 1rem;
   width: max-content;
   animation: tabby-marquee-scroll 36s linear infinite;
   will-change: transform;
@@ -393,10 +388,6 @@ a {
   .tabby-marquee-track {
     animation-duration: 30s;
   }
-}
-
-.tabby-marquee-track {
-  gap: 1rem;
 }
 
 @media (min-width: 640px) {

@@ -45,7 +45,7 @@ function PermissionCard({ permission }: { permission: Permission }) {
   const Icon = permission.icon;
   return (
     <HoverLift lift={5} className="h-full">
-      <article className="tabby-panel-soft flex h-full flex-col rounded-[1.55rem] p-6 sm:p-7">
+      <article className="tabby-panel flex h-full flex-col rounded-[1.55rem] p-6 sm:p-7">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-line bg-surface-3 text-ink shadow-[0_3.4px_0_var(--line)]">
           <Icon className="h-6 w-6" strokeWidth={2} />
         </div>

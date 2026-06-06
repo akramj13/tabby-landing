@@ -22,7 +22,7 @@ type CustomItemProps = {
 function CustomItem({ icon: Icon, title, description, preview }: CustomItemProps) {
   return (
     <HoverLift lift={5} className="h-full">
-      <article className="tabby-panel-soft flex h-full flex-col gap-4 rounded-[1.55rem] p-6 sm:p-7">
+      <article className="tabby-panel flex h-full flex-col gap-4 rounded-[1.55rem] p-6 sm:p-7">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-line bg-surface-3 text-ink shadow-[0_3.4px_0_var(--line)]">
             <Icon className="h-5 w-5" strokeWidth={2} />

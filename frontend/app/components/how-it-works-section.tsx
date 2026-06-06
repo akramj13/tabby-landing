@@ -426,7 +426,7 @@ function StepCard({ index, step }: { index: number; step: StepDefinition }) {
       custom={index}
       variants={stepCardVariants}
       whileHover={{ y: -4, transition: { duration: 0.22, ease: EASE } }}
-      className="tabby-panel-soft relative flex h-full flex-col gap-5 rounded-[1.55rem] p-6 sm:p-7"
+      className="tabby-panel relative flex h-full flex-col gap-5 rounded-[1.55rem] p-6 sm:p-7"
     >
       <div className="flex items-center justify-between">
         <span className="tabby-display text-[2.8rem] leading-none tracking-tight text-ink/90">

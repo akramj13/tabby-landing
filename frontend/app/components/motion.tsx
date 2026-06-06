@@ -1,20 +1,7 @@
 "use client";
 
-import {
-  m,
-  useScroll,
-  useSpring,
-  useTransform,
-  type HTMLMotionProps,
-  type Variants,
-} from "framer-motion";
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ReactNode,
-  type RefObject,
-} from "react";
+import { m, type HTMLMotionProps, type Variants } from "framer-motion";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const SPRING = { type: "spring" as const, stiffness: 260, damping: 28 };
@@ -131,33 +118,6 @@ export function ScaleIn({
       transition={{ duration: 0.7, ease: EASE, delay }}
       {...rest}
     >
-      {children}
-    </m.div>
-  );
-}
-
-type ParallaxYProps = HTMLMotionProps<"div"> & {
-  children: ReactNode;
-  strength?: number;
-  targetRef?: RefObject<HTMLElement | null>;
-};
-
-export function ParallaxY({
-  children,
-  strength = 80,
-  targetRef,
-  ...rest
-}: ParallaxYProps) {
-  const localRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef ?? localRef,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [strength, -strength]);
-  const smooth = useSpring(y, { stiffness: 120, damping: 24, mass: 0.4 });
-
-  return (
-    <m.div ref={localRef} style={{ y: smooth }} {...rest}>
       {children}
     </m.div>
   );
@@ -338,118 +298,5 @@ export function ScrollProgressBar({ className }: ScrollProgressBarProps) {
         className ?? "fixed left-0 right-0 top-0 z-50 h-0.75 bg-accent"
       }
     />
-  );
-}
-
-type TypewriterProps = {
-  active?: boolean;
-  prefix: string;
-  suggestion: string;
-  loopDelay?: number;
-  className?: string;
-  prefixClassName?: string;
-  suggestionClassName?: string;
-};
-
-export function Typewriter({
-  active = true,
-  prefix,
-  suggestion,
-  loopDelay = 3000,
-  className,
-  prefixClassName,
-  suggestionClassName,
-}: TypewriterProps) {
-  const [phase, setPhase] = useState<"typing" | "suggesting" | "accepted">(
-    "typing",
-  );
-  const [typed, setTyped] = useState("");
-  const containerRef = useRef<HTMLSpanElement | null>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.5 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!active) return;
-    if (!isInView) return;
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (phase === "typing") {
-      if (typed.length < prefix.length) {
-        timeout = setTimeout(
-          () => setTyped(prefix.slice(0, typed.length + 1)),
-          36,
-        );
-      } else {
-        timeout = setTimeout(() => setPhase("suggesting"), 350);
-      }
-    } else if (phase === "suggesting") {
-      timeout = setTimeout(() => setPhase("accepted"), 900);
-    } else {
-      timeout = setTimeout(() => {
-        setTyped("");
-        setPhase("typing");
-      }, loopDelay);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [active, phase, typed, prefix, loopDelay, isInView]);
-
-  useEffect(() => {
-    if (!active) return;
-    const frame = requestAnimationFrame(() => {
-      setTyped("");
-      setPhase("typing");
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [active, prefix, suggestion]);
-
-  const displayedPrefix =
-    active && phase === "typing" ? typed : active ? prefix : "";
-  const showSuggestion = active && phase === "suggesting";
-  const showAccepted = active && phase === "accepted";
-
-  return (
-    <span ref={containerRef} className={className}>
-      <span className={prefixClassName}>{displayedPrefix}</span>
-      {showSuggestion && (
-        <m.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className={suggestionClassName}
-        >
-          {suggestion}
-        </m.span>
-      )}
-      {showAccepted && (
-        <m.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
-          className={prefixClassName}
-        >
-          {suggestion}
-        </m.span>
-      )}
-      {active && phase === "typing" && (
-        <m.span
-          className="ml-px inline-block h-[1em] w-0.5 align-middle bg-ink"
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{ duration: 0.9, repeat: Infinity }}
-        />
-      )}
-    </span>
   );
 }
