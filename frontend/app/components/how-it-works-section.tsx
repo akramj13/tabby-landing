@@ -123,10 +123,11 @@ function InstallVisual() {
           <Folder className="h-5 w-5 text-ink" strokeWidth={2.2} />
         </div>
       </div>
-      <DownloadButton className="tabby-button tabby-button-blue mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-base font-bold tracking-tight">
-        <AppleIcon className="h-5 w-5 shrink-0" />
-        Download for Mac
-      </DownloadButton>
+      <div className="mt-3">
+        <DownloadButton size="sm" fullWidth icon={<AppleIcon className="h-5 w-5 shrink-0" />}>
+          Download for Mac
+        </DownloadButton>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { GITHUB_URL } from "../lib/site";
 import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
 import { PawMark } from "./paw-mark";
 import { FadeIn, ScaleIn, WordReveal } from "./motion";
-
-const primaryActionClass =
-  "tabby-button tabby-button-blue inline-flex h-14 min-w-[260px] items-center justify-center gap-3 rounded-2xl px-8 text-[1.15rem] font-bold leading-none tracking-tight sm:h-16 sm:min-w-[320px] sm:text-[1.4rem]";
-
-const secondaryActionClass =
-  "tabby-button tabby-button-secondary inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[1.05rem] font-bold leading-none tracking-tight sm:h-16 sm:text-[1.2rem]";
+import { TabbyButton } from "./tabby-button";
 
 export function SloganCtaSection() {
   return (
@@ -52,19 +46,18 @@ export function SloganCtaSection() {
 
         <ScaleIn delay={0.25} from={0.96}>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <DownloadButton className={primaryActionClass}>
-              <AppleIcon className="h-6 w-6 sm:h-7 sm:w-7" />
+            <DownloadButton size="lg" icon={<AppleIcon className="h-6 w-6 sm:h-7 sm:w-7" />}>
               Download for Mac
             </DownloadButton>
-            <Link
+            <TabbyButton
               href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={secondaryActionClass}
+              external
+              variant="secondary"
+              size="md"
+              icon={<GithubIcon className="h-5 w-5" />}
             >
-              <GithubIcon className="h-5 w-5" />
               <GithubStarLabel />
-            </Link>
+            </TabbyButton>
           </div>
         </ScaleIn>
 

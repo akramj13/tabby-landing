@@ -5,12 +5,7 @@ import { DownloadButton } from "./download-button";
 import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, DiscordIcon, GithubIcon, LinkedInIcon, XIcon } from "./icons";
 import { FadeIn } from "./motion";
-
-const footerPrimaryActionClass =
-  "tabby-button tabby-button-blue inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[1rem] font-bold leading-none tracking-tight sm:h-14 sm:text-[1.2rem]";
-
-const footerSecondaryActionClass =
-  "tabby-button tabby-button-secondary inline-flex h-14 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[1rem] font-bold leading-none tracking-tight sm:text-[1.2rem]";
+import { TabbyButton } from "./tabby-button";
 
 const FOOTER_LINKS = [
   { label: "Privacy", href: "/privacy" },
@@ -40,19 +35,19 @@ export function FinalFooterSection() {
           </div>
 
           <div className="w-full max-w-85 space-y-3">
-            <DownloadButton className={footerPrimaryActionClass}>
-              <AppleIcon className="h-5 w-5" />
+            <DownloadButton size="sm" fullWidth icon={<AppleIcon className="h-5 w-5" />}>
               Download for Mac
             </DownloadButton>
-            <Link
+            <TabbyButton
               href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={footerSecondaryActionClass}
+              external
+              variant="secondary"
+              size="sm"
+              fullWidth
+              icon={<GithubIcon className="h-5 w-5" />}
             >
-              <GithubIcon className="h-5 w-5" />
               <GithubStarLabel />
-            </Link>
+            </TabbyButton>
           </div>
         </div>
       </FadeIn>

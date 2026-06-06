@@ -13,9 +13,6 @@ const textLinks = [
   { href: "#faq", label: "faq" },
 ] as const;
 
-const downloadActionClass =
-  "tabby-button tabby-button-blue inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-bold tracking-tight sm:h-14 sm:px-6 sm:text-base";
-
 function scrollToAnchor(event: MouseEvent<HTMLAnchorElement>, href: string) {
   if (!href.startsWith("#")) {
     return;
@@ -95,8 +92,7 @@ export function Header() {
         </div>
 
         <div className="flex w-full justify-start sm:w-auto sm:items-center lg:justify-end">
-          <DownloadButton className={downloadActionClass}>
-            <AppleIcon className="h-5 w-5" />
+          <DownloadButton size="sm" icon={<AppleIcon className="h-5 w-5" />}>
             Download for Mac
           </DownloadButton>
         </div>

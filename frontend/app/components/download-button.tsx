@@ -2,20 +2,32 @@
 
 import type { ReactNode } from "react";
 import { useEmailGate } from "./email-gate";
+import { TabbyButton } from "./tabby-button";
 
 type DownloadButtonProps = {
-  className?: string;
+  size?: "sm" | "md" | "lg";
+  fullWidth?: boolean;
+  icon?: ReactNode;
   children: ReactNode;
 };
 
-export function DownloadButton({ className, children }: DownloadButtonProps) {
+export function DownloadButton({
+  size = "md",
+  fullWidth = false,
+  icon,
+  children,
+}: DownloadButtonProps) {
   const { requestDownload } = useEmailGate();
-  const mergedClassName = className
-    ? `${className} tabby-button-shimmer`
-    : "tabby-button-shimmer";
   return (
-    <button type="button" onClick={requestDownload} className={mergedClassName}>
+    <TabbyButton
+      variant="blue"
+      size={size}
+      fullWidth={fullWidth}
+      shimmer
+      icon={icon}
+      onClick={requestDownload}
+    >
       {children}
-    </button>
+    </TabbyButton>
   );
 }

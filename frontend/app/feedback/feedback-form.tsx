@@ -25,6 +25,7 @@ import {
   X,
 } from "lucide-react";
 import { GithubIcon } from "../components/icons";
+import { TabbyButton } from "../components/tabby-button";
 import { createScreenshotUploadUrls, submitFeedback } from "./action";
 import { getSupabase } from "../lib/supabase";
 import {
@@ -389,23 +390,23 @@ export function FeedbackForm() {
 
         {result.issueUrl && (
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <a
+            <TabbyButton
               href={result.issueUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tabby-button tabby-button-secondary inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold tracking-tight sm:h-14 sm:w-auto sm:px-7 sm:text-base"
+              external
+              variant="secondary"
+              size="sm"
+              icon={<GithubIcon className="h-5 w-5" />}
+              iconRight={<ExternalLink className="h-4 w-4" strokeWidth={2.25} />}
             >
-              <GithubIcon className="h-5 w-5" />
               View issue on GitHub
-              <ExternalLink className="h-4 w-4" strokeWidth={2.25} />
-            </a>
-            <button
-              type="button"
+            </TabbyButton>
+            <TabbyButton
+              variant="primary"
+              size="sm"
               onClick={() => setResult(null)}
-              className="tabby-button tabby-button-primary inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold tracking-tight sm:h-14 sm:w-auto sm:px-7 sm:text-base"
             >
               Send another
-            </button>
+            </TabbyButton>
           </div>
         )}
       </div>
@@ -795,18 +796,22 @@ export function FeedbackForm() {
       )}
 
       {/* Submit */}
-      <button
+      <TabbyButton
         type="submit"
         disabled={pending}
-        className="tabby-button tabby-button-primary inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold tracking-tight disabled:opacity-50 sm:h-14 sm:w-auto sm:px-8 sm:text-base"
+        variant="primary"
+        size="sm"
+        className="disabled:opacity-50"
+        icon={
+          type === "bug" ? (
+            <Bug className="h-4 w-4" strokeWidth={2.25} />
+          ) : (
+            <Lightbulb className="h-4 w-4" strokeWidth={2.25} />
+          )
+        }
       >
-        {type === "bug" ? (
-          <Bug className="h-4 w-4" strokeWidth={2.25} />
-        ) : (
-          <Lightbulb className="h-4 w-4" strokeWidth={2.25} />
-        )}
         {submitLabel}
-      </button>
+      </TabbyButton>
     </form>
   );
 }

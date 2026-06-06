@@ -14,15 +14,10 @@ import { GithubStarLabel } from "./github-star-label";
 import { AppleIcon, GithubIcon } from "./icons";
 import { HeroAppDemo } from "./hero-app-demo";
 import { HeroReveal } from "./motion";
+import { TabbyButton } from "./tabby-button";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const HERO_ACCEPT_COLOR = "#e85548";
-
-const secondaryActionClass =
-  "tabby-button tabby-button-secondary inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
-
-const primaryActionClass =
-  "tabby-button tabby-button-blue inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-7 text-[1.05rem] font-bold tracking-tight sm:h-16 sm:w-auto sm:min-w-[270px] sm:text-[1.2rem]";
 
 const copyContainer: Variants = {
   hidden: {},
@@ -127,17 +122,16 @@ export function Hero() {
             variants={copyItem}
             className="mt-9 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row lg:justify-start"
           >
-            <Link
+            <TabbyButton
               href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={secondaryActionClass}
+              external
+              variant="secondary"
+              size="md"
+              icon={<GithubIcon className="h-6 w-6 shrink-0" />}
             >
-              <GithubIcon className="h-6 w-6 shrink-0" />
               <GithubStarLabel />
-            </Link>
-            <DownloadButton className={primaryActionClass}>
-              <AppleIcon className="h-6 w-6 shrink-0" />
+            </TabbyButton>
+            <DownloadButton size="md" icon={<AppleIcon className="h-6 w-6 shrink-0" />}>
               Download for Mac
             </DownloadButton>
           </m.div>
