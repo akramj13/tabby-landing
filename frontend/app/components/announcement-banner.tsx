@@ -1,34 +1,32 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { GITHUB_REPO } from "../lib/site";
+import { AnnouncementBannerRelative } from "./announcement-banner-relative";
 
-const RELEASE_DATE = new Date("2026-06-05T10:52:24Z");
+type GitHubRelease = {
+  tag_name: string;
+  published_at: string;
+};
 
-function formatRelative(from: Date, to: Date) {
-  const seconds = Math.max(0, Math.floor((to.getTime() - from.getTime()) / 1000));
-  if (seconds < 60) return "just now";
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 30) return `${days} day${days === 1 ? "" : "s"} ago`;
-  const months = Math.floor(days / 30);
-  if (months < 12) return `${months} month${months === 1 ? "" : "s"} ago`;
-  const years = Math.floor(days / 365);
-  return `${years} year${years === 1 ? "" : "s"} ago`;
+async function fetchLatestRelease(): Promise<GitHubRelease | null> {
+  const token = process.env.GITHUB_TOKEN;
+  const headers: HeadersInit = { Accept: "application/vnd.github+json" };
+  if (token) headers.Authorization = `token ${token}`;
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`,
+      { headers, next: { revalidate: 300 } },
+    );
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 }
 
-export function AnnouncementBanner() {
-  const [relative, setRelative] = useState(() => formatRelative(RELEASE_DATE, new Date()));
-
-  useEffect(() => {
-    const update = () => setRelative(formatRelative(RELEASE_DATE, new Date()));
-    update();
-    const id = setInterval(update, 60_000);
-    return () => clearInterval(id);
-  }, []);
+export async function AnnouncementBanner() {
+  const release = await fetchLatestRelease();
+  if (!release) return null;
 
   return (
     <div
@@ -36,7 +34,9 @@ export function AnnouncementBanner() {
       className="fixed inset-x-0 top-0 z-[60] flex min-h-12 items-center justify-center bg-accent-deep px-4 py-2 text-sm font-medium tracking-tight sm:text-base"
     >
       <span className="text-center">
-        v0.5.0-beta released {relative}. Send feedback at{" "}
+        {release.tag_name} released{" "}
+        <AnnouncementBannerRelative iso={release.published_at} />. Send feedback
+        at{" "}
         <Link
           href="/feedback"
           style={{
