@@ -20,7 +20,7 @@ function Avatar({ initials, tone }: AvatarProps) {
     tone === "accent"
       ? "bg-accent/25"
       : tone === "moss"
-        ? "bg-moss/25"
+        ? "bg-accent-blue/25"
         : "bg-surface-4";
   return (
     <div
@@ -91,7 +91,7 @@ function ReviewCard({
 
 export function TestimonialsSection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <FadeIn>
         <div className="flex flex-col items-center gap-3 text-center">
           <h2 className="tabby-display text-[2.7rem] leading-[1.02] tracking-tight text-ink sm:text-[4rem]">

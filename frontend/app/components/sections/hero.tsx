@@ -145,14 +145,7 @@ export function Hero() {
               href="https://ko-fi.com/cotabby"
               target="_blank"
               rel="noopener noreferrer"
-              className="group font-semibold"
-              style={{
-                color: "#ec4899",
-                textDecorationLine: "underline",
-                textDecorationColor: "#ec4899",
-                textDecorationThickness: "1px",
-                textUnderlineOffset: "2px",
-              }}
+              className="group font-semibold text-accent-pink underline decoration-accent-pink decoration-1 underline-offset-2"
             >
               Support development &amp; buy us a coffee
               <svg

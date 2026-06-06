@@ -55,7 +55,7 @@ function PermissionCard({ permission }: { permission: Permission }) {
           {permission.description}
         </p>
         <div className="mt-auto flex items-start gap-3 rounded-2xl border-2 border-line-soft bg-surface-3 p-4">
-          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-moss text-background">
+          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-blue text-background">
             <Check className="h-3.5 w-3.5" strokeWidth={3} />
           </span>
           <p className="text-sm font-medium leading-relaxed tracking-tight text-ink/85">
@@ -69,7 +69,7 @@ function PermissionCard({ permission }: { permission: Permission }) {
 
 export function PermissionsSection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <SectionHeading
         title="your Mac, your data"
         titleSize="text-[2.9rem] sm:text-[4.1rem]"

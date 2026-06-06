@@ -41,7 +41,7 @@ export default function Home() {
       <StructuredData />
       <ScrollProgressBar />
       <FloatingButton />
-      <div className="relative z-10 mx-auto flex w-full max-w-340 flex-col gap-16 sm:gap-20 lg:gap-24">
+      <div className="relative z-10 mx-auto flex w-full max-w-shell flex-col gap-16 sm:gap-20 lg:gap-24">
         <div className="relative">
           <SectionShell>
             <Header />

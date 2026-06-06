@@ -18,7 +18,7 @@ export function LegalPageShell({
 }: LegalPageShellProps) {
   return (
     <div className="relative px-3 pb-14 pt-5 sm:px-4 sm:pb-16 sm:pt-8 lg:px-6 lg:pb-20 lg:pt-10">
-      <div className="mx-auto w-full max-w-340">
+      <div className="mx-auto w-full max-w-shell">
         <LegalHeader current={current} />
       </div>
 

@@ -119,7 +119,7 @@ function InstallVisual() {
             className="object-cover"
           />
         </m.div>
-        <div className="flex h-10 w-11 shrink-0 items-center justify-center rounded-[0.55rem] border-2 border-line bg-moss/25 shadow-[0_2px_0_var(--line)]">
+        <div className="flex h-10 w-11 shrink-0 items-center justify-center rounded-[0.55rem] border-2 border-line bg-accent-blue/25 shadow-[0_2px_0_var(--line)]">
           <Folder className="h-5 w-5 text-ink" strokeWidth={2.2} />
         </div>
       </div>
@@ -449,7 +449,7 @@ function StepCard({ index, step }: { index: number; step: StepDefinition }) {
 
 export function HowItWorksSection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <FadeIn>
         <div className="flex flex-col items-center gap-3 text-center">
           <h2 className="tabby-display text-[2.7rem] leading-[1.02] tracking-tight text-ink sm:text-[4rem]">

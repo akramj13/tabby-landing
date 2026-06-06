@@ -30,21 +30,13 @@ export async function AnnouncementBanner() {
 
   return (
     <div
-      style={{ color: "#ffffff" }}
-      className="fixed inset-x-0 top-0 z-[60] flex min-h-12 items-center justify-center bg-accent-deep px-4 py-2 text-sm font-medium tracking-tight sm:text-base"
+      className="fixed inset-x-0 top-0 z-[60] flex min-h-12 items-center justify-center bg-accent-deep px-4 py-2 text-sm font-medium tracking-tight text-white sm:text-base"
     >
       <span className="text-center">
         {release.tag_name} released{" "}
         <AnnouncementBannerRelative iso={release.published_at} />. Send feedback
         at{" "}
-        <Link
-          href="/feedback"
-          style={{
-            color: "#ffffff",
-            textDecorationLine: "underline",
-            textUnderlineOffset: "2px",
-          }}
-        >
+        <Link href="/feedback" className="underline underline-offset-2">
           cotabby.app/feedback
         </Link>
         !

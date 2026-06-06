@@ -399,7 +399,7 @@ function EmojiAutocompleteVisual() {
 
 export function AlternatingFeatureSection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <SectionHeading
         title="main use cases, one by one"
         titleSize="text-[2.9rem] sm:text-[4.1rem]"

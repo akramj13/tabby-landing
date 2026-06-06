@@ -103,8 +103,8 @@ function DataFlowVisual() {
         <span className="text-xs font-bold tracking-[0.14em] text-subtle uppercase">your mac</span>
         <span className="flex items-center gap-1.5 text-xs tracking-tight text-subtle">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-moss opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-blue opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-blue" />
           </span>
           local
         </span>
@@ -132,7 +132,7 @@ function DataFlowVisual() {
           <Arrow />
 
           <FlowNode>
-            <span className="text-[0.7rem] font-bold tracking-widest uppercase text-moss">output</span>
+            <span className="text-[0.7rem] font-bold tracking-widest uppercase text-accent-blue">output</span>
             <span className="mt-1 text-sm font-bold tracking-tight">suggestion</span>
           </FlowNode>
         </div>
@@ -142,7 +142,7 @@ function DataFlowVisual() {
           variants={flowItem}
           className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-surface-2 px-3 py-2"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-moss" />
+          <span className="h-1.5 w-1.5 rounded-full bg-accent-blue" />
           <span className="text-xs font-semibold tracking-tight text-subtle">
             Apple Intelligence or local GGUF · no hosted API
           </span>
@@ -162,7 +162,7 @@ function DataFlowVisual() {
 
 export function PrivacySection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div className="space-y-6">
           <FadeIn>

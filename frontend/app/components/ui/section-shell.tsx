@@ -8,7 +8,7 @@ type SectionShellProps = {
 export function SectionShell({ children, className }: SectionShellProps) {
   return (
     <section
-      className={`tabby-shell relative mx-auto flex w-full max-w-340 flex-col overflow-hidden rounded-4xl ${
+      className={`tabby-shell relative mx-auto flex w-full max-w-shell flex-col overflow-hidden rounded-4xl ${
         className ?? ""
       }`}
     >

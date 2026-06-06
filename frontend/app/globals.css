@@ -6,7 +6,6 @@
   --muted-foreground: #4a4a4a;
   --subtle-foreground: #595959;
   --surface-1: #faf7f0;
-  --surface-2: #faf7f0;
   --surface-3: #f3ecdc;
   --surface-4: #ebe1cc;
   --line: #1c1c1c;
@@ -14,7 +13,8 @@
   --accent: #ff8273;
   --accent-soft: #ffd6cf;
   --accent-deep: #f56a59;
-  --moss: #00bfff;
+  --accent-pink: #ec4899;
+  --accent-blue: #00bfff;
   --button-primary: #1c1c1c;
   --button-primary-hover: #000000;
   --button-text: #ffffff;
@@ -31,7 +31,7 @@
   --color-muted: var(--muted-foreground);
   --color-subtle: var(--subtle-foreground);
   --color-surface: var(--surface-1);
-  --color-surface-2: var(--surface-2);
+  --color-surface-2: var(--surface-1);
   --color-surface-3: var(--surface-3);
   --color-surface-4: var(--surface-4);
   --color-line: var(--line);
@@ -39,11 +39,14 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-deep: var(--accent-deep);
-  --color-moss: var(--moss);
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-blue: var(--accent-blue);
   --color-button-primary: var(--button-primary);
   --color-button-text: var(--button-text);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
+  --container-content: 76.25rem;
+  --container-shell: 85rem;
 }
 
 * {
@@ -72,14 +75,18 @@ body {
     sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    transform 180ms ease;
+/* In @layer base so Tailwind color/underline utilities win over this reset
+   (otherwise links need inline-style overrides). */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
 }
 
 ::selection {
@@ -107,13 +114,13 @@ a {
 
 .tabby-panel {
   border: 2px solid var(--line);
-  background: var(--surface-2);
+  background: var(--surface-1);
   box-shadow: var(--shadow-card);
 }
 
 .tabby-chip {
   border: 2px solid var(--line);
-  background: var(--surface-2);
+  background: var(--surface-1);
   box-shadow: 0 5px 0 var(--line);
 }
 

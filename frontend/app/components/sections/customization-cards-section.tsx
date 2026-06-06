@@ -150,7 +150,7 @@ function PersonalizationPreview() {
   return (
     <div className="rounded-[1.2rem] border-2 border-line bg-surface-2 p-5 shadow-[0_5px_0_var(--line)]">
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <span className="inline-flex items-center rounded-full border-2 border-line bg-moss/15 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink shadow-[0_3.4px_0_var(--line)]">
+        <span className="inline-flex items-center rounded-full border-2 border-line bg-accent-blue/15 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink shadow-[0_3.4px_0_var(--line)]">
           coming soon
         </span>
         {signals.map((signal, i) => (
@@ -176,7 +176,7 @@ function PersonalizationPreview() {
 
 export function CustomizationCardsSection() {
   return (
-    <section className="mx-auto max-w-305">
+    <section className="mx-auto max-w-content">
       <SectionHeading
         title="make Cotabby feel like yours"
         titleSize="text-[2.4rem] sm:text-[4.1rem]"

@@ -169,7 +169,7 @@ export function StatsStripSection() {
   });
 
   return (
-    <section ref={sectionRef} className="mx-auto max-w-305">
+    <section ref={sectionRef} className="mx-auto max-w-content">
       <m.div
         style={{
           y: smoothY,

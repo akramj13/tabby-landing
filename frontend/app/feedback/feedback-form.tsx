@@ -376,7 +376,7 @@ export function FeedbackForm() {
   if (result?.success) {
     return (
       <div className="mt-8 rounded-3xl border-2 border-line bg-surface-2 p-8 text-center shadow-[0_6.7px_0_var(--line)] sm:p-10">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-line bg-moss/15 shadow-[0_5px_0_var(--line)]">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-line bg-accent-blue/15 shadow-[0_5px_0_var(--line)]">
           <CheckCircle2 className="h-9 w-9 text-ink" strokeWidth={2} />
         </div>
         <h3 className="tabby-display mt-5 text-[2rem] leading-tight text-ink sm:text-[2.4rem]">
