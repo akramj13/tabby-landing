@@ -12,9 +12,9 @@ import { SectionHeading } from "@/app/components/ui/section-heading";
 // column — while keeping each icon clear of its neighbours.
 const MODELS = [
   { label: "Apple Intelligence", src: "/app-icons/Apple_Intelligence.webp", x: "10%", y: "6%" },
-  { label: "Qwen", src: "/model-icons/qwen.png", x: "58%", y: "0%" },
-  { label: "DeepSeek", src: "/model-icons/deepseek.png", x: "30%", y: "38%" },
-  { label: "Gemma", src: "/model-icons/gemma.png", x: "70%", y: "34%" },
+  { label: "Qwen", src: "/model-icons/qwen.webp", x: "58%", y: "0%" },
+  { label: "DeepSeek", src: "/model-icons/deepseek.webp", x: "30%", y: "38%" },
+  { label: "Gemma", src: "/model-icons/gemma.webp", x: "70%", y: "34%" },
   { label: "Kimi", src: "/model-icons/kimi.png", x: "8%", y: "70%" },
 ];
 
@@ -84,7 +84,7 @@ export function ModelsBeamSection() {
             className="absolute right-2 top-1/2 z-20 -translate-y-1/2 sm:right-6"
           >
             <Image
-              src="/app-icons/cotabby-icon.png"
+              src="/app-icons/cotabby-icon.webp"
               alt="cotabby"
               width={128}
               height={128}

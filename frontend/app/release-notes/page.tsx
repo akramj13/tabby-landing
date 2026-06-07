@@ -5,7 +5,7 @@ import { GITHUB_REPO, GITHUB_URL } from "@/app/lib/site";
 
 export const metadata: Metadata = {
   title: "Release Notes - Cotabby",
-  description: "Product updates and release notes for tabby.",
+  description: "Product updates and release notes for Cotabby.",
 };
 
 type GitHubRelease = {
@@ -124,7 +124,7 @@ export default async function ReleaseNotesPage() {
     <LegalPageShell
       current="release-notes"
       title="Release Notes"
-      summary="Updates, fixes, and changes for each release of tabby."
+      summary="Updates, fixes, and changes for each release of Cotabby."
       updatedAt={formatDate(latest.published_at).toUpperCase()}
     >
       {releases.map((release, i) => (

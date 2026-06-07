@@ -112,7 +112,7 @@ function InstallVisual() {
           className="absolute top-1/2 z-10 h-9 w-9 -translate-y-1/2 overflow-hidden rounded-[0.55rem] border-2 border-line bg-surface shadow-tabby-2xs"
         >
           <Image
-            src="/logo.png"
+            src="/logo.webp"
             alt=""
             fill
             sizes="36px"
@@ -415,7 +415,7 @@ const steps: StepDefinition[] = [
     number: "03",
     title: "Press Tab",
     description:
-      "The suggestion snaps in. Keep typing to adjust it, or press Escape and Cotabby steps out of the way.",
+      "Each Tab accepts the next word, so you stay in control. Keep typing to adjust, or press Escape and Cotabby steps out of the way.",
     visual: <TabVisual />,
   },
 ];

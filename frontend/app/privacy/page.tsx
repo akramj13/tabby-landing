@@ -90,7 +90,7 @@ export default function PrivacyPage() {
           </a>{" "}
           to check for app updates from{" "}
           <span className="font-bold">updates.cotabby.app</span>. Automatic
-          update checks are disabled by default.
+          update checks are enabled by default.
         </li>
         <li>
           <strong>Model downloads.</strong> When you choose to download an

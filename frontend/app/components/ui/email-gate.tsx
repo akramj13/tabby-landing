@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  m,
-  useReducedMotion,
-} from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import {
   createContext,
   useCallback,
@@ -138,76 +134,78 @@ export function EmailGateProvider({ children }: { children: ReactNode }) {
               transition={{ duration: 0.32, ease: EASE }}
               className="w-full max-w-md"
             >
-            <TabbyPanel size="2xl" tone="bg-surface" className="relative p-8">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-lg text-subtle transition-colors hover:text-ink"
-              aria-label="Close"
-            >
-              &times;
-            </button>
+              <TabbyPanel size="2xl" tone="bg-surface" className="relative p-8">
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-lg text-subtle transition-colors hover:text-ink"
+                  aria-label="Close"
+                >
+                  &times;
+                </button>
 
-            {status === "success" ? (
-              <div className="text-center">
-                <h3 className="tabby-display text-[1.8rem] leading-tight text-ink">
-                  {mode === "download" ? "thanks!" : "you're on the list!"}
-                </h3>
-                <p className="mt-2 text-sm text-muted">
-                  {mode === "download"
-                    ? "your download should start shortly."
-                    : "we'll email you when a new version drops."}
-                </p>
-              </div>
-            ) : (
-              <>
-                <h3 className="tabby-display text-[1.8rem] leading-tight text-ink">
-                  {mode === "download" ? "stay in the loop" : "join the mailing list"}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {mode === "download"
-                    ? "optional — get notified when new versions drop."
-                    : "Get an email whenever a new version of Cotabby ships. No spam, unsubscribe anytime."}
-                </p>
-                <form onSubmit={handleSubmit} className="mt-6 space-y-3">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    autoFocus
-                    className="h-12 w-full rounded-xl border-2 border-line bg-surface-2 px-4 text-base text-ink placeholder:text-subtle focus:border-ink focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    className="tabby-button tabby-button-primary h-12 w-full rounded-xl text-base font-bold"
-                  >
-                    {status === "loading"
-                      ? "..."
-                      : mode === "download"
-                        ? "Notify me & download"
-                        : "Join the list"}
-                  </button>
-                  {status === "error" && (
-                    <p className="text-sm text-red-500">
-                      something went wrong. try again.
+                {status === "success" ? (
+                  <div className="text-center">
+                    <h3 className="tabby-display text-[1.8rem] leading-tight text-ink">
+                      {mode === "download" ? "thanks!" : "you're on the list!"}
+                    </h3>
+                    <p className="mt-2 text-sm text-muted">
+                      {mode === "download"
+                        ? "your download should start shortly."
+                        : "we'll email you when a new version drops."}
                     </p>
-                  )}
-                </form>
-                {mode === "download" && (
-                  <button
-                    type="button"
-                    onClick={handleSkip}
-                    className="mt-3 w-full text-center text-sm text-subtle transition-colors hover:text-ink"
-                  >
-                    skip, just download
-                  </button>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="tabby-display text-[1.8rem] leading-tight text-ink">
+                      {mode === "download"
+                        ? "stay in the loop"
+                        : "join the mailing list"}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {mode === "download"
+                        ? "optional — get notified when new versions drop."
+                        : "Get an email whenever a new version of Cotabby ships. No spam, unsubscribe anytime."}
+                    </p>
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        autoFocus
+                        className="h-12 w-full rounded-xl border-2 border-line bg-surface-2 px-4 text-base text-ink placeholder:text-subtle focus:border-ink focus:outline-none"
+                      />
+                      <button
+                        type="submit"
+                        disabled={status === "loading"}
+                        className="tabby-button tabby-button-primary h-12 w-full rounded-xl text-base font-bold"
+                      >
+                        {status === "loading"
+                          ? "..."
+                          : mode === "download"
+                            ? "Notify me & download"
+                            : "Join the list"}
+                      </button>
+                      {status === "error" && (
+                        <p className="text-sm text-red-500">
+                          something went wrong. try again.
+                        </p>
+                      )}
+                    </form>
+                    {mode === "download" && (
+                      <button
+                        type="button"
+                        onClick={handleSkip}
+                        className="mt-3 w-full text-center text-sm text-subtle transition-colors hover:text-ink"
+                      >
+                        skip, just download
+                      </button>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-            </TabbyPanel>
+              </TabbyPanel>
             </m.div>
           </m.div>
         )}

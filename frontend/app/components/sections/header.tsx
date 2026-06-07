@@ -49,7 +49,7 @@ export function Header() {
           >
             <IconTile size="lg" tone="bg-white">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Cotabby logo"
                 width={72}
                 height={72}
@@ -85,7 +85,7 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex w-full justify-start sm:w-auto sm:items-center lg:justify-end">
+        <div className="flex w-full justify-start sm:w-auto sm:items-end lg:justify-end">
           <MailingListInput className="sm:w-auto" />
         </div>
       </div>

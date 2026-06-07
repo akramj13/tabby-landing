@@ -1,5 +1,6 @@
 "use client";
 
+import type { ComponentType, SVGProps } from "react";
 import Image from "next/image";
 import {
   Check,
@@ -15,13 +16,14 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
+import { OpenSourceIcon } from "@/app/components/ui/icons";
 import { IconTile } from "@/app/components/ui/icon-tile";
 import { ScaleIn } from "@/app/components/ui/motion";
 import { SectionHeading } from "@/app/components/ui/section-heading";
 
 type Feature = {
   label: string;
-  icon: LucideIcon;
+  icon: LucideIcon | ComponentType<SVGProps<SVGSVGElement>>;
   /** Whether Cotypist's free plan offers this. Cotabby offers everything. */
   cotypist: boolean;
 };
@@ -38,6 +40,7 @@ const FEATURES: Feature[] = [
   { label: "Configurable completion length", icon: Ruler, cotypist: false },
   { label: "Custom writing instructions", icon: PenLine, cotypist: false },
   { label: "Unlimited completions", icon: InfinityIcon, cotypist: false },
+  { label: "Fully open source", icon: OpenSourceIcon, cotypist: false },
 ];
 
 const GRID =
@@ -110,7 +113,7 @@ export function ComparisonSection() {
       <SectionHeading
         title="cotabby vs cotypist"
         titleSize="text-[2.4rem] sm:text-[4rem]"
-        subtitle="Everything Cotypist's free plan does - plus everything it leaves out."
+        subtitle="Everything Cotypist's free plan does — plus everything it leaves out."
       />
 
       <ScaleIn className="mx-auto mt-12 max-w-3xl">
@@ -125,12 +128,12 @@ export function ComparisonSection() {
             <ColumnHeader
               name="Cotabby"
               tagline="free for everyone"
-              iconSrc="/app-icons/cotabby-icon.png"
+              iconSrc="/app-icons/cotabby-icon.webp"
             />
             <ColumnHeader
               name="Cotypist"
               tagline="free plan"
-              iconSrc="/app-icons/cotypist.png"
+              iconSrc="/app-icons/cotypist.webp"
               iconScale={1.35}
               muted
             />

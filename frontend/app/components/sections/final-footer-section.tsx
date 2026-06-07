@@ -58,7 +58,7 @@ export function FinalFooterSection() {
           <div className="flex items-center gap-3">
             <IconTile size="md" tone="bg-white">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Cotabby logo"
                 width={48}
                 height={48}

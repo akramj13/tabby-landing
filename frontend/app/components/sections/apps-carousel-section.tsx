@@ -16,6 +16,17 @@ const CHIPS = [
   { label: "Obsidian", iconSrc: "/app-icons/obsidian.jpeg" },
   { label: "Discord", iconSrc: "/app-icons/discord.webp" },
   { label: "Slack", iconSrc: "/app-icons/slack.webp" },
+  { label: "WhatsApp", iconSrc: "/app-icons/whatsapp.svg" },
+  { label: "Telegram", iconSrc: "/app-icons/telegram.svg" },
+  { label: "Messenger", iconSrc: "/app-icons/messenger.svg" },
+  { label: "Signal", iconSrc: "/app-icons/signal.svg" },
+  { label: "Linear", iconSrc: "/app-icons/linear.svg" },
+  { label: "Reddit", iconSrc: "/app-icons/reddit.svg" },
+  { label: "X", iconSrc: "/app-icons/x.svg" },
+  { label: "LinkedIn", iconSrc: "/app-icons/linkedin.svg" },
+  { label: "Safari", iconSrc: "/app-icons/safari.svg" },
+  { label: "Arc", iconSrc: "/app-icons/arc.svg" },
+  { label: "Firefox", iconSrc: "/app-icons/firefox.svg" },
 ];
 
 const TRACK = [...CHIPS, ...CHIPS];
@@ -62,7 +73,7 @@ export function AppsCarouselSection() {
         </p>
       </FadeIn>
 
-      <div className="relative mt-10 space-y-3 overflow-hidden rounded-[1.5rem] px-3 py-4 sm:px-4 sm:py-5">
+      <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2 space-y-3 overflow-hidden py-4 sm:py-5">
         <div
           className="tabby-marquee-track"
           aria-label="Supported apps carousel"
@@ -91,15 +102,6 @@ export function AppsCarouselSection() {
             />
           ))}
         </div>
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-linear-to-r from-background to-transparent sm:w-20"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-linear-to-l from-background to-transparent sm:w-20"
-        />
       </div>
     </div>
   );

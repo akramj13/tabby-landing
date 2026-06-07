@@ -27,7 +27,7 @@ const FEATURES: Feature[] = [
     icon: Cpu,
     iconColor: "text-violet-500",
     title: "your model, your call",
-    description: "Apple Intelligence on-device or your own GGUF. Text never leaves the Mac.",
+    description: "Apple Intelligence on-device or your own GGUF.",
   },
   {
     icon: Ruler,
@@ -35,29 +35,29 @@ const FEATURES: Feature[] = [
     title: "dial the length",
     description: "2–4 words or 12–20. Finish a thought, not an essay.",
   },
-  {
-    icon: PenLine,
-    iconColor: "text-emerald-500",
-    title: "write like you",
-    description: "Drop in a few rules and completions match your voice, not a generic default.",
-  },
+  // {
+  //   icon: PenLine,
+  //   iconColor: "text-emerald-500",
+  //   title: "write like you",
+  //   description: "Drop in a few rules and completions match your voice, not a generic default.",
+  // },
   {
     icon: BookOpen,
     iconColor: "text-amber-500",
     title: "feed it context",
-    description: "Paste your jargon or style guide once. Every suggestion remembers it.",
+    description: "Paste your style guide once. Cotabby will remember it.",
   },
   {
     icon: AppWindow,
     iconColor: "text-rose-500",
     title: "pick your apps",
-    description: "Block any app with one toggle. Shows up only where you want it.",
+    description: "Block Cotabby on any app with one toggle.",
   },
   {
     icon: Palette,
     iconColor: "text-fuchsia-500",
     title: "make it invisible",
-    description: "Tweak color and opacity until ghost text blends in and stays out of the way.",
+    description: "Tweak color and opacity until it's perfect.",
   },
 ];
 
@@ -76,7 +76,7 @@ export function CustomizationCardsSection() {
           className="relative aspect-video w-full overflow-hidden"
         >
           <Image
-            src="/gifs/settings.gif"
+            src="/gifs/settings.webp"
             alt="Cotabby settings"
             fill
             unoptimized
@@ -91,7 +91,10 @@ export function CustomizationCardsSection() {
               <StaggerItem key={feature.title}>
                 <div className="flex items-start gap-3.5">
                   <IconTile size="md" tone="bg-surface-3">
-                    <Icon className={`h-5 w-5 ${feature.iconColor}`} strokeWidth={2} />
+                    <Icon
+                      className={`h-5 w-5 ${feature.iconColor}`}
+                      strokeWidth={2}
+                    />
                   </IconTile>
                   <div>
                     <h3 className="text-lg font-bold leading-tight tracking-tight text-ink sm:text-xl">

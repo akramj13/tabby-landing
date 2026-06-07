@@ -61,7 +61,7 @@ export const FAQ_ITEMS: {
     icon: Keyboard,
     question: "How do I accept or dismiss a suggestion?",
     answer:
-      "Tab accepts. Backtick accepts the whole suggestion. Esc or keep typing dismisses. All keys are rebindable in Settings.",
+      "Tab accepts the next word. Backtick accepts the whole suggestion. Esc or keep typing dismisses. All keys are rebindable in Settings.",
   },
   {
     icon: AppWindow,

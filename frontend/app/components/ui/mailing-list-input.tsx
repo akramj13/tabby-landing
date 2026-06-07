@@ -42,9 +42,9 @@ export function MailingListInput({ className }: { className?: string }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex w-full items-center gap-3 sm:w-auto ${className ?? ""}`}
+      className={`flex w-full items-end gap-3 sm:w-auto ${className ?? ""}`}
     >
-      <span className="shrink-0 text-sm font-bold tracking-tight text-ink">
+      <span className="tabby-link shrink-0 pb-3.5 text-sm font-bold tracking-tight transition hover:text-ink sm:text-base">
         Join mailing list
       </span>
       <input

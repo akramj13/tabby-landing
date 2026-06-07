@@ -15,23 +15,23 @@ type Feature = {
 
 const FEATURES: Feature[] = [
   {
-    gif: "/gifs/autocomplete-feature.gif",
+    gif: "/gifs/autocomplete-feature.webp",
     icon: WandSparkles,
     title: "autocomplete",
     description:
-      "Ghost-text suggestions appear as you type. Press Tab to accept, or keep typing to ignore.",
+      "Ghost-text suggestions appear as you type. Press Tab to accept a word at a time, or keep typing to ignore.",
     tileBg: "bg-violet-500",
   },
   {
-    gif: "/gifs/emoji-feature.gif",
+    gif: "/gifs/emoji-feature.webp",
     icon: Smile,
     title: "emoji shortcodes",
     description:
-      "Type a colon and a few letters - :smi, :tada - then Tab to drop in the emoji, anywhere.",
+      "Type a colon and a few letters — :smi, :tada — then Tab to drop in the emoji, anywhere.",
     tileBg: "bg-amber-400",
   },
   {
-    gif: "/gifs/autocorrect-feature.gif",
+    gif: "/gifs/autocorrect-feature.webp",
     icon: SpellCheck,
     title: "autocorrect",
     description:
@@ -39,7 +39,7 @@ const FEATURES: Feature[] = [
     tileBg: "bg-emerald-500",
   },
   {
-    gif: "/gifs/macros-feature.gif",
+    gif: "/gifs/macros-feature.webp",
     icon: Zap,
     title: "macros",
     description:
@@ -57,7 +57,7 @@ export function FeaturesBentoSection() {
       <SectionHeading
         title="more than autocomplete"
         titleSize="text-[2.5rem] sm:text-[4rem]"
-        subtitle="Four ways Cotabby speeds up your typing - all running locally on your Mac."
+        subtitle="Four ways Cotabby speeds up your typing — all running locally on your Mac."
       />
 
       <Stagger stagger={0.1} className="mt-12 grid gap-5 sm:grid-cols-2">

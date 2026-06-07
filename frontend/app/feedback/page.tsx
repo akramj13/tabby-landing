@@ -6,7 +6,7 @@ import { IconTile } from "@/app/components/ui/icon-tile";
 
 export const metadata: Metadata = {
   title: "Feedback - Cotabby",
-  description: "Report a bug or request a feature for tabby.",
+  description: "Report a bug or request a feature for Cotabby.",
 };
 
 export default function FeedbackPage() {
@@ -35,7 +35,7 @@ export default function FeedbackPage() {
           <Link href="/" className="flex items-center gap-3">
             <IconTile size="md" tone="bg-white">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Cotabby logo"
                 width={48}
                 height={48}
