@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { AnnouncementBanner } from "@/app/components/layout/announcement-banner";
 import { AppsCarouselSection } from "@/app/components/sections/apps-carousel-section";
-// import { AlternatingFeatureSection } from "@/app/components/sections/alternating-feature-section";
 import { ComparisonSection } from "@/app/components/sections/comparison-section";
 import { CustomizationCardsSection } from "@/app/components/sections/customization-cards-section";
 import { FaqSection } from "@/app/components/sections/faq-section";
@@ -16,7 +15,6 @@ import { ModelsBeamSection } from "@/app/components/sections/models-beam-section
 import { ScrollProgressBar } from "@/app/components/ui/motion";
 import { Section } from "@/app/components/ui/section";
 import { SectionShell } from "@/app/components/ui/section-shell";
-// import { SloganCtaSection } from "@/app/components/sections/slogan-cta-section";
 import { StructuredData } from "@/app/components/layout/structured-data";
 import { FloatingButton } from "@/app/components/ui/floating-button";
 import { GiantWordmarkSection } from "@/app/components/sections/giant-wordmark-section";
@@ -75,10 +73,6 @@ export default function Home() {
           <ReviewsCloudSection />
         </Section>
 
-        {/* <Section>
-          <AlternatingFeatureSection />
-        </Section> */}
-
         <Section id="privacy">
           <PermissionsSection />
         </Section>
@@ -98,10 +92,6 @@ export default function Home() {
         <Section id="faq">
           <FaqSection />
         </Section>
-
-        {/* <Section>
-          <SloganCtaSection />
-        </Section> */}
 
         <Section>
           <FinalFooterSection />

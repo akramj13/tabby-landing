@@ -18,10 +18,8 @@ const ALLOW_FILES = new Set([
   "app/components/ui/mailing-list-input.tsx",
   // Framer-motion `m.div` elements that need motion props + border/shadow.
   // The IconTile/TabbyPanel `as` prop doesn't compose with motion components,
-  // so these three keep inline classes referencing the shadow tokens.
+  // so this keeps inline classes referencing the shadow tokens.
   "app/components/sections/how-it-works-section.tsx",
-  "app/components/sections/alternating-feature-section.tsx",
-  "app/components/sections/privacy-section.tsx",
 ]);
 
 const INLINE_SHELL = /border-2 border-line[^"'`]*shadow-tabby(-[\w]+)?\b/;
