@@ -11,7 +11,12 @@ import { SectionHeading } from "@/app/components/ui/section-heading";
 // to look intentionally jumbled — no two on the same row, no two on the same
 // column — while keeping each icon clear of its neighbours.
 const MODELS = [
-  { label: "Apple Intelligence", src: "/app-icons/Apple_Intelligence.webp", x: "10%", y: "6%" },
+  {
+    label: "Apple Intelligence",
+    src: "/app-icons/Apple_Intelligence.webp",
+    x: "10%",
+    y: "6%",
+  },
   { label: "Qwen", src: "/model-icons/qwen.webp", x: "58%", y: "0%" },
   { label: "DeepSeek", src: "/model-icons/deepseek.webp", x: "30%", y: "38%" },
   { label: "Gemma", src: "/model-icons/gemma.webp", x: "70%", y: "34%" },
@@ -36,7 +41,7 @@ export function ModelsBeamSection() {
     <div className="mx-auto max-w-content">
       <SectionHeading
         title="any model, one Cotabby"
-        subtitle="Plug in Apple Intelligence, Qwen, or whatever local model you trust — Cotabby routes them all through the same tab-complete."
+        subtitle="Plug in Apple Intelligence or a local model like Qwen, DeepSeek, or Gemma — Cotabby routes them all through the same tab-complete."
       />
 
       <div className="mt-12">

@@ -1,11 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CREATOR, DISCORD_URL, GITHUB_URL, SUPPORT_EMAIL } from "@/app/lib/site";
+import {
+  CREATOR,
+  DISCORD_URL,
+  GITHUB_URL,
+  SUPPORT_EMAIL,
+} from "@/app/lib/site";
 import { DownloadButton } from "@/app/components/ui/download-button";
 import { IconTile } from "@/app/components/ui/icon-tile";
-import { GitHubStarLabel } from "@/app/components/ui/github-star-label";
-import { AppleIcon, DiscordIcon, GithubIcon, LinkedInIcon, XIcon } from "@/app/components/ui/icons";
+import {
+  AppleIcon,
+  DiscordIcon,
+  GithubIcon,
+  LinkedInIcon,
+  XIcon,
+} from "@/app/components/ui/icons";
 import { FadeIn } from "@/app/components/ui/motion";
+import { SupportButton } from "@/app/components/ui/support-button";
 import { TabbyButton } from "@/app/components/ui/tabby-button";
 
 const FOOTER_LINKS = [
@@ -27,16 +38,20 @@ export function FinalFooterSection() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-4">
             <h2 className="tabby-display max-w-175 text-[3.4rem] leading-[0.94] tracking-tight text-ink sm:text-[5.4rem]">
-              type a lot faster.
+              free, private, and yours.
             </h2>
             <p className="max-w-xl text-sm leading-relaxed tracking-tight text-muted sm:text-base">
-              Cozy AI autocomplete for the everyday notes, emails, and messages
-              you were going to write anyway.
+              Cozy AI autocomplete for the everyday notes, emails, and messages.
             </p>
           </div>
 
-          <div className="w-full max-w-85 space-y-3">
-            <DownloadButton size="sm" fullWidth icon={<AppleIcon className="h-5 w-5" />}>
+          <div className="relative w-full max-w-85 space-y-3">
+            <SupportButton size="sm" fullWidth />
+            <DownloadButton
+              size="sm"
+              fullWidth
+              icon={<AppleIcon className="h-5 w-5" />}
+            >
               Download for Mac
             </DownloadButton>
             <TabbyButton
@@ -47,7 +62,7 @@ export function FinalFooterSection() {
               fullWidth
               icon={<GithubIcon className="h-5 w-5" />}
             >
-              <GitHubStarLabel />
+              Star on GitHub
             </TabbyButton>
           </div>
         </div>
@@ -70,7 +85,7 @@ export function FinalFooterSection() {
               <span className="tabby-display text-[2rem] leading-[0.88] tracking-tight text-ink sm:text-[2.4rem]">
                 Cotabby
               </span>
-              <span className="text-[0.55rem] font-semibold uppercase leading-none tracking-widest text-ink/40">
+              <span className="text-[0.55rem] font-semibold uppercase leading-none tracking-widest text-ink/65">
                 beta
               </span>
             </div>
@@ -110,7 +125,10 @@ export function FinalFooterSection() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:opacity-80"
                 >
-                  <IconTile size="md" tone="bg-surface-2 text-ink hover:bg-surface-3">
+                  <IconTile
+                    size="md"
+                    tone="bg-surface-2 text-ink hover:bg-surface-3"
+                  >
                     <Icon className="h-4.5 w-4.5" />
                   </IconTile>
                 </Link>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AnnouncementBanner } from "@/app/components/layout/announcement-banner";
 import { AppsCarouselSection } from "@/app/components/sections/apps-carousel-section";
 // import { AlternatingFeatureSection } from "@/app/components/sections/alternating-feature-section";
@@ -6,6 +7,7 @@ import { CustomizationCardsSection } from "@/app/components/sections/customizati
 import { FaqSection } from "@/app/components/sections/faq-section";
 import { FeaturesBentoSection } from "@/app/components/sections/features-bento-section";
 import { PermissionsSection } from "@/app/components/sections/permissions-section";
+import { ReviewsCloudSection } from "@/app/components/sections/reviews-cloud-section";
 import { FinalFooterSection } from "@/app/components/sections/final-footer-section";
 import { Header } from "@/app/components/sections/header";
 import { Hero } from "@/app/components/sections/hero";
@@ -21,6 +23,10 @@ import { GiantWordmarkSection } from "@/app/components/sections/giant-wordmark-s
 import { SleepingCatMascot } from "@/app/components/ui/sleeping-cat-mascot";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
@@ -65,20 +71,24 @@ export default function Home() {
           <HowItWorksSection />
         </Section>
 
+        <Section>
+          <ReviewsCloudSection />
+        </Section>
+
         {/* <Section>
           <AlternatingFeatureSection />
         </Section> */}
 
-        <Section>
-          <ModelsBeamSection />
+        <Section id="privacy">
+          <PermissionsSection />
         </Section>
 
         <Section>
           <CustomizationCardsSection />
         </Section>
 
-        <Section id="privacy">
-          <PermissionsSection />
+        <Section>
+          <ModelsBeamSection />
         </Section>
 
         <Section>

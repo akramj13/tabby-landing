@@ -2,7 +2,6 @@
 
 import { GITHUB_URL } from "@/app/lib/site";
 import { DownloadButton } from "@/app/components/ui/download-button";
-import { GitHubStarLabel } from "@/app/components/ui/github-star-label";
 import { AppleIcon, GithubIcon } from "@/app/components/ui/icons";
 import { PawMark } from "@/app/components/ui/paw-mark";
 import { FadeIn, ScaleIn, WordReveal } from "@/app/components/ui/motion";
@@ -57,7 +56,7 @@ export function SloganCtaSection() {
               size="md"
               icon={<GithubIcon className="h-5 w-5" />}
             >
-              <GitHubStarLabel />
+              GitHub
             </TabbyButton>
           </div>
         </ScaleIn>

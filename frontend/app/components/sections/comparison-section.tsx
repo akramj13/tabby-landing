@@ -19,6 +19,7 @@ import {
 import { OpenSourceIcon } from "@/app/components/ui/icons";
 import { IconTile } from "@/app/components/ui/icon-tile";
 import { ScaleIn } from "@/app/components/ui/motion";
+import { PeekingCatMascot } from "@/app/components/ui/peeking-cat-mascot";
 import { SectionHeading } from "@/app/components/ui/section-heading";
 
 type Feature = {
@@ -30,6 +31,7 @@ type Feature = {
 
 // Shared capabilities first, then everything Cotypist's free plan leaves out -
 // so the Cotypist column visibly fills with X's from the middle down.
+// Cotypist free-plan parity verified 2026-06-07; re-check periodically.
 const FEATURES: Feature[] = [
   { label: "Word-by-word acceptance", icon: Forward, cotypist: true },
   { label: "Emoji suggestions", icon: Smile, cotypist: true },
@@ -48,7 +50,7 @@ const GRID =
 
 function YesMark() {
   return (
-    <IconTile size="sm" tone="bg-[#43bd6e] text-white">
+    <IconTile size="sm" tone="bg-accent-green text-white">
       <Check className="h-5 w-5" strokeWidth={3} aria-label="Included" />
     </IconTile>
   );
@@ -116,8 +118,9 @@ export function ComparisonSection() {
         subtitle="Everything Cotypist's free plan does — plus everything it leaves out."
       />
 
-      <ScaleIn className="mx-auto mt-12 max-w-3xl">
-        <div className="tabby-panel rounded-[1.85rem] p-5 sm:p-9">
+      <ScaleIn className="relative mx-auto mt-14 max-w-3xl">
+        <PeekingCatMascot />
+        <div className="relative z-10 tabby-panel rounded-[1.85rem] p-5 sm:p-9">
           <div className={`${GRID} gap-x-3 sm:gap-x-6`}>
             {/* Header row */}
             <div className="flex items-end pb-4 pl-1">
@@ -132,7 +135,7 @@ export function ComparisonSection() {
             />
             <ColumnHeader
               name="Cotypist"
-              tagline="free plan"
+              tagline="limited free plan"
               iconSrc="/app-icons/cotypist.webp"
               iconScale={1.35}
               muted

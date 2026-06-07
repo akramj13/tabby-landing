@@ -5,12 +5,14 @@ import Link from "next/link";
 import type { MouseEvent } from "react";
 import { MailingListInput } from "@/app/components/ui/mailing-list-input";
 import { IconTile } from "@/app/components/ui/icon-tile";
+import { SUPPORT_EMAIL } from "@/app/lib/site";
 
 const textLinks = [
   { href: "#how-it-works", label: "how it works" },
   { href: "#privacy", label: "privacy" },
   { href: "#faq", label: "faq" },
   { href: "/feedback", label: "feedback" },
+  { href: `mailto:${SUPPORT_EMAIL}`, label: "contact" },
 ] as const;
 
 function scrollToAnchor(event: MouseEvent<HTMLAnchorElement>, href: string) {
@@ -72,16 +74,27 @@ export function Header() {
             aria-label="Primary"
             className="flex flex-wrap items-center gap-x-5 gap-y-2 pl-1 lg:pb-1 lg:pl-0"
           >
-            {textLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={(event) => scrollToAnchor(event, link.href)}
-                className="tabby-link text-sm font-bold tracking-tight transition hover:text-ink sm:text-base"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {textLinks.map((link) => {
+              const className =
+                "tabby-link text-sm font-bold tracking-tight transition hover:text-ink sm:text-base";
+              if (link.href.startsWith("#") || link.href.startsWith("/")) {
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={(event) => scrollToAnchor(event, link.href)}
+                    className={className}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+              return (
+                <a key={link.href} href={link.href} className={className}>
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
         </div>
 

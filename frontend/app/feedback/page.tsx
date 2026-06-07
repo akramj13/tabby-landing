@@ -3,10 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { FeedbackForm } from "./feedback-form";
 import { IconTile } from "@/app/components/ui/icon-tile";
+import { pageMeta } from "@/app/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Feedback - Cotabby",
-  description: "Report a bug or request a feature for Cotabby.",
+  ...pageMeta({
+    title: "Feedback - Cotabby",
+    description: "Report a bug or request a feature for Cotabby.",
+    path: "/feedback",
+  }),
+  robots: { index: false, follow: true },
 };
 
 export default function FeedbackPage() {
@@ -48,7 +53,7 @@ export default function FeedbackPage() {
                 <span className="tabby-display text-[2.4rem] leading-[0.88] tracking-tight text-ink sm:text-[2.8rem]">
                   Cotabby
                 </span>
-                <span className="text-[0.55rem] font-semibold uppercase leading-none tracking-widest text-ink/40">
+                <span className="text-[0.55rem] font-semibold uppercase leading-none tracking-widest text-ink/65">
                   beta
                 </span>
               </span>

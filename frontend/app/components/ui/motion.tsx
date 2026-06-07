@@ -250,7 +250,7 @@ export function CountUp({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {value}
+      {value.toLocaleString("en-US")}
       {suffix}
     </span>
   );

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPageShell } from "@/app/components/layout/legal-page-shell";
 import { GITHUB_URL, SUPPORT_EMAIL } from "@/app/lib/site";
+import { pageMeta } from "@/app/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Terms of Service - Cotabby",
-  description:
-    "Terms of service for Cotabby - local AI autocomplete for macOS.",
-};
+  description: "Terms of service for Cotabby - local AI autocomplete for macOS.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

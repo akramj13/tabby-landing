@@ -2,6 +2,17 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
+/** Apple's "Universal Access" symbol — the figure-with-arms-spread used on the
+ *  macOS Accessibility permission tile (white glyph on a blue tile). */
+export function AccessibilityIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <circle cx="12" cy="3.6" r="2.15" />
+      <path d="M3.55 7.35c2.62.92 5.45 1.4 8.45 1.4s5.83-.48 8.45-1.4a1.12 1.12 0 0 1 .73 2.12c-2.2.77-4.52 1.24-6.92 1.41l1.62 9.16a1.18 1.18 0 0 1-2.32.41L12 14.95l-1.56 6.5a1.18 1.18 0 0 1-2.32-.41l1.62-9.16c-2.4-.17-4.72-.64-6.92-1.41a1.12 1.12 0 1 1 .73-2.12Z" />
+    </svg>
+  );
+}
+
 export function GithubIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>

@@ -2,7 +2,8 @@ import { SUPPORT_URL } from "@/app/lib/site";
 import { TabbyButton } from "@/app/components/ui/tabby-button";
 
 type SupportButtonProps = {
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
+  fullWidth?: boolean;
 };
 
 const HeartIcon = ({ className }: { className?: string }) => (
@@ -20,14 +21,15 @@ const HeartIcon = ({ className }: { className?: string }) => (
 /**
  * Shared Ko-fi support CTA used in the header and floating action cluster.
  */
-export function SupportButton({ size = "sm" }: SupportButtonProps) {
+export function SupportButton({ size = "sm", fullWidth = false }: SupportButtonProps) {
   return (
     <TabbyButton
       href={SUPPORT_URL}
       external
       variant="white"
       size={size}
-      icon={<HeartIcon className="h-4 w-4 sm:h-5 sm:w-5" />}
+      fullWidth={fullWidth}
+      icon={<HeartIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
     >
       Support Cotabby
     </TabbyButton>

@@ -1,4 +1,4 @@
-import { CREATOR, DOWNLOAD_URL, GITHUB_URL, SITE_URL } from "@/app/lib/site";
+import { CREATOR, DOWNLOAD_URL, GITHUB_URL, SITE_NAME, SITE_URL } from "@/app/lib/site";
 import { FAQ_ITEMS } from "@/app/components/sections/faq-section";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -12,6 +12,11 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 }
 
 export function StructuredData() {
+  // No `aggregateRating`/`Review` here on purpose: the on-page testimonials
+  // (reviews-cloud-section) are quotes without star ratings, and Google
+  // requires a real `reviewRating`. Fabricating one to earn star snippets
+  // risks a manual penalty — add rating markup only if a genuine, on-page
+  // rating system ships.
   const softwareApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -19,6 +24,7 @@ export function StructuredData() {
     operatingSystem: "macOS",
     applicationCategory: "ProductivityApplication",
     url: SITE_URL,
+    image: `${SITE_URL}/icon-512.png`,
     downloadUrl: DOWNLOAD_URL,
     description:
       "Free, open-source macOS AI autocomplete. Press Tab to accept quiet inline suggestions in Mail, Notes, Slack, Docs, and more.",
@@ -51,9 +57,17 @@ export function StructuredData() {
     })),
   };
 
+  const webSite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+  };
+
   return (
     <>
       <JsonLd data={softwareApp} />
+      <JsonLd data={webSite} />
       <JsonLd data={faqPage} />
     </>
   );

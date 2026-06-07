@@ -73,34 +73,36 @@ export function AppsCarouselSection() {
         </p>
       </FadeIn>
 
-      <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2 space-y-3 overflow-hidden py-4 sm:py-5">
-        <div
-          className="tabby-marquee-track"
-          aria-label="Supported apps carousel"
-        >
-          {TRACK.map((app, index) => (
-            <CotabbyLogoChip
-              key={`chip-${app.label}-${index}`}
-              label={app.label}
-              iconSrc={app.iconSrc}
-              className="tabby-marquee-item"
-              pinging={pingingLabel === app.label}
-            />
-          ))}
-        </div>
-        <div
-          className="tabby-marquee-track tabby-marquee-track-reverse"
-          aria-hidden="true"
-        >
-          {REVERSE_TRACK.map((app, index) => (
-            <CotabbyLogoChip
-              key={`chip-rev-${app.label}-${index}`}
-              label={app.label}
-              iconSrc={app.iconSrc}
-              className="tabby-marquee-item"
-              pinging={pingingLabel === app.label}
-            />
-          ))}
+      <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2">
+        <div className="space-y-3 overflow-hidden py-4 sm:py-5">
+          <div
+            className="tabby-marquee-track"
+            aria-label="Supported apps carousel"
+          >
+            {TRACK.map((app, index) => (
+              <CotabbyLogoChip
+                key={`chip-${app.label}-${index}`}
+                label={app.label}
+                iconSrc={app.iconSrc}
+                className="tabby-marquee-item"
+                pinging={pingingLabel === app.label}
+              />
+            ))}
+          </div>
+          <div
+            className="tabby-marquee-track tabby-marquee-track-reverse"
+            aria-hidden="true"
+          >
+            {REVERSE_TRACK.map((app, index) => (
+              <CotabbyLogoChip
+                key={`chip-rev-${app.label}-${index}`}
+                label={app.label}
+                iconSrc={app.iconSrc}
+                className="tabby-marquee-item"
+                pinging={pingingLabel === app.label}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

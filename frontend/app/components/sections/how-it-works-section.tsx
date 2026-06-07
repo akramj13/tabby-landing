@@ -1,12 +1,13 @@
 "use client";
 
 import { m, type Variants, useReducedMotion } from "framer-motion";
-import { Folder } from "lucide-react";
+import { ArrowRight, Folder } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { FadeIn } from "@/app/components/ui/motion";
 import { DownloadButton } from "@/app/components/ui/download-button";
 import { AppleIcon } from "@/app/components/ui/icons";
+import { PeekingCatMascot } from "@/app/components/ui/peeking-cat-mascot";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -37,88 +38,42 @@ const stepCardVariants: Variants = {
   }),
 };
 
-type InstallPhase = "idle" | "dragging" | "dropped" | "hidden" | "reset";
-
-const INSTALL_PHASE_DURATION_MS: Record<InstallPhase, number> = {
-  idle: 500,
-  dragging: 1100,
-  dropped: 350,
-  hidden: 450,
-  reset: 350,
-};
-
-const INSTALL_NEXT_PHASE: Record<InstallPhase, InstallPhase> = {
-  idle: "dragging",
-  dragging: "dropped",
-  dropped: "hidden",
-  hidden: "reset",
-  reset: "idle",
-};
-
 function InstallVisual() {
   const prefersReducedMotion = useReducedMotion() ?? false;
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [phase, setPhase] = useState<InstallPhase>("idle");
-
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.45 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedMotion || !isInView) return;
-    const id = setTimeout(() => {
-      setPhase((p) => INSTALL_NEXT_PHASE[p]);
-    }, INSTALL_PHASE_DURATION_MS[phase]);
-    return () => clearTimeout(id);
-  }, [phase, isInView, prefersReducedMotion]);
-
-  const atDestination = phase === "dragging" || phase === "dropped" || phase === "hidden";
-  const shrunk = phase === "dropped" || phase === "hidden";
-  const invisible = phase === "hidden";
 
   return (
-    <div
-      ref={containerRef}
-      className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4"
-    >
+    <div className="rounded-[1.1rem] border-2 border-line bg-surface-2 p-4">
       <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-subtle">
         macOS install
       </p>
-      <div className="relative mt-3 flex h-14 items-center justify-end rounded-[0.8rem] border-2 border-dashed border-line-soft bg-background/40 px-3">
-        <m.div
-          aria-hidden="true"
-          initial={false}
-          animate={
-            prefersReducedMotion
-              ? { left: "calc(100% - 2.75rem)", opacity: 0, scale: 1 }
-              : {
-                  left: atDestination ? "calc(100% - 2.75rem)" : "0rem",
-                  scale: shrunk ? 0.55 : 1,
-                  opacity: invisible || phase === "reset" ? 0 : 1,
-                }
-          }
-          transition={{
-            duration: INSTALL_PHASE_DURATION_MS[phase] / 1000,
-            ease: phase === "dragging" ? EASE : "easeOut",
-          }}
-          className="absolute top-1/2 z-10 h-9 w-9 -translate-y-1/2 overflow-hidden rounded-[0.55rem] border-2 border-line bg-surface shadow-tabby-2xs"
-        >
+      <div className="relative mt-3 flex h-14 items-center justify-between rounded-[0.8rem] border-2 border-dashed border-line-soft bg-background/40 px-3">
+        {/* Cotabby app icon */}
+        <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[0.55rem] border-2 border-line bg-white shadow-tabby-2xs">
           <Image
             src="/logo.webp"
             alt=""
-            fill
-            sizes="36px"
-            className="object-cover"
+            width={40}
+            height={40}
+            sizes="40px"
+            className="h-full w-full object-contain"
           />
+        </div>
+
+        {/* Pulsing arrow nudging toward Applications */}
+        <m.div
+          aria-hidden="true"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : { x: [0, 7, 0], opacity: [0.45, 1, 0.45] }
+          }
+          transition={{ duration: 1.3, ease: "easeInOut", repeat: Infinity }}
+          className="text-subtle"
+        >
+          <ArrowRight className="h-6 w-6" strokeWidth={2.75} />
         </m.div>
+
+        {/* Applications folder */}
         <div className="flex h-10 w-11 shrink-0 items-center justify-center rounded-[0.55rem] border-2 border-line bg-accent-blue/25 shadow-tabby-2xs">
           <Folder className="h-5 w-5 text-ink" strokeWidth={2.2} />
         </div>
@@ -422,28 +377,31 @@ const steps: StepDefinition[] = [
 
 function StepCard({ index, step }: { index: number; step: StepDefinition }) {
   return (
-    <m.article
+    <m.div
       custom={index}
       variants={stepCardVariants}
       whileHover={{ y: -4, transition: { duration: 0.22, ease: EASE } }}
-      className="tabby-panel relative flex h-full flex-col gap-5 rounded-[1.55rem] p-6 sm:p-7"
+      className="relative h-full"
     >
-      <div className="flex items-center justify-between">
-        <span className="tabby-display text-[2.8rem] leading-none tracking-tight text-ink/90">
-          {step.number}
-        </span>
-        <span className="ml-5 h-0.5 flex-1 bg-line-soft" />
-      </div>
-      <div>
-        <h3 className="text-[1.55rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.75rem]">
-          {step.title}
-        </h3>
-      </div>
-      <p className="text-sm leading-relaxed tracking-tight text-muted sm:text-base">
-        {step.description}
-      </p>
-      <div className="mt-auto">{step.visual}</div>
-    </m.article>
+      {index === 1 ? <PeekingCatMascot /> : null}
+      <article className="tabby-panel relative z-10 flex h-full flex-col gap-5 rounded-[1.55rem] p-6 sm:p-7">
+        <div className="flex items-center justify-between">
+          <span className="tabby-display text-[2.8rem] leading-none tracking-tight text-ink/90">
+            {step.number}
+          </span>
+          <span className="ml-5 h-0.5 flex-1 bg-line-soft" />
+        </div>
+        <div>
+          <h3 className="text-[1.55rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.75rem]">
+            {step.title}
+          </h3>
+        </div>
+        <p className="text-sm leading-relaxed tracking-tight text-muted sm:text-base">
+          {step.description}
+        </p>
+        <div className="mt-auto">{step.visual}</div>
+      </article>
+    </m.div>
   );
 }
 

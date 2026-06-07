@@ -11,8 +11,8 @@ import {
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
-import { IconTile } from "@/app/components/ui/icon-tile";
 import { Stagger, StaggerItem } from "@/app/components/ui/motion";
+import { PeekingCatMascot } from "@/app/components/ui/peeking-cat-mascot";
 import { SectionHeading } from "@/app/components/ui/section-heading";
 import { TabbyPanel } from "@/app/components/ui/tabby-panel";
 
@@ -37,7 +37,7 @@ export const FAQ_ITEMS: {
     icon: ShieldCheck,
     question: "Is my data private?",
     answer:
-      "Yes. Everything runs on your Mac. No cloud, no telemetry, no analytics. The network is only used to download models and check for updates.",
+      "Yes. Everything runs on your Mac. No cloud, no telemetry, no analytics. Clipboard and nearby screen text are read only to inform a suggestion, never stored or sent. The network is only used to download models and check for updates.",
   },
   {
     icon: Cpu,
@@ -91,24 +91,26 @@ export function FaqSection() {
         subtitle="The basics, without the enterprise brochure voice."
       />
 
-      <Stagger stagger={0.06} className="mt-10 space-y-3">
-        {FAQ_ITEMS.map((item) => {
+      <Stagger stagger={0.06} className="mt-16 space-y-3">
+        {FAQ_ITEMS.map((item, index) => {
           const Icon = item.icon;
           return (
-            <StaggerItem key={item.question}>
-              <TabbyPanel as="details" size="md" tone="bg-surface-2" className="group overflow-hidden transition-all duration-200 open:bg-surface-3 hover:-translate-y-px">
+            <StaggerItem key={item.question} className="relative">
+              {index === 0 ? <PeekingCatMascot /> : null}
+              <TabbyPanel as="details" size="md" tone="bg-surface-2" className="group relative z-10 overflow-hidden transition-all duration-200 open:bg-surface-3 hover:-translate-y-px">
                 <summary className="list-none cursor-pointer px-6 py-5 [&::-webkit-details-marker]:hidden">
                   <div className="flex items-center gap-4">
-                    <IconTile size="sm" tone="bg-surface-3 text-ink transition-colors duration-200 group-open:bg-accent/20">
-                      <Icon className="h-5 w-5" strokeWidth={2} />
-                    </IconTile>
+                    <Icon
+                      className="h-5 w-5 shrink-0 text-ink transition-colors duration-200 group-open:text-accent"
+                      strokeWidth={2}
+                    />
                     <span className="text-left text-base font-semibold tracking-tight text-ink sm:text-lg">
                       {item.question}
                     </span>
                   </div>
                 </summary>
 
-                <div className="border-t-2 border-line-soft px-6 pb-6 pl-[4.75rem] pt-4">
+                <div className="border-t-2 border-line-soft px-6 pb-6 pl-[3.75rem] pt-4">
                   <p className="text-sm leading-relaxed text-muted sm:text-base">
                     {item.answer}
                   </p>

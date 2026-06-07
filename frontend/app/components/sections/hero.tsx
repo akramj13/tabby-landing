@@ -6,14 +6,15 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { GITHUB_URL, SUPPORT_URL } from "@/app/lib/site";
+import { DOWNLOAD_COUNT, GITHUB_URL, SUPPORT_URL } from "@/app/lib/site";
 import { DownloadButton } from "@/app/components/ui/download-button";
 import { GitHubStarLabel } from "@/app/components/ui/github-star-label";
+import { GitHubVersionLabel } from "@/app/components/ui/github-version-label";
 import { AppleIcon, GithubIcon } from "@/app/components/ui/icons";
 import { HeroAppDemo } from "@/app/components/sections/hero-app-demo";
-import { HeroReveal } from "@/app/components/ui/motion";
+import { CountUp, HeroReveal } from "@/app/components/ui/motion";
 import { TabbyButton } from "@/app/components/ui/tabby-button";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -42,18 +43,27 @@ const copyItem: Variants = {
 // short accept-phrase (the ghost-text accept animation). Kept similar in length
 // so the layout barely shifts as they cycle.
 const HEADLINES = [
-  { lead: "AI suggestions", accept: "for macOS." },
+  { lead: "AI autocomplete", accept: "for macOS." },
   { lead: "Write faster", accept: "in every app." },
-  { lead: "Finish thoughts", accept: "instantly." },
-  { lead: "Finish words", accept: "right inline." },
+  { lead: "Every keystroke", accept: "stays private." },
+  { lead: "Open source", accept: "and free." },
 ] as const;
 
 const HEADLINE_INTERVAL_MS = 5600;
+
 
 export function Hero() {
   const revealState = "visible" as const;
   const prefersReducedMotion = useReducedMotion();
   const [headlineIndex, setHeadlineIndex] = useState(0);
+  // The headline is the LCP element. Paint the FIRST one immediately (no
+  // opacity/blur entrance) so it isn't gated behind hydration; only animate
+  // the blur-in once the headline starts cycling.
+  const firstHeadlineRef = useRef(true);
+
+  useEffect(() => {
+    firstHeadlineRef.current = false;
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
@@ -75,10 +85,7 @@ export function Hero() {
           animate={revealState}
           className="flex w-full flex-col items-center lg:items-start lg:text-left"
         >
-          <m.div
-            variants={copyItem}
-            className="mx-auto flex max-w-[88rem] flex-col items-center lg:mx-0 lg:items-start"
-          >
+          <div className="mx-auto flex max-w-[88rem] flex-col items-center lg:mx-0 lg:items-start">
             <h1
               aria-label={`${headline.lead} ${headline.accept}`}
               className="tabby-display mx-auto max-w-[88rem] text-center leading-[0.94] tracking-tight text-ink lg:mx-0 lg:text-left"
@@ -86,7 +93,11 @@ export function Hero() {
               <AnimatePresence mode="wait">
                 <m.span
                   key={headlineIndex}
-                  initial={{ opacity: 0, filter: "blur(8px)", y: 10 }}
+                  initial={
+                    firstHeadlineRef.current
+                      ? false
+                      : { opacity: 0, filter: "blur(8px)", y: 10 }
+                  }
                   animate={{
                     opacity: 1,
                     filter: "blur(0px)",
@@ -108,14 +119,14 @@ export function Hero() {
                 </m.span>
               </AnimatePresence>
             </h1>
-          </m.div>
+          </div>
 
           <m.p
             variants={copyItem}
             className="mt-6 lg:mt-10 max-w-3xl text-balance text-base leading-relaxed tracking-tight text-muted sm:text-xl lg:text-xl text-center lg:text-left"
           >
-            AI autocomplete for the apps you already use, powered by Apple
-            Intelligence or local models and kept entirely on your Mac.
+            AI autocomplete for the apps you already use. Runs on Apple
+            Intelligence or any local model — and never leaves your Mac.
           </m.p>
 
           <m.div
@@ -129,7 +140,7 @@ export function Hero() {
               size="md"
               icon={<GithubIcon className="h-6 w-6 shrink-0" />}
             >
-              <GitHubStarLabel />
+              Star on GitHub
             </TabbyButton>
             <DownloadButton
               size="md"
@@ -139,30 +150,37 @@ export function Hero() {
             </DownloadButton>
           </m.div>
 
-          <m.p
+          <m.div
             variants={copyItem}
-            className="mt-5 text-xs tracking-tight text-subtle sm:text-sm"
+            className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-tight text-subtle sm:text-sm lg:justify-start"
           >
-            Cotabby is free and 100% open source.{" "}
+            <span><GitHubVersionLabel /></span>
+            <span aria-hidden className="text-line">·</span>
+            <span><CountUp to={DOWNLOAD_COUNT} suffix="+ installs" /></span>
+            <span aria-hidden className="text-line">·</span>
+            <span><GitHubStarLabel suffix="+ stars" /></span>
+            <span aria-hidden className="text-line">·</span>
+            <span>AGPL-3.0</span>
+            <span aria-hidden className="text-line">·</span>
             <Link
               href={SUPPORT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group font-semibold text-accent-pink underline decoration-accent-pink decoration-1 underline-offset-2"
+              className="group inline-flex items-center gap-1 text-accent-pink hover:underline decoration-accent-pink underline-offset-2"
             >
-              Support development &amp; buy us a coffee
+              Support Cotabby
               <svg
-                width="14"
-                height="14"
+                width="13"
+                height="13"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
-                className="ml-1 inline-block align-[-0.15em] transition-transform group-hover:scale-110"
+                className="ml-0.5 transition-transform group-hover:scale-110"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.49 4.04 3 5.5l7 7Z" />
               </svg>
             </Link>
-          </m.p>
+          </m.div>
         </m.div>
 
         <HeroReveal delay={0.15} className="w-full">

@@ -44,9 +44,6 @@ export function MailingListInput({ className }: { className?: string }) {
       onSubmit={handleSubmit}
       className={`flex w-full items-end gap-3 sm:w-auto ${className ?? ""}`}
     >
-      <span className="tabby-link shrink-0 pb-3.5 text-sm font-bold tracking-tight transition hover:text-ink sm:text-base">
-        Join mailing list
-      </span>
       <input
         type="email"
         required
@@ -55,10 +52,10 @@ export function MailingListInput({ className }: { className?: string }) {
           setEmail(e.target.value);
           if (status === "error") setStatus("idle");
         }}
-        placeholder="you@example.com"
+        placeholder="join mailing list"
         aria-label="Email address"
         aria-invalid={status === "error"}
-        className="shadow-tabby h-12 min-w-0 flex-1 rounded-xl border-2 border-line bg-surface-2 px-4 text-sm font-semibold tracking-tight text-ink placeholder:text-subtle/60 focus:border-ink focus:outline-none sm:w-56 sm:flex-none"
+        className="shadow-tabby h-12 min-w-0 flex-1 rounded-xl border-2 border-line bg-white px-4 text-sm font-semibold tracking-tight text-ink placeholder:text-subtle/60 focus:border-ink focus:outline-none sm:w-56 sm:flex-none"
       />
       <TabbyButton
         variant="blue"

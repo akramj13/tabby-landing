@@ -1,0 +1,1 @@
+Cotabby — local, open-source AI autocomplete for macOS.

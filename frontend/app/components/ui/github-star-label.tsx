@@ -5,7 +5,7 @@ import { CountUp } from "@/app/components/ui/motion";
 
 const FALLBACK = 700;
 
-export function GitHubStarLabel() {
+export function GitHubStarLabel({ suffix = "+ GitHub Stars" }: { suffix?: string }) {
   const [stars, setStars] = useState(FALLBACK);
 
   useEffect(() => {
@@ -22,5 +22,5 @@ export function GitHubStarLabel() {
     };
   }, []);
 
-  return <CountUp to={stars} duration={1.6} suffix="+ GitHub Stars" />;
+  return <CountUp to={stars} duration={1.6} suffix={suffix} />;
 }

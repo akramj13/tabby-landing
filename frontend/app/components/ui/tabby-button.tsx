@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type Variant = "blue" | "secondary" | "primary" | "white";
-type Size = "icon" | "sm" | "md" | "lg";
+type Size = "icon" | "xs" | "sm" | "md" | "lg";
 
 const VARIANT: Record<Variant, string> = {
   blue: "tabby-button tabby-button-blue",
@@ -13,6 +13,7 @@ const VARIANT: Record<Variant, string> = {
 
 const SIZE: Record<Size, string> = {
   icon: "h-12 w-12 rounded-xl text-base",
+  xs: "h-10 sm:h-11 gap-1.5 rounded-xl px-3.5 sm:px-4 text-xs sm:text-sm",
   sm: "h-12 sm:h-14 gap-2 rounded-2xl px-6 sm:px-7 text-sm sm:text-base",
   md: "h-14 sm:h-16 gap-3 rounded-2xl px-7 text-[1.05rem] sm:text-[1.2rem]",
   lg: "h-14 sm:h-16 gap-3 rounded-2xl px-8 text-[1.15rem] sm:text-[1.4rem]",
@@ -20,6 +21,7 @@ const SIZE: Record<Size, string> = {
 
 const WIDTH_AUTO: Record<Size, string> = {
   icon: "",
+  xs: "w-full sm:w-auto",
   sm: "w-full sm:w-auto sm:min-w-[200px]",
   md: "w-full sm:w-auto sm:min-w-[270px]",
   lg: "w-full sm:w-auto sm:min-w-[260px] lg:min-w-[320px]",

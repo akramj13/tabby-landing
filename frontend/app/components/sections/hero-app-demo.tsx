@@ -403,7 +403,7 @@ export function HeroAppDemo() {
         aria-hidden="true"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative w-full max-w-[34rem] overflow-hidden"
+        className="relative mx-auto w-full max-w-[34rem] overflow-hidden"
       >
         <AnimatePresence mode="wait" initial={false}>
           <m.div

@@ -1,113 +1,116 @@
 "use client";
 
-import {
-  Accessibility,
-  ArrowRight,
-  Keyboard,
-  Monitor,
-  type LucideIcon,
-} from "lucide-react";
-import {
-  HoverLift,
-  ScaleIn,
-  Stagger,
-  StaggerItem,
-} from "@/app/components/ui/motion";
+import type { ComponentType, SVGProps } from "react";
+import { useRef } from "react";
+import { m, useInView, useReducedMotion } from "framer-motion";
+import { Keyboard, Monitor } from "lucide-react";
+import { AccessibilityIcon } from "@/app/components/ui/icons";
+import { HoverLift, Stagger, StaggerItem } from "@/app/components/ui/motion";
 import { IconTile } from "@/app/components/ui/icon-tile";
+import { TabbyPanel } from "@/app/components/ui/tabby-panel";
 import { SectionHeading } from "@/app/components/ui/section-heading";
 
 type Permission = {
-  icon: LucideIcon;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   title: string;
-  description: string;
-  /** Tailwind bg color for the icon tile. Shadow is the standard tabby drop. */
+  /** Short, plain-language reason shown under the title. */
+  why: string;
+  /** Tailwind bg color for the icon tile (matches macOS System Settings). */
   tileBg: string;
 };
 
-const permissions: Permission[] = [
+// Mirrors the macOS System Settings → Privacy & Security rows verbatim:
+// the Universal Access figure, a keyboard, and a display — each a white SF-style
+// glyph on the muted graphite tile macOS actually uses for these list rows.
+const SYSTEM_TILE = "bg-zinc-500";
+
+const PERMISSIONS: Permission[] = [
   {
-    icon: Accessibility,
+    icon: AccessibilityIcon,
     title: "Accessibility",
-    description:
-      "Required to detect focused text fields, read their content, and position ghost text suggestions near the caret.",
-    tileBg: "bg-blue-500",
+    why: "Finds the focused text field and places ghost text right at your caret.",
+    tileBg: SYSTEM_TILE,
   },
   {
     icon: Keyboard,
     title: "Input Monitoring",
-    description:
-      "Required to detect typing activity and handle Tab key acceptance of suggestions.",
-    tileBg: "bg-amber-500",
+    why: "Detects typing and lets Tab accept the suggestion.",
+    tileBg: SYSTEM_TILE,
   },
   {
     icon: Monitor,
     title: "Screen Recording",
-    description:
-      "Required to capture a screenshot around the focused field for visual context (OCR).",
-    tileBg: "bg-red-500",
+    why: "Reads a screenshot around the field for visual (OCR) context.",
+    tileBg: SYSTEM_TILE,
   },
 ];
 
-const ROW_GRID =
-  "grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.5fr)]";
-
-function PermissionRow({ permission }: { permission: Permission }) {
-  const Icon = permission.icon;
+function Toggle({ on, delay }: { on: boolean; delay: number }) {
   return (
-    <HoverLift lift={4}>
-      <div className={`grid ${ROW_GRID} items-stretch gap-4 sm:gap-4`}>
-        <article className="tabby-panel group flex items-center gap-4 rounded-[1.55rem] p-5 sm:gap-5 sm:p-6">
-          <IconTile size="lg" tone={`${permission.tileBg} text-white`} hoverLift>
-            <Icon className="h-6 w-6" strokeWidth={2.5} />
-          </IconTile>
-          <h3 className="text-[1.35rem] font-bold leading-tight tracking-tight text-ink sm:text-[1.55rem]">
-            {permission.title}
-          </h3>
-        </article>
-        <div
-          aria-hidden
-          className="flex items-center justify-center text-subtle"
-        >
-          <ArrowRight className="h-6 w-6 rotate-90 sm:h-7 sm:w-7 sm:rotate-0" strokeWidth={2.5} />
-        </div>
-        <article className="tabby-panel flex items-center rounded-[1.55rem] p-5 sm:p-6">
-          <p className="text-sm leading-relaxed tracking-tight text-muted sm:text-base">
-            {permission.description}
-          </p>
-        </article>
-      </div>
-    </HoverLift>
+    <m.span
+      aria-hidden="true"
+      className="relative inline-flex h-7 w-12 shrink-0 items-center rounded-full px-0.5"
+      animate={{
+        backgroundColor: on
+          ? "var(--color-accent-green)"
+          : "var(--color-surface-4)",
+      }}
+      transition={{ duration: 0.25, delay }}
+    >
+      <m.span
+        className="h-6 w-6 rounded-full bg-white shadow-sm"
+        animate={{ x: on ? 20 : 0 }}
+        transition={{ type: "spring", stiffness: 520, damping: 32, delay }}
+      />
+    </m.span>
   );
 }
 
 export function PermissionsSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const reduced = useReducedMotion() ?? false;
+
   return (
     <section className="mx-auto max-w-content">
       <SectionHeading
         title="your Mac, your data"
         titleSize="text-[2.9rem] sm:text-[4.1rem]"
-        subtitle="Cotabby requests the following macOS permissions:"
+        subtitle="Three macOS permissions, granted once — here's what each is for."
       />
 
-      <div className="mx-auto mt-14 max-w-4xl space-y-5">
-        <div className={`hidden ${ROW_GRID} gap-4 px-7 sm:grid`}>
-          <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-subtle">
-            What
-          </h3>
-          <span />
-          <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-subtle">
-            Why
-          </h3>
-        </div>
-
-        <Stagger stagger={0.12} className="space-y-5">
-          {permissions.map((p, i) => (
-            <StaggerItem key={p.title}>
-              <ScaleIn delay={i * 0.08}>
-                <PermissionRow permission={p} />
-              </ScaleIn>
-            </StaggerItem>
-          ))}
+      <div ref={ref} className="mx-auto mt-12 max-w-2xl">
+        <Stagger stagger={0.12} className="space-y-4">
+          {PERMISSIONS.map((permission, i) => {
+            const Icon = permission.icon;
+            return (
+              <StaggerItem key={permission.title}>
+                <HoverLift lift={3}>
+                  <TabbyPanel
+                    size="lg"
+                    tone="bg-surface"
+                    className="flex items-center gap-4 p-5 sm:gap-5 sm:p-6"
+                  >
+                    <IconTile size="lg" tone={`${permission.tileBg} text-white`}>
+                      <Icon className="h-6 w-6" strokeWidth={2.5} />
+                    </IconTile>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-lg font-bold leading-tight tracking-tight text-ink sm:text-xl">
+                        {permission.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-snug tracking-tight text-muted">
+                        {permission.why}
+                      </p>
+                    </div>
+                    <Toggle
+                      on={inView}
+                      delay={reduced ? 0 : 0.25 + i * 0.22}
+                    />
+                  </TabbyPanel>
+                </HoverLift>
+              </StaggerItem>
+            );
+          })}
         </Stagger>
       </div>
     </section>

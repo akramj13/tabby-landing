@@ -5,11 +5,11 @@ import {
   BookOpen,
   Cpu,
   Palette,
-  PenLine,
   Ruler,
   type LucideIcon,
 } from "lucide-react";
-import Image from "next/image";
+import { DanglingToyMascot } from "@/app/components/ui/dangling-toy-mascot";
+import { DemoVideo } from "@/app/components/ui/demo-video";
 import { IconTile } from "@/app/components/ui/icon-tile";
 import { Stagger, StaggerItem } from "@/app/components/ui/motion";
 import { TabbyPanel } from "@/app/components/ui/tabby-panel";
@@ -70,17 +70,16 @@ export function CustomizationCardsSection() {
         subtitle="Tune the suggestions so they feel helpful, not intrusive."
       />
 
-      <div className="tabby-panel mt-12 grid gap-6 rounded-[1.55rem] p-5 sm:p-7 lg:grid-cols-[1.7fr_1fr] lg:items-center lg:gap-8">
+      <div className="tabby-panel relative mt-12 grid gap-6 rounded-[1.55rem] p-5 sm:p-7 lg:grid-cols-[1.7fr_1fr] lg:items-center lg:gap-8">
+        <DanglingToyMascot />
         <TabbyPanel
           size="xl"
           className="relative aspect-video w-full overflow-hidden"
         >
-          <Image
-            src="/gifs/settings.webp"
-            alt="Cotabby settings"
-            fill
-            unoptimized
-            className="object-cover"
+          <DemoVideo
+            name="settings"
+            label="Cotabby settings"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </TabbyPanel>
 

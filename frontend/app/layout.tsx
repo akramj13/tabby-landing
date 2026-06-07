@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { CREATOR, SITE_URL } from "@/app/lib/site";
+import { CREATOR, SITE_NAME, SITE_URL } from "@/app/lib/site";
 import { Providers } from "@/app/components/ui/providers";
 
 const bodyFont = localFont({
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title,
   description,
-  applicationName: "Cotabby",
+  applicationName: SITE_NAME,
   keywords: [
     "Mac autocomplete",
     "macOS text fields",
@@ -46,21 +46,25 @@ export const metadata: Metadata = {
   creator: CREATOR.name,
   publisher: CREATOR.name,
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Cotabby",
+    siteName: SITE_NAME,
     title,
     description,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
+    site: CREATOR.xHandle,
     title,
     description,
     creator: CREATOR.xHandle,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#faf7f0",
 };
 
 export default function RootLayout({

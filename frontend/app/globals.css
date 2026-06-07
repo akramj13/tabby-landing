@@ -15,6 +15,7 @@
   --accent-deep: #f56a59;
   --accent-pink: #ec4899;
   --accent-blue: #007aff;
+  --accent-green: #43bd6e;
   --button-primary: #1c1c1c;
   --button-primary-hover: #000000;
   --button-text: #ffffff;
@@ -58,6 +59,7 @@
   --color-accent-deep: var(--accent-deep);
   --color-accent-pink: var(--accent-pink);
   --color-accent-blue: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
   --color-button-primary: var(--button-primary);
   --color-button-text: var(--button-text);
   --color-button-blue: var(--button-blue);
@@ -360,6 +362,23 @@ body {
   animation-delay: 3.2s;
 }
 
+@keyframes tabby-ears-peek {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+.tabby-ears-peek {
+  animation: tabby-ears-peek 5s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
 @keyframes tabby-float-cta-enter {
   from {
     opacity: 0;
@@ -438,7 +457,8 @@ body {
 
   .tabby-logo-ping,
   .tabby-cat-breathe,
-  .tabby-cat-z {
+  .tabby-cat-z,
+  .tabby-ears-peek {
     animation: none;
   }
 

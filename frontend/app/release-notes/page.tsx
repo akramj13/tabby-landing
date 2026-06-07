@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { LegalPageShell } from "@/app/components/layout/legal-page-shell";
 import { GITHUB_REPO, GITHUB_URL } from "@/app/lib/site";
+import { pageMeta } from "@/app/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Release Notes - Cotabby",
   description: "Product updates and release notes for Cotabby.",
-};
+  path: "/release-notes",
+});
 
 type GitHubRelease = {
   tag_name: string;
