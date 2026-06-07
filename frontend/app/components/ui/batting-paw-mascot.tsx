@@ -9,7 +9,7 @@ export function BattingPawMascot() {
   return (
     <div className={POSITION_CLASS} aria-hidden="true">
       <Image
-        src="/app-icons/arm.png"
+        src="/app-icons/arm.webp"
         alt=""
         aria-hidden="true"
         width={1536}

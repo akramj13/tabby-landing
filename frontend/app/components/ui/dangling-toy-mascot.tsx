@@ -9,7 +9,7 @@ export function DanglingToyMascot() {
   return (
     <div className={POSITION_CLASS} aria-hidden="true">
       <Image
-        src="/app-icons/toy.png"
+        src="/app-icons/toy.webp"
         alt=""
         aria-hidden="true"
         width={198}

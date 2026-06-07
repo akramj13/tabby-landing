@@ -4,7 +4,7 @@ export const SITE_URL = "https://cotabby.app";
 export const SITE_NAME = "Cotabby";
 export const GITHUB_REPO = "FuJacob/cotabby";
 export const GITHUB_URL = `https://github.com/${GITHUB_REPO}`;
-export const DOWNLOAD_URL = `${GITHUB_URL}/releases/latest/download/cotabby.dmg`;
+export const DOWNLOAD_URL = `${GITHUB_URL}/releases/latest/download/Cotabby.dmg`;
 
 // Rounded-down lifetime download count, shown as hero social proof. Bump by
 // hand and keep it under the real number so it stays true between updates.

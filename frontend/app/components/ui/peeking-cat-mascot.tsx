@@ -11,7 +11,7 @@ export function PeekingCatMascot({ className }: { className?: string }) {
     <div className={`${POSITION_CLASS} ${className ?? ""}`} aria-hidden="true">
       <div className="tabby-ears-peek w-full">
         <Image
-          src="/app-icons/ears.png"
+          src="/app-icons/ears.webp"
           alt=""
           aria-hidden="true"
           width={637}
