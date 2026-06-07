@@ -383,7 +383,10 @@ function StepCard({ index, step }: { index: number; step: StepDefinition }) {
       whileHover={{ y: -4, transition: { duration: 0.22, ease: EASE } }}
       className="relative h-full"
     >
-      {index === 1 ? <PeekingCatMascot /> : null}
+      {/* Mobile stacks the cards, so peek over the first card; on the desktop
+         row the ears read best over the middle card. */}
+      {index === 0 ? <PeekingCatMascot className="sm:hidden" /> : null}
+      {index === 1 ? <PeekingCatMascot className="hidden sm:block" /> : null}
       <article className="tabby-panel relative z-10 flex h-full flex-col gap-5 rounded-[1.55rem] p-6 sm:p-7">
         <div className="flex items-center justify-between">
           <span className="tabby-display text-[2.8rem] leading-none tracking-tight text-ink/90">

@@ -46,11 +46,10 @@ const HEADLINES = [
   { lead: "AI autocomplete", accept: "for macOS." },
   { lead: "Write faster", accept: "in every app." },
   { lead: "Every keystroke", accept: "stays private." },
-  { lead: "Open source", accept: "and free." },
+  { lead: "Open source, private", accept: "and free." },
 ] as const;
 
 const HEADLINE_INTERVAL_MS = 5600;
-
 
 export function Hero() {
   const revealState = "visible" as const;
@@ -154,14 +153,28 @@ export function Hero() {
             variants={copyItem}
             className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs font-semibold tracking-tight text-subtle sm:text-sm lg:justify-start"
           >
-            <span><GitHubVersionLabel /></span>
-            <span aria-hidden className="text-line">·</span>
-            <span><CountUp to={DOWNLOAD_COUNT} suffix="+ installs" /></span>
-            <span aria-hidden className="text-line">·</span>
-            <span><GitHubStarLabel suffix="+ stars" /></span>
-            <span aria-hidden className="text-line">·</span>
+            <span>
+              <GitHubVersionLabel />
+            </span>
+            <span aria-hidden className="text-line">
+              ·
+            </span>
+            <span>
+              <CountUp to={DOWNLOAD_COUNT} suffix="+ installs" />
+            </span>
+            <span aria-hidden className="text-line">
+              ·
+            </span>
+            <span>
+              <GitHubStarLabel suffix="+ stars" />
+            </span>
+            <span aria-hidden className="text-line">
+              ·
+            </span>
             <span>AGPL-3.0</span>
-            <span aria-hidden className="text-line">·</span>
+            <span aria-hidden className="text-line">
+              ·
+            </span>
             <Link
               href={SUPPORT_URL}
               target="_blank"

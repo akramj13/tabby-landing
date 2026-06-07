@@ -6,9 +6,9 @@ const POSITION_CLASS =
 /**
  * Decorative cat ears that peek over a positioned panel.
  */
-export function PeekingCatMascot() {
+export function PeekingCatMascot({ className }: { className?: string }) {
   return (
-    <div className={POSITION_CLASS} aria-hidden="true">
+    <div className={`${POSITION_CLASS} ${className ?? ""}`} aria-hidden="true">
       <div className="tabby-ears-peek w-full">
         <Image
           src="/app-icons/ears.png"

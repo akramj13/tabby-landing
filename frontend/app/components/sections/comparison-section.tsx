@@ -4,6 +4,7 @@ import type { ComponentType, SVGProps } from "react";
 import Image from "next/image";
 import {
   Check,
+  Clipboard,
   Cpu,
   Forward,
   Infinity as InfinityIcon,
@@ -37,6 +38,7 @@ const FEATURES: Feature[] = [
   { label: "Emoji suggestions", icon: Smile, cotypist: true },
   { label: "Works across languages", icon: Languages, cotypist: true },
   { label: "Screen-aware suggestions", icon: ScanEye, cotypist: true },
+  { label: "Clipboard awareness", icon: Clipboard, cotypist: false },
   { label: "Autocorrect", icon: SpellCheck, cotypist: false },
   { label: "Full choice of models", icon: Cpu, cotypist: false },
   { label: "Configurable completion length", icon: Ruler, cotypist: false },
