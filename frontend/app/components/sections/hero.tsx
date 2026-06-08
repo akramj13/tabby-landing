@@ -45,7 +45,7 @@ const copyItem: Variants = {
 const HEADLINES = [
   { lead: "AI autocomplete", accept: "for macOS." },
   { lead: "Write quicker", accept: "in every app." },
-  { lead: "Every keystroke", accept: "stays private." },
+  { lead: "Every keystroke you", accept: "type stays private." },
   { lead: "Open source, private", accept: "and free." },
 ] as const;
 
