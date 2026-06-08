@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  m,
-  useReducedMotion,
-  type Variants,
-} from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { DOWNLOAD_COUNT, GITHUB_URL, SUPPORT_URL } from "@/app/lib/site";
@@ -87,36 +82,33 @@ export function Hero() {
           <div className="mx-auto flex max-w-[88rem] flex-col items-center lg:mx-0 lg:items-start">
             <h1
               aria-label={`${headline.lead} ${headline.accept}`}
-              className="tabby-display mx-auto max-w-[88rem] text-center leading-[0.94] tracking-tight text-ink lg:mx-0 lg:text-left"
+              className="tabby-display mx-auto grid max-w-[88rem] text-center leading-[0.94] tracking-tight text-ink lg:mx-0 lg:text-left"
             >
-              <AnimatePresence mode="wait">
-                <m.span
-                  key={headlineIndex}
-                  initial={
-                    firstHeadlineRef.current
-                      ? false
-                      : { opacity: 0, filter: "blur(8px)", y: 10 }
-                  }
-                  animate={{
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    y: 0,
-                    transition: { duration: 0.5, ease: EASE },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    filter: "blur(8px)",
-                    y: -10,
-                    transition: { duration: 0.3, ease: EASE },
-                  }}
-                  className="inline-block text-[2.5rem] sm:text-[4.8rem] lg:text-[4.6rem]"
-                >
-                  {headline.lead}{" "}
-                  <span style={{ color: HERO_ACCEPT_COLOR }}>
-                    {headline.accept}
-                  </span>
-                </m.span>
-              </AnimatePresence>
+              {HEADLINES.map((h, i) => {
+                const active = i === headlineIndex;
+                return (
+                  <m.span
+                    key={i}
+                    aria-hidden={!active}
+                    initial={
+                      i === 0 && firstHeadlineRef.current
+                        ? false
+                        : { opacity: 0, filter: "blur(8px)", y: 10 }
+                    }
+                    animate={{
+                      opacity: active ? 1 : 0,
+                      filter: active ? "blur(0px)" : "blur(8px)",
+                      y: active ? 0 : 10,
+                      transition: { duration: 0.5, ease: EASE },
+                    }}
+                    style={{ gridArea: "1 / 1" }}
+                    className="pointer-events-none inline-block text-[2.5rem] sm:text-[4.8rem] lg:text-[4.6rem]"
+                  >
+                    {h.lead}{" "}
+                    <span style={{ color: HERO_ACCEPT_COLOR }}>{h.accept}</span>
+                  </m.span>
+                );
+              })}
             </h1>
           </div>
 
