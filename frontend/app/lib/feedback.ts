@@ -9,6 +9,10 @@ export const MAX_SCREENSHOTS = 4;
 // so client-side validation and the bucket's hard limit agree exactly.
 export const MAX_SCREENSHOT_BYTES = 5_000_000;
 
+export const FEEDBACK_RATE_LIMIT_COOKIE = "tabby_feedback_submitted_at";
+export const FEEDBACK_RATE_LIMIT_STORAGE_KEY = "tabby.feedback.submittedAt";
+export const FEEDBACK_RATE_LIMIT_WINDOW_MS = 30 * 60 * 1000;
+
 // Allowed image MIME types mapped to the extension we store them under.
 export const IMAGE_TYPE_EXTENSIONS: Record<string, string> = {
   "image/png": "png",
@@ -24,3 +28,18 @@ export const ALLOWED_IMAGE_TYPES = Object.keys(IMAGE_TYPE_EXTENSIONS);
 // inject arbitrary image URLs into the issues we create.
 export const SCREENSHOT_PATH_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(png|jpe?g|gif|webp)$/;
+
+export function getFeedbackRateLimitWaitMs(
+  lastSubmittedAtMs: number,
+  nowMs: number,
+): number {
+  if (!Number.isFinite(lastSubmittedAtMs) || lastSubmittedAtMs <= 0) {
+    return 0;
+  }
+  return Math.max(0, FEEDBACK_RATE_LIMIT_WINDOW_MS - (nowMs - lastSubmittedAtMs));
+}
+
+export function formatFeedbackRateLimitWait(waitMs: number): string {
+  const minutes = Math.max(1, Math.ceil(waitMs / 60_000));
+  return minutes === 1 ? "1 minute" : `${minutes} minutes`;
+}

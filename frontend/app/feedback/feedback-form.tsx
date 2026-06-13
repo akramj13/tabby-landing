@@ -33,6 +33,9 @@ import { getSupabase } from "@/app/lib/supabase";
 import {
   ALLOWED_IMAGE_TYPES,
   FEEDBACK_BUCKET,
+  FEEDBACK_RATE_LIMIT_STORAGE_KEY,
+  formatFeedbackRateLimitWait,
+  getFeedbackRateLimitWaitMs,
   MAX_SCREENSHOTS,
   MAX_SCREENSHOT_BYTES,
 } from "@/app/lib/feedback";
@@ -245,6 +248,21 @@ export function FeedbackForm() {
   function handleSubmit(formData: FormData) {
     setResult(null);
     startTransition(async () => {
+      const lastSubmittedAtMs = Number(
+        window.localStorage.getItem(FEEDBACK_RATE_LIMIT_STORAGE_KEY),
+      );
+      const rateLimitWaitMs = getFeedbackRateLimitWaitMs(
+        lastSubmittedAtMs,
+        Date.now(),
+      );
+      if (rateLimitWaitMs > 0) {
+        setResult({
+          success: false,
+          message: `Please wait ${formatFeedbackRateLimitWait(rateLimitWaitMs)} before submitting feedback again.`,
+        });
+        return;
+      }
+
       let screenshotPaths: string[] | undefined;
       if (screenshots.length > 0) {
         setPhase("uploading");
@@ -275,6 +293,10 @@ export function FeedbackForm() {
       setPhase("idle");
 
       if (res.success) {
+        window.localStorage.setItem(
+          FEEDBACK_RATE_LIMIT_STORAGE_KEY,
+          String(Date.now()),
+        );
         screenshots.forEach((s) => URL.revokeObjectURL(s.previewUrl));
         setScreenshots([]);
         setSteps(freshSteps());

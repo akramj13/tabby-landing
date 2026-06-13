@@ -1,8 +1,13 @@
 "use server";
 
+import { cookies } from "next/headers";
 import {
   ALLOWED_IMAGE_TYPES,
   FEEDBACK_BUCKET,
+  FEEDBACK_RATE_LIMIT_COOKIE,
+  FEEDBACK_RATE_LIMIT_WINDOW_MS,
+  formatFeedbackRateLimitWait,
+  getFeedbackRateLimitWaitMs,
   IMAGE_TYPE_EXTENSIONS,
   MAX_SCREENSHOTS,
   MAX_SCREENSHOT_BYTES,
@@ -172,6 +177,21 @@ export async function submitFeedback(
     return { success: false, error: "Description is required." };
   }
 
+  const cookieStore = await cookies();
+  const lastSubmittedAtMs = Number(
+    cookieStore.get(FEEDBACK_RATE_LIMIT_COOKIE)?.value,
+  );
+  const rateLimitWaitMs = getFeedbackRateLimitWaitMs(
+    lastSubmittedAtMs,
+    Date.now(),
+  );
+  if (rateLimitWaitMs > 0) {
+    return {
+      success: false,
+      error: `Please wait ${formatFeedbackRateLimitWait(rateLimitWaitMs)} before submitting feedback again.`,
+    };
+  }
+
   const labels: string[] =
     data.type === "bug" ? ["bug"] : ["enhancement"];
   if (data.type === "bug" && data.categories && data.categories.length > 0) {
@@ -202,5 +222,12 @@ export async function submitFeedback(
   }
 
   const issue = await res.json();
+  cookieStore.set(FEEDBACK_RATE_LIMIT_COOKIE, String(Date.now()), {
+    httpOnly: true,
+    maxAge: Math.ceil(FEEDBACK_RATE_LIMIT_WINDOW_MS / 1000),
+    path: "/feedback",
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+  });
   return { success: true, issueUrl: issue.html_url };
 }
