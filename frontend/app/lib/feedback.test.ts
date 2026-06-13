@@ -10,6 +10,9 @@ import {
   IMAGE_TYPE_EXTENSIONS,
   MAX_SCREENSHOT_BYTES,
   MAX_SCREENSHOTS,
+  parseRecaptchaScoreThreshold,
+  RECAPTCHA_DEFAULT_SCORE_THRESHOLD,
+  RECAPTCHA_FEEDBACK_ACTION,
   SCREENSHOT_PATH_RE,
 } from "./feedback.ts";
 
@@ -76,4 +79,23 @@ test("feedback rate limit wait text rounds up to minutes", () => {
   assert.equal(formatFeedbackRateLimitWait(1), "1 minute");
   assert.equal(formatFeedbackRateLimitWait(60_000), "1 minute");
   assert.equal(formatFeedbackRateLimitWait(60_001), "2 minutes");
+});
+
+test("reCAPTCHA feedback action uses the v3 action-safe format", () => {
+  assert.match(RECAPTCHA_FEEDBACK_ACTION, /^[a-zA-Z0-9/_]+$/);
+});
+
+test("reCAPTCHA score threshold parser uses configured valid values", () => {
+  assert.equal(parseRecaptchaScoreThreshold("0"), 0);
+  assert.equal(parseRecaptchaScoreThreshold("0.7"), 0.7);
+  assert.equal(parseRecaptchaScoreThreshold("1"), 1);
+});
+
+test("reCAPTCHA score threshold parser falls back for invalid values", () => {
+  for (const value of [undefined, "", "-0.1", "1.1", "not-a-number"]) {
+    assert.equal(
+      parseRecaptchaScoreThreshold(value),
+      RECAPTCHA_DEFAULT_SCORE_THRESHOLD,
+    );
+  }
 });

@@ -11,6 +11,8 @@ import {
   IMAGE_TYPE_EXTENSIONS,
   MAX_SCREENSHOTS,
   MAX_SCREENSHOT_BYTES,
+  parseRecaptchaScoreThreshold,
+  RECAPTCHA_FEEDBACK_ACTION,
   SCREENSHOT_PATH_RE,
 } from "@/app/lib/feedback";
 import { getSupabaseAdmin } from "@/app/lib/supabase-admin";
@@ -31,6 +33,7 @@ type FeedbackPayload = {
   memoryGB?: string;
   screenshotPaths?: string[];
   categories?: string[];
+  recaptchaToken?: string;
 };
 
 type ActionResult =
@@ -42,6 +45,12 @@ type UploadTarget = { path: string; token: string };
 type UploadUrlsResult =
   | { success: true; uploads: UploadTarget[] }
   | { success: false; error: string };
+type RecaptchaVerifyResponse = {
+  success?: boolean;
+  score?: number;
+  action?: string;
+  "error-codes"?: string[];
+};
 
 // Hands the browser one signed upload URL per file so it can upload directly to
 // Supabase Storage (bypassing the function body-size limit). The service-role
@@ -161,6 +170,70 @@ function buildEnvironmentSection(data: FeedbackPayload): string {
   return `### Environment\n${lines.join("\n")}\n\n`;
 }
 
+async function verifyRecaptchaToken(
+  token?: string,
+): Promise<{ success: true } | { success: false; error: string }> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    return {
+      success: false,
+      error: "Feedback protection is temporarily unavailable.",
+    };
+  }
+  if (!token) {
+    return {
+      success: false,
+      error: "Please verify the feedback form before submitting.",
+    };
+  }
+
+  const body = new URLSearchParams({
+    secret,
+    response: token,
+  });
+
+  let verification: RecaptchaVerifyResponse;
+  try {
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      return {
+        success: false,
+        error: "Could not verify this submission. Please try again.",
+      };
+    }
+    verification = (await res.json()) as RecaptchaVerifyResponse;
+  } catch {
+    return {
+      success: false,
+      error: "Could not verify this submission. Please try again.",
+    };
+  }
+
+  const threshold = parseRecaptchaScoreThreshold(
+    process.env.RECAPTCHA_SCORE_THRESHOLD,
+  );
+  if (
+    !verification.success ||
+    verification.action !== RECAPTCHA_FEEDBACK_ACTION ||
+    typeof verification.score !== "number" ||
+    verification.score < threshold
+  ) {
+    return {
+      success: false,
+      error: "Could not verify this submission. Please try again.",
+    };
+  }
+
+  return { success: true };
+}
+
 export async function submitFeedback(
   data: FeedbackPayload,
 ): Promise<ActionResult> {
@@ -190,6 +263,11 @@ export async function submitFeedback(
       success: false,
       error: `Please wait ${formatFeedbackRateLimitWait(rateLimitWaitMs)} before submitting feedback again.`,
     };
+  }
+
+  const recaptcha = await verifyRecaptchaToken(data.recaptchaToken);
+  if (!recaptcha.success) {
+    return { success: false, error: recaptcha.error };
   }
 
   const labels: string[] =

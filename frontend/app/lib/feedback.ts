@@ -12,6 +12,8 @@ export const MAX_SCREENSHOT_BYTES = 5_000_000;
 export const FEEDBACK_RATE_LIMIT_COOKIE = "tabby_feedback_submitted_at";
 export const FEEDBACK_RATE_LIMIT_STORAGE_KEY = "tabby.feedback.submittedAt";
 export const FEEDBACK_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+export const RECAPTCHA_FEEDBACK_ACTION = "feedback_submit";
+export const RECAPTCHA_DEFAULT_SCORE_THRESHOLD = 0.5;
 
 // Allowed image MIME types mapped to the extension we store them under.
 export const IMAGE_TYPE_EXTENSIONS: Record<string, string> = {
@@ -42,4 +44,15 @@ export function getFeedbackRateLimitWaitMs(
 export function formatFeedbackRateLimitWait(waitMs: number): string {
   const minutes = Math.max(1, Math.ceil(waitMs / 60_000));
   return minutes === 1 ? "1 minute" : `${minutes} minutes`;
+}
+
+export function parseRecaptchaScoreThreshold(value?: string): number {
+  if (!value?.trim()) {
+    return RECAPTCHA_DEFAULT_SCORE_THRESHOLD;
+  }
+  const threshold = Number(value);
+  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1) {
+    return RECAPTCHA_DEFAULT_SCORE_THRESHOLD;
+  }
+  return threshold;
 }

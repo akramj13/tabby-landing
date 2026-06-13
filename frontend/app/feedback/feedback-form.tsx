@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import {
   Bug,
@@ -38,6 +39,7 @@ import {
   getFeedbackRateLimitWaitMs,
   MAX_SCREENSHOTS,
   MAX_SCREENSHOT_BYTES,
+  RECAPTCHA_FEEDBACK_ACTION,
 } from "@/app/lib/feedback";
 
 import {
@@ -55,6 +57,61 @@ import {
   type Step,
 } from "./feedback-form-utils";
 
+const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const recaptchaScriptSrc = recaptchaSiteKey
+  ? `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(recaptchaSiteKey)}`
+  : undefined;
+
+type RecaptchaClient = {
+  ready: (callback: () => void) => void;
+  execute: (
+    siteKey: string,
+    options: { action: string },
+  ) => Promise<string>;
+};
+
+declare global {
+  interface Window {
+    grecaptcha?: RecaptchaClient;
+  }
+}
+
+async function createRecaptchaToken(): Promise<
+  { success: true; token: string } | { success: false; error: string }
+> {
+  if (!recaptchaSiteKey) {
+    return {
+      success: false,
+      error: "Feedback protection is not configured.",
+    };
+  }
+
+  const grecaptcha = window.grecaptcha;
+  if (!grecaptcha) {
+    return {
+      success: false,
+      error: "Feedback protection is still loading. Please try again.",
+    };
+  }
+
+  try {
+    const token = await new Promise<string>((resolve, reject) => {
+      grecaptcha.ready(() => {
+        grecaptcha
+          .execute(recaptchaSiteKey, { action: RECAPTCHA_FEEDBACK_ACTION })
+          .then(resolve)
+          .catch(reject);
+      });
+    });
+    return { success: true, token };
+  } catch {
+    return {
+      success: false,
+      error: "Could not verify this submission. Please try again.",
+    };
+  }
+}
+
 export function FeedbackForm() {
   // `useMemo` keeps the URL read out of the render loop without forcing a state setup. The
   // `?type=` param can flip the initial Bug/Feature toggle so a "Suggest a feature" entry point
@@ -71,9 +128,9 @@ export function FeedbackForm() {
   const [chip, setChip] = useState(initialEnvironment.chip ?? "");
   const [memoryGB, setMemoryGB] = useState(initialEnvironment.memoryGB ?? "");
   const [pending, startTransition] = useTransition();
-  const [phase, setPhase] = useState<"idle" | "uploading" | "submitting">(
-    "idle",
-  );
+  const [phase, setPhase] = useState<
+    "idle" | "verifying" | "uploading" | "submitting"
+  >("idle");
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
   const [fileError, setFileError] = useState<string | null>(null);
   const [steps, setSteps] = useState<Step[]>(freshSteps);
@@ -263,6 +320,14 @@ export function FeedbackForm() {
         return;
       }
 
+      setPhase("verifying");
+      const recaptcha = await createRecaptchaToken();
+      if (!recaptcha.success) {
+        setPhase("idle");
+        setResult({ success: false, message: recaptcha.error });
+        return;
+      }
+
       let screenshotPaths: string[] | undefined;
       if (screenshots.length > 0) {
         setPhase("uploading");
@@ -289,6 +354,7 @@ export function FeedbackForm() {
         memoryGB: memoryGB.trim() || undefined,
         screenshotPaths,
         categories: categories.length > 0 ? categories : undefined,
+        recaptchaToken: recaptcha.token,
       });
       setPhase("idle");
 
@@ -314,7 +380,9 @@ export function FeedbackForm() {
   }
 
   const submitLabel =
-    phase === "uploading"
+    phase === "verifying"
+      ? "Verifying..."
+      : phase === "uploading"
       ? "Uploading screenshots..."
       : pending
         ? "Submitting..."
@@ -364,7 +432,11 @@ export function FeedbackForm() {
   }
 
   return (
-    <form action={handleSubmit} className="mt-8 space-y-5">
+    <>
+      {recaptchaScriptSrc && (
+        <Script src={recaptchaScriptSrc} strategy="afterInteractive" />
+      )}
+      <form action={handleSubmit} className="mt-8 space-y-5">
       {/* Type toggle */}
       <fieldset className="grid grid-cols-2 gap-2">
         <button
@@ -764,6 +836,7 @@ export function FeedbackForm() {
       >
         {submitLabel}
       </TabbyButton>
-    </form>
+      </form>
+    </>
   );
 }
