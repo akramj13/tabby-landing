@@ -16,6 +16,7 @@ import {
   SCREENSHOT_PATH_RE,
 } from "@/app/lib/feedback";
 import { getSupabaseAdmin } from "@/app/lib/supabase-admin";
+import { checkRateLimit } from "@/app/lib/rate-limit";
 import { GITHUB_REPO } from "@/app/lib/site";
 
 type FeedbackType = "bug" | "feature";
@@ -240,6 +241,14 @@ export async function submitFeedback(
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
     return { success: false, error: "Feedback is temporarily unavailable." };
+  }
+
+  // 5 issue submissions/hour/IP — caps flooding of the GitHub repo / token quota.
+  if (!(await checkRateLimit("feedback:submit", 5, 3600))) {
+    return {
+      success: false,
+      error: "Too many submissions. Please try again later.",
+    };
   }
 
   const title = data.title.trim();
